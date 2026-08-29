@@ -1,2 +1,19 @@
 .DS_Store
+.venv/
+
+# LaTeX build artifacts
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.toc
+*.xdv
+*.synctex.gz
+*.out
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
+*.dvi
 
