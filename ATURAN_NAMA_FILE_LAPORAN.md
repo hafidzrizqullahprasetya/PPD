@@ -10,6 +10,7 @@ Laporan_Pertemuan-[nomor]_[Nama]_[Kelas].pdf
 
 ## Data Praktikan
 
+- Mata Kuliah: Praktikum Penambangan Data
 - Nama: Hafidz Rizqullah Prasetya
 - Kelas: PL5A1
 
