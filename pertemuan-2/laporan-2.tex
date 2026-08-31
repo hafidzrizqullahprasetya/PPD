@@ -243,7 +243,8 @@ PENAMBANGAN DATA}}} \\[0.4cm]
 
 \chapter[Tujuan Praktikum]{Tujuan Praktikum}
 \begin{enumerate}
-   \item Mahasiswa mampu memahami konsep dasar Artificial Intelligence (AI) dan Machine Learning (ML).
+   \item Mahasiswa mampu memahami konsep dasar Artificial Intelligence (AI).
+   \item Mahasiswa mampu mengetahui dasar-dasar Machine Learning (ML).
    \item Mahasiswa mampu menerapkan Exploratory Data Analysis (EDA) untuk memahami karakteristik, distribusi, dan kualitas dataset.
    \item Mahasiswa mampu menerapkan teknik dasar data preprocessing, meliputi penanganan missing value dan duplikasi, encoding, pembagian dataset, serta scaling fitur.
 \end{enumerate}
@@ -436,6 +437,78 @@ Saya membuat line chart, pie chart, bar plot, dan stacked bar plot untuk melihat
 \label{fig:visualisasi-eda-churn}
 \end{figure}
 
+Hasil keseluruhan visualisasi tersebut ditampilkan pada Gambar \ref{fig:visualisasi-eda-churn}. Selain itu, modul juga memperkenalkan beberapa teknik visualisasi pelengkap yang saya pelajari, yaitu line chart dengan data dummy, subplot, annotation, axis, dan legend.
+
+\textbf{Line Chart dengan Data Dummy.} Sebelum menerapkan line chart pada data nyata, saya mempelajarinya menggunakan data dummy agar memahami cara menampilkan dua seri data dalam satu grafik dengan marker yang berbeda.
+
+\begin{lstlisting}[style=pythonstyle,caption={Line chart dengan data dummy.}]
+x = [1, 2, 3, 4, 5]
+y1 = [2, 3, 5, 7, 11]
+y2 = [1, 4, 9, 16, 25]
+
+plt.plot(x, y1, marker='o')
+plt.plot(x, y2, marker='X')
+plt.show()
+\end{lstlisting}
+
+\textbf{Subplot.} Teknik subplot digunakan untuk menampilkan beberapa grafik sekaligus dalam satu figure. Saya membuat grid 2$\times$2 yang berisi box plot dan histogram untuk masing-masing kelompok nasabah agar perbandingan distribusi usia lebih mudah diamati.
+
+\begin{lstlisting}[style=pythonstyle,caption={Subplot box plot dan histogram.}]
+plt.subplot(2, 2, 1)
+plt.boxplot(existing_data['Customer_Age'])
+plt.title('Box Plot Existing')
+
+plt.subplot(2, 2, 2)
+plt.boxplot(attrited_data['Customer_Age'])
+plt.title('Box Plot Attrited')
+
+plt.subplot(2, 2, 3)
+plt.hist(existing_data['Customer_Age'])
+plt.title('Histogram Existing')
+
+plt.subplot(2, 2, 4)
+plt.hist(attrited_data['Customer_Age'])
+plt.title('Histogram Attrited')
+
+plt.show()
+\end{lstlisting}
+
+\textbf{Annotation.} Annotation digunakan untuk menambahkan informasi statistik langsung pada grafik menggunakan \texttt{plt.text()}. Saya menambahkan nilai median dan mean usia pada histogram \texttt{Customer\\_Age}.
+
+\begin{lstlisting}[style=pythonstyle,caption={Annotation median dan mean pada histogram.}]
+plt.hist(df_churning['Customer_Age'])
+median_age = df_churning['Customer_Age'].median()
+mean_age = df_churning['Customer_Age'].mean()
+plt.text(median_age, 900, f'Median Age: {median_age:.2f}')
+plt.text(mean_age, 850, f'Mean Age: {mean_age:.2f}')
+plt.show()
+\end{lstlisting}
+
+\textbf{Axis.} Pengaturan axis dilakukan untuk mengendalikan rentang nilai sumbu dan memberi label agar grafik lebih mudah dibaca. Saya mengatur label sumbu serta batas sumbu-y menggunakan \texttt{plt.ylim()}.
+
+\begin{lstlisting}[style=pythonstyle,caption={Pengaturan axis pada line chart.}]
+hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat']
+suhu1 = [25, 26, 24, 27, 28]
+suhu2 = [22, 23, 21, 24, 25]
+
+plt.plot(hari, suhu1, marker='o', label='Hari 1')
+plt.plot(hari, suhu2, marker='X', label='Hari 2')
+plt.legend()
+plt.ylabel('Suhu')
+plt.xlabel('Hari')
+plt.ylim([-20, 30])
+plt.show()
+\end{lstlisting}
+
+\textbf{Legend.} Legend digunakan untuk membedakan kelompok data dalam satu grafik. Saya menambahkan legend pada histogram yang menampilkan dua kelompok nasabah.
+
+\begin{lstlisting}[style=pythonstyle,caption={Legend pada histogram.}]
+plt.hist(existing_data['Customer_Age'], label='existing')
+plt.hist(attrited_data['Customer_Age'], label='attrited')
+plt.legend()
+plt.show()
+\end{lstlisting}
+
 \subsection{Visualisasi Dataset IoT}
 Saya memuat dataset IoT dan memvisualisasikan perubahan kelembapan terhadap waktu menggunakan line chart.
 
@@ -536,12 +609,44 @@ display(X.head())
 \label{fig:encoding}
 \end{figure}
 
+Selain \texttt{pd.get\\_dummies()}, modul juga memperkenalkan penerapan one-hot encoding menggunakan \texttt{OneHotEncoder} dari scikit-learn. Encoder di-fit pada kolom kategorikal, lalu hasilnya diubah menjadi DataFrame biner.
+
+\begin{lstlisting}[style=pythonstyle,caption={One-hot encoding dengan OneHotEncoder.}]
+from sklearn.preprocessing import OneHotEncoder
+
+encoder = OneHotEncoder(drop_first=True)
+encoded_data = encoder.fit_transform(X[['Sex', 'Embarked']])
+df_ohe = pd.DataFrame(encoded_data.toarray(), columns=encoder.get_feature_names_out(['Sex', 'Embarked']))
+display(df_ohe.head())
+\end{lstlisting}
+
+Hasilnya berupa kolom-kolom biner seperti \texttt{Sex\\_male}, \texttt{Embarked\\_Q}, dan \texttt{Embarked\\_S} yang siap digunakan sebagai fitur model.
+
+Sebagai metode alternatif, saya juga mempelajari label encoding menggunakan \texttt{LabelEncoder}. Metode ini mengubah setiap kategori menjadi bilangan integer sehingga lebih efisien untuk kolom dengan banyak kategori, tetapi perlu digunakan secara hati-hati karena bilangan yang dihasilkan dapat dianggap memiliki urutan oleh model.
+
+\begin{lstlisting}[style=pythonstyle,caption={Label encoding untuk fitur dan target.}]
+X_label = df.drop(['PassengerId', 'Name', 'Survived', 'Cabin', 'Ticket'], axis=1)
+for col in ['Sex', 'Embarked']:
+    X_label[col] = LabelEncoder().fit_transform(X_label[col])
+y_encoded = LabelEncoder().fit_transform(y)
+display(X_label.head())
+\end{lstlisting}
+
+Setelah encoding, saya menggabungkan kembali fitur dan target untuk memeriksa korelasi setiap atribut terhadap \texttt{Survived}.
+
+\begin{lstlisting}[style=pythonstyle,caption={Korelasi atribut terhadap target setelah encoding.}]
+df_combined = pd.concat([X, y], axis=1)
+display(df_combined.corr(numeric_only=True))
+\end{lstlisting}
+
+Dari matriks korelasi tersebut, terlihat bahwa \texttt{Sex\\_male} memiliki korelasi negatif kuat dengan \texttt{Survived} (-0,54), artinya penumpang laki-laki cenderung lebih kecil kemungkinannya untuk selamat. \texttt{Pclass} berkorelasi negatif (-0,34), sedangkan \texttt{Fare} berkorelasi positif (0,26) terhadap \texttt{Survived}. Hasil ini konsisten dengan analisis korelasi sebelum encoding.
+
 \subsection{Pembagian Dataset dan Scaling}
-Saya membagi dataset dengan proporsi 80:20. Data latih digunakan untuk proses pembelajaran, sedangkan data uji digunakan untuk evaluasi. Saya menerapkan standardization dengan \texttt{StandardScaler} dan normalization dengan \texttt{MinMaxScaler}. Scaler di-fit hanya pada data latih untuk mencegah data leakage.
+Saya membagi dataset dengan proporsi 70:30 sesuai modul (\texttt{test\\_size=0.3}). Data latih digunakan untuk proses pembelajaran, sedangkan data uji digunakan untuk evaluasi. Saya menerapkan standardization dengan \texttt{StandardScaler} dan normalization dengan \texttt{MinMaxScaler}. Scaler di-fit hanya pada data latih untuk mencegah data leakage.
 
 \begin{lstlisting}[style=pythonstyle,caption={Train-test split dan scaling.}]
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X, y, test_size=0.3, random_state=42
 )
 print('X_train:', X_train.shape, 'X_test:', X_test.shape)
 standard_scaler = StandardScaler()
