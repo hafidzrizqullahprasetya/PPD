@@ -614,7 +614,7 @@ Selain \texttt{pd.get\_dummies()}, modul juga memperkenalkan penerapan one-hot e
 \begin{lstlisting}[style=pythonstyle,caption={One-hot encoding dengan OneHotEncoder.}]
 from sklearn.preprocessing import OneHotEncoder
 
-encoder = OneHotEncoder(drop_first=True)
+encoder = OneHotEncoder(drop='first')
 encoded_data = encoder.fit_transform(X[['Sex', 'Embarked']])
 df_ohe = pd.DataFrame(encoded_data.toarray(), columns=encoder.get_feature_names_out(['Sex', 'Embarked']))
 display(df_ohe.head())
