@@ -653,6 +653,13 @@ df_combined = pd.concat([X, y], axis=1)
 display(df_combined.corr(numeric_only=True))
 \end{lstlisting}
 
+\begin{figure}[H]
+\centering
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-15-korelasi-encoding.jpg}}
+\caption{Matriks korelasi atribut terhadap target setelah encoding.}
+\label{fig:korelasi-encoding}
+\end{figure}
+
 Dari matriks korelasi tersebut, terlihat bahwa \texttt{Sex\_male} memiliki korelasi negatif kuat dengan \texttt{Survived} (-0,54), artinya penumpang laki-laki cenderung lebih kecil kemungkinannya untuk selamat. \texttt{Pclass} berkorelasi negatif (-0,34), sedangkan \texttt{Fare} berkorelasi positif (0,26) terhadap \texttt{Survived}. Hasil ini konsisten dengan analisis korelasi sebelum encoding.
 
 \subsection{Pembagian Dataset dan Scaling}
