@@ -639,6 +639,13 @@ y_encoded = LabelEncoder().fit_transform(y)
 display(X_label.head())
 \end{lstlisting}
 
+\begin{figure}[H]
+\centering
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-14-label-encoding.jpg}}
+\caption{Hasil label encoding pada fitur dan target.}
+\label{fig:label-encoding}
+\end{figure}
+
 Setelah encoding, saya menggabungkan kembali fitur dan target untuk memeriksa korelasi setiap atribut terhadap \texttt{Survived}.
 
 \begin{lstlisting}[style=pythonstyle,caption={Korelasi atribut terhadap target setelah encoding.}]
