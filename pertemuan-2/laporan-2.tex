@@ -389,9 +389,9 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler, LabelEncoder
 
 \begin{figure}[H]
 \centering
-\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Screenshot impor pustaka dan versi library}}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-01-import-library.jpg}}
 \caption{Impor pustaka yang digunakan dalam praktikum.}
-\label{fig:placeholder-import}
+\label{fig:import-library}
 \end{figure}
 
 \section{Exploratory Data Analysis}
@@ -405,9 +405,9 @@ df_churning.head()
 
 \begin{figure}[H]
 \centering
-\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output df\_churning.head()}}
-\caption{Lima baris pertama dataset Bank Churners.}
-\label{fig:placeholder-churn-head}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-02-bank-churners-head-tail.jpg}}
+\caption{Lima baris pertama dan terakhir dataset Bank Churners.}
+\label{fig:churn-head-tail}
 \end{figure}
 
 \subsection{Pemeriksaan dan Pemisahan Kelas}
@@ -421,9 +421,9 @@ attrited_data = df_churning[df_churning['Attrition_Flag'] == 'Attrited Customer'
 
 \begin{figure}[H]
 \centering
-\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output tail() dan jumlah kelas}}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-03-pemisahan-kelas.jpg}}
 \caption{Pemeriksaan baris terakhir dan pemisahan kelas nasabah.}
-\label{fig:placeholder-churn-tail}
+\label{fig:pemisahan-kelas}
 \end{figure}
 
 \subsection{Visualisasi Dataset Bank Churners}
@@ -431,9 +431,9 @@ Saya membuat line chart, pie chart, bar plot, dan stacked bar plot untuk melihat
 
 \begin{figure}[H]
 \centering
-\fbox{\parbox[c][4cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Screenshot visualisasi EDA Bank Churners}}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-04-visualisasi-eda-bank-churners.jpg}}
 \caption{Visualisasi EDA dataset Bank Churners.}
-\label{fig:placeholder-churn-plots}
+\label{fig:visualisasi-eda-churn}
 \end{figure}
 
 \subsection{Visualisasi Dataset IoT}
@@ -469,9 +469,9 @@ df.describe()
 
 \begin{figure}[H]
 \centering
-\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output head(), tail(), shape(), dan describe()}}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-05-titanic-initial.jpg}}
 \caption{Pemeriksaan awal dataset Titanic.}
-\label{fig:placeholder-titanic-initial}
+\label{fig:titanic-initial}
 \end{figure}
 
 \subsection{Distribusi, Korelasi, dan Kualitas Data}
@@ -489,9 +489,16 @@ df.duplicated().sum()
 
 \begin{figure}[H]
 \centering
-\fbox{\parbox[c][4cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Screenshot histogram, korelasi, missing value, dan duplikasi}}
-\caption{Analisis distribusi, korelasi, dan kualitas dataset Titanic.}
-\label{fig:placeholder-titanic-quality}
+\customfbox{\includegraphics[width=0.6\textwidth]{images/ss-06-distribusi-survived.jpg}}
+\caption{Distribusi target \texttt{Survived} pada dataset Titanic.}
+\label{fig:distribusi-survived}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-07-08-titanic-quality-combined.jpg}}
+\caption{Histogram fitur numerik, korelasi, missing value, dan duplikasi dataset Titanic.}
+\label{fig:titanic-quality}
 \end{figure}
 
 \subsection{Imputasi Missing Value}
@@ -506,9 +513,9 @@ df.isnull().sum()
 
 \begin{figure}[H]
 \centering
-\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output missing value setelah imputasi}}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-09-imputasi-missing-value.jpg}}
 \caption{Pengecekan missing value setelah imputasi.}
-\label{fig:placeholder-imputation}
+\label{fig:imputasi-missing-value}
 \end{figure}
 
 \subsection{Seleksi Fitur dan Encoding}
@@ -522,9 +529,9 @@ X = pd.get_dummies(X, columns=['Sex', 'Embarked'], drop_first=True)
 
 \begin{figure}[H]
 \centering
-\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output fitur setelah encoding}}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-10-encoding.jpg}}
 \caption{Hasil encoding atribut kategorikal.}
-\label{fig:placeholder-encoding}
+\label{fig:encoding}
 \end{figure}
 
 \subsection{Pembagian Dataset dan Scaling}
