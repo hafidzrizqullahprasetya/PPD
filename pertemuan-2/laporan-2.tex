@@ -557,8 +557,210 @@ X_test_normalized = minmax_scaler.transform(X_test)
 \end{figure}
 
 \section{Tugas dan Analisis Praktikum}
-\subsection{Rencana Analisis Tugas}
-Tugas EDA akan saya kerjakan menggunakan dataset \textit{Credit Card Customers}. Saya akan membaca dataset, menjelaskan tujuan penggunaannya, menentukan atribut input dan label, serta mendeskripsikan setiap atribut. Tugas preprocessing akan saya kerjakan menggunakan dataset harga rumah Bengaluru dengan visualisasi, korelasi, statistik deskriptif, pemeriksaan missing value dan duplikasi, encoding, train-test split 80:20, serta scaling.
+
+\subsection{Tugas EDA: Credit Card Customers}
+
+\subsubsection{Membaca Dataset}
+Dataset \textit{Credit Card Customers} saya muat menggunakan \texttt{pd.read\_csv()} dari sumber data yang tersedia. Dataset ini memiliki 10.127 baris dan 21 kolom.
+
+\begin{lstlisting}[style=pythonstyle,caption={Memuat dataset Credit Card Customers.}]
+credit_url = 'https://raw.githubusercontent.com/ganjar87/data_science_practice/main/BankChurners.csv'
+credit_df = pd.read_csv(credit_url)
+display(credit_df.head())
+print('shape:', credit_df.shape)
+print('columns:', list(credit_df.columns))
+print('label:', 'Attrition_Flag')
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-tugas-01-eda-credit-card.jpg}}
+\caption{Lima baris pertama dataset Credit Card Customers.}
+\label{fig:tugas-eda-head}
+\end{figure}
+
+\subsubsection{Tujuan Penggunaan Dataset}
+Dataset \textit{Credit Card Customers} digunakan untuk menganalisis perilaku nasabah kartu kredit, khususnya untuk memprediksi apakah seorang nasabah akan tetap menggunakan kartu kreditnya (\textit{Existing Customer}) atau berhenti berlangganan (\textit{Attrited Customer}). Analisis ini penting bagi perusahaan kartu kredit untuk memahami faktor-faktor yang memengaruhi churn nasabah, sehingga dapat mengambil langkah retensi yang tepat.
+
+\subsubsection{Atribut Input dan Output}
+\begin{itemize}
+    \item \textbf{Atribut input (fitur):} Seluruh kolom selain \texttt{Attrition\_Flag}, meliputi \texttt{CLIENTNUM}, \texttt{Customer\_Age}, \texttt{Gender}, \texttt{Dependent\_count}, \texttt{Education\_Level}, \texttt{Marital\_Status}, \texttt{Income\_Category}, \texttt{Card\_Category}, \texttt{Months\_on\_book}, \texttt{Total\_Relationship\_Count}, \texttt{Months\_Inactive\_12\_mon}, \texttt{Contacts\_Count\_12\_mon}, \texttt{Credit\_Limit}, \texttt{Total\_Revolving\_Bal}, \texttt{Avg\_Open\_To\_Buy}, \texttt{Total\_Amt\_Chng\_Q4\_Q1}, \texttt{Total\_Trans\_Amt}, \texttt{Total\_Trans\_Ct}, \texttt{Total\_Ct\_Chng\_Q4\_Q1}, dan \texttt{Avg\_Utilization\_Ratio}.
+    \item \textbf{Atribut output (label/target):} \texttt{Attrition\_Flag} — menunjukkan status nasabah (\texttt{Existing Customer} atau \texttt{Attrited Customer}).
+\end{itemize}
+
+\subsubsection{Penjelasan Setiap Atribut}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{|l|p{8cm}|}
+\hline
+\textbf{Atribut} & \textbf{Penjelasan} \\
+\hline
+\texttt{CLIENTNUM} & Nomor identifikasi unik nasabah. \\
+\texttt{Attrition\_Flag} & Status nasabah: Existing atau Attrited (target). \\
+\texttt{Customer\_Age} & Usia nasabah dalam tahun. \\
+\texttt{Gender} & Jenis kelamin nasabah (M/F). \\
+\texttt{Dependent\_count} & Jumlah tanggungan nasabah. \\
+\texttt{Education\_Level} & Tingkat pendidikan terakhir nasabah. \\
+\texttt{Marital\_Status} & Status pernikahan nasabah. \\
+\texttt{Income\_Category} & Kategori pendapatan tahunan nasabah. \\
+\texttt{Card\_Category} & Kategori jenis kartu kredit. \\
+\texttt{Months\_on\_book} & Lama menjadi nasabah dalam bulan. \\
+\texttt{Total\_Relationship\_Count} & Jumlah produk yang dimiliki nasabah. \\
+\texttt{Months\_Inactive\_12\_mon} & Jumlah bulan tidak aktif dalam 12 bulan terakhir. \\
+\texttt{Contacts\_Count\_12\_mon} & Jumlah kontak dalam 12 bulan terakhir. \\
+\texttt{Credit\_Limit} & Batas kredit kartu. \\
+\texttt{Total\_Revolving\_Bal} & Saldo revolving (hutang berjalan). \\
+\texttt{Avg\_Open\_To\_Buy} & Rata-rata ketersediaan kredit. \\
+\texttt{Total\_Amt\_Chng\_Q4\_Q1} & Perubahan jumlah transaksi Q4 ke Q1. \\
+\texttt{Total\_Trans\_Amt} & Total jumlah transaksi dalam 12 bulan. \\
+\texttt{Total\_Trans\_Ct} & Total frekuensi transaksi dalam 12 bulan. \\
+\texttt{Total\_Ct\_Chng\_Q4\_Q1} & Perubahan frekuensi transaksi Q4 ke Q1. \\
+\texttt{Avg\_Utilization\_Ratio} & Rasio rata-rata penggunaan kartu. \\
+\hline
+\end{tabular}
+\caption{Deskripsi atribut dataset Credit Card Customers.}
+\label{tab:credit-card-attributes}
+\end{table}
+
+\subsection{Tugas Data Preprocessing: Bengaluru House Price}
+
+\subsubsection{Membaca Dataset}
+Dataset \textit{Bengaluru House Price Data} saya muat menggunakan \texttt{pd.read\_csv()}. Dataset ini berisi 13.320 baris dan 9 kolom yang mencakup informasi properti di Bengaluru, India.
+
+\begin{lstlisting}[style=pythonstyle,caption={Memuat dataset Bengaluru House Price.}]
+bengaluru_url = 'https://raw.githubusercontent.com/dphi-official/Datasets/master/Bengaluru_House_Data.csv'
+bengaluru_df = pd.read_csv(bengaluru_url)
+display(bengaluru_df.head())
+print('shape:', bengaluru_df.shape)
+display(bengaluru_df.describe(include='all').transpose())
+display(bengaluru_df.isnull().sum())
+print('duplicates:', bengaluru_df.duplicated().sum())
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-tugas-02-bengaluru-initial.jpg}}
+\caption{Pemeriksaan awal dataset Bengaluru House Price.}
+\label{fig:tugas-bengaluru-initial}
+\end{figure}
+
+\subsubsection{Visualisasi Histogram dan Pola Distribusi}
+Saya membuat histogram untuk variabel numerik \texttt{bath}, \texttt{balcony}, dan \texttt{price} guna mengamati pola distribusinya.
+
+\begin{lstlisting}[style=pythonstyle,caption={Histogram variabel numerik Bengaluru.}]
+numeric_bengaluru = bengaluru_df.select_dtypes(include='number')
+numeric_bengaluru.hist(figsize=(12, 8))
+plt.tight_layout()
+plt.show()
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][4cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Screenshot histogram variabel numerik Bengaluru}}
+\caption{Distribusi variabel numerik dataset Bengaluru.}
+\label{fig:tugas-bengaluru-hist}
+\end{figure}
+
+Berdasarkan histogram yang dihasilkan, terlihat bahwa:
+\begin{itemize}
+    \item \texttt{bath}: Distribusi cenderung \textit{right-skewed}, mayoritas properti memiliki 2--3 kamar mandi, dengan sedikit properti yang memiliki lebih dari 5 kamar mandi.
+    \item \texttt{balcony}: Distribusi juga \textit{right-skewed}, sebagian besar properti memiliki 1--2 balkon, dan sangat sedikit yang memiliki lebih dari 3 balkon.
+    \item \texttt{price}: Distribusi sangat \textit{right-skewed} dengan \textit{long tail}, mayoritas properti berada di rentang harga rendah (di bawah 200), namun terdapat outlier dengan harga sangat tinggi hingga 3.600.
+\end{itemize}
+
+\subsubsection{Korelasi Antar Variabel}
+Saya menghitung korelasi antar variabel numerik untuk melihat hubungan linear di antara mereka.
+
+\begin{lstlisting}[style=pythonstyle,caption={Korelasi variabel numerik Bengaluru.}]
+display(numeric_bengaluru.corr())
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][4cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Screenshot korelasi variabel numerik Bengaluru}}
+\caption{Matriks korelasi variabel numerik dataset Bengaluru.}
+\label{fig:tugas-bengaluru-corr}
+\end{figure}
+
+Hasil korelasi menunjukkan:
+\begin{itemize}
+    \item \texttt{bath} dan \texttt{price} memiliki korelasi positif yang cukup kuat (sekitar 0.5--0.6), artinya semakin banyak kamar mandi, harga properti cenderung semakin tinggi.
+    \item \texttt{balcony} dan \texttt{price} memiliki korelasi positif lemah (sekitar 0.1--0.2), artinya jumlah balkon tidak terlalu memengaruhi harga.
+    \item \texttt{bath} dan \texttt{balcony} memiliki korelasi positif lemah, menunjukkan keduanya relatif independen.
+\end{itemize}
+
+\subsubsection{EDA: Descriptive Statistics, Missing Value, dan Duplikasi}
+Saya melakukan pemeriksaan kualitas data menggunakan \texttt{describe()}, \texttt{isnull().sum()}, dan \texttt{duplicated().sum()}.
+
+\begin{lstlisting}[style=pythonstyle,caption={Pemeriksaan kualitas data Bengaluru.}]
+display(bengaluru_df.describe(include='all').transpose())
+display(bengaluru_df.isnull().sum())
+print('duplicates:', bengaluru_df.duplicated().sum())
+\end{lstlisting}
+
+Hasil pemeriksaan menunjukkan:
+\begin{itemize}
+    \item \textbf{Missing value:} Kolom \texttt{society} memiliki 5.502 missing value, \texttt{balcony} 609, \texttt{bath} 73, \texttt{size} 16, dan \texttt{location} 1. Kolom \texttt{society} perlu ditangani karena lebih dari 40\% data hilang.
+    \item \textbf{Duplikasi:} Ditemukan 529 baris duplikat yang perlu dihapus agar tidak memengaruhi analisis.
+    \item \textbf{Tindakan:} Baris duplikat dihapus dengan \texttt{drop\_duplicates()}. Missing value pada kolom numerik diisi dengan median, sedangkan kolom kategorikal diisi dengan modus. Kolom \texttt{society} dapat dihapus karena terlalu banyak missing value.
+\end{itemize}
+
+\subsubsection{Preprocessing Lanjutan: Encoding, Split, dan Scaling}
+
+\begin{lstlisting}[style=pythonstyle,caption={Preprocessing lanjutan Bengaluru.}]
+# Hapus duplikat
+bengaluru_model_df = bengaluru_df.drop_duplicates().copy()
+
+# Ekstrak ukuran BHK dari kolom size
+bengaluru_model_df['size_bhk'] = bengaluru_model_df['size'].str.extract(r'(\d+)').astype(float)
+
+# Isi missing value
+bengaluru_model_df['size_bhk'] = bengaluru_model_df['size_bhk'].fillna(bengaluru_model_df['size_bhk'].median())
+bengaluru_model_df['bath'] = bengaluru_model_df['bath'].fillna(bengaluru_model_df['bath'].median())
+bengaluru_model_df['balcony'] = bengaluru_model_df['balcony'].fillna(bengaluru_model_df['balcony'].median())
+
+# One-hot encoding untuk area_type dan availability
+bengaluru_model_df = pd.get_dummies(bengaluru_model_df, columns=['area_type', 'availability'], drop_first=True)
+
+# Label encoding untuk location (banyak kategori unik)
+le = LabelEncoder()
+bengaluru_model_df['location_encoded'] = le.fit_transform(bengaluru_model_df['location'].fillna('Unknown'))
+
+# Hapus kolom yang tidak digunakan
+bengaluru_model_df = bengaluru_model_df.drop(['size', 'location', 'society', 'total_sqft'], axis=1)
+
+# Pisahkan fitur dan target
+X_bengaluru = bengaluru_model_df.drop('price', axis=1)
+y_bengaluru = bengaluru_model_df['price']
+
+# Train-test split 80:20
+X_train_b, X_test_b, y_train_b, y_test_b = train_test_split(
+    X_bengaluru, y_bengaluru, test_size=0.2, random_state=42
+)
+
+# Standardization
+scaler_b = StandardScaler()
+X_train_b_scaled = scaler_b.fit_transform(X_train_b)
+X_test_b_scaled = scaler_b.transform(X_test_b)
+
+print('X_train:', X_train_b.shape, 'X_test:', X_test_b.shape)
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][4cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Screenshot preprocessing lanjutan Bengaluru}}
+\caption{Hasil encoding, train-test split, dan scaling dataset Bengaluru.}
+\label{fig:tugas-bengaluru-preprocessing}
+\end{figure}
+
+\textbf{Alasan penggunaan masing-masing teknik:}
+\begin{itemize}
+    \item \textbf{One-hot encoding} digunakan untuk \texttt{area\_type} dan \texttt{availability} karena keduanya adalah variabel kategorikal nominal dengan jumlah kategori yang sedikit, sehingga one-hot encoding tidak menghasilkan terlalu banyak kolom baru dan mencegah model menganggap adanya hubungan ordinal.
+    \item \textbf{Label encoding} digunakan untuk \texttt{location} karena kolom ini memiliki ratusan kategori unik. Jika menggunakan one-hot encoding, jumlah kolom akan meledak dan menyebabkan \textit{curse of dimensionality}. Label encoding lebih efisien untuk kasus ini meskipun mengasumsikan adanya urutan.
+    \item \textbf{Train-test split 80:20} digunakan agar model dapat dievaluasi secara objektif pada data yang belum pernah dilihat selama pelatihan.
+    \item \textbf{Standardization} digunakan karena fitur-fitur seperti \texttt{bath}, \texttt{balcony}, dan \texttt{size\_bhk} memiliki skala yang berbeda-beda. Standardization membuat semua fitur memiliki rata-rata 0 dan simpangan baku 1, sehingga algoritma ML yang sensitif terhadap skala (seperti regresi linear atau SVM) dapat bekerja dengan baik.
+\end{itemize}
 
 \clearpage
 
