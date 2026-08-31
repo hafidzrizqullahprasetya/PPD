@@ -440,7 +440,7 @@ Saya membuat line chart, pie chart, bar plot, dan stacked bar plot untuk melihat
 Saya memuat dataset IoT dan memvisualisasikan perubahan kelembapan terhadap waktu menggunakan line chart.
 
 \begin{lstlisting}[style=pythonstyle,caption={Visualisasi kelembapan dataset IoT.}]
-df_iot = pd.read_csv('https://raw.githubusercontent.com/ganjar87/data_science_practice/main/IoT.csv')
+df_iot = pd.read_csv('https://raw.githubusercontent.com/ganjar87/data_science_practice/main/datatraining.txt')
 plt.figure(figsize=(15, 3))
 plt.plot(df_iot['date'], df_iot['Humidity'])
 plt.xlabel('Date')
@@ -525,6 +525,8 @@ Saya memisahkan fitur dan target dengan menghapus kolom identitas atau kolom yan
 X = df.drop(['PassengerId', 'Name', 'Survived', 'Cabin', 'Ticket'], axis=1)
 y = df['Survived']
 X = pd.get_dummies(X, columns=['Sex', 'Embarked'], drop_first=True)
+X = X.astype(int)
+display(X.head())
 \end{lstlisting}
 
 \begin{figure}[H]
@@ -541,12 +543,15 @@ Saya membagi dataset dengan proporsi 80:20. Data latih digunakan untuk proses pe
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
+print('X_train:', X_train.shape, 'X_test:', X_test.shape)
 standard_scaler = StandardScaler()
 X_train_standard = standard_scaler.fit_transform(X_train)
 X_test_standard = standard_scaler.transform(X_test)
 minmax_scaler = MinMaxScaler()
 X_train_normalized = minmax_scaler.fit_transform(X_train)
 X_test_normalized = minmax_scaler.transform(X_test)
+print('standard mean:', X_train_standard.mean(axis=0)[:3])
+print('normalized min/max:', X_train_normalized.min(), X_train_normalized.max())
 \end{lstlisting}
 
 \begin{figure}[H]
@@ -657,16 +662,16 @@ plt.show()
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-tugas-03-bengaluru-hist-corr-preprocessing.jpg}}
-\caption{Histogram variabel numerik, matriks korelasi, dan hasil preprocessing dataset Bengaluru.}
-\label{fig:tugas-bengaluru-hist-corr-preprocessing}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-tugas-03a-bengaluru-histogram.jpg}}
+\caption{Histogram variabel numerik \texttt{bath}, \texttt{balcony}, dan \texttt{price} dataset Bengaluru.}
+\label{fig:tugas-bengaluru-hist}
 \end{figure}
 
 Berdasarkan histogram yang dihasilkan, terlihat bahwa:
 \begin{itemize}
-    \item \texttt{bath}: Distribusi cenderung \textit{right-skewed}, mayoritas properti memiliki 2--3 kamar mandi, dengan sedikit properti yang memiliki lebih dari 5 kamar mandi.
-    \item \texttt{balcony}: Distribusi juga \textit{right-skewed}, sebagian besar properti memiliki 1--2 balkon, dan sangat sedikit yang memiliki lebih dari 3 balkon.
-    \item \texttt{price}: Distribusi sangat \textit{right-skewed} dengan \textit{long tail}, mayoritas properti berada di rentang harga rendah (di bawah 200), namun terdapat outlier dengan harga sangat tinggi hingga 3.600.
+    \item \texttt{bath}: Distribusi sangat \textit{right-skewed}, mayoritas properti memiliki 1--5 kamar mandi dengan puncak di sekitar 2 kamar mandi, namun terdapat outlier hingga 40 kamar mandi.
+    \item \texttt{balcony}: Distribusi cenderung \textit{right-skewed}, sebagian besar properti memiliki 0--2 balkon (dengan puncak di 1 dan 2 balkon), dan sangat sedikit yang memiliki 3 balkon atau lebih.
+    \item \texttt{price}: Distribusi sangat \textit{right-skewed} dengan \textit{long tail}, mayoritas properti berada di rentang harga rendah (di bawah 500), namun terdapat outlier dengan harga sangat tinggi hingga 3.600.
 \end{itemize}
 
 \subsubsection{Korelasi Antar Variabel}
@@ -678,16 +683,16 @@ display(numeric_bengaluru.corr())
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-tugas-03-bengaluru-hist-corr-preprocessing.jpg}}
-\caption{Matriks korelasi variabel numerik dataset Bengaluru (bagian dari Gambar \ref{fig:tugas-bengaluru-hist-corr-preprocessing}).}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-tugas-03b-bengaluru-corr.jpg}}
+\caption{Matriks korelasi variabel numerik dataset Bengaluru.}
 \label{fig:tugas-bengaluru-corr}
 \end{figure}
 
 Hasil korelasi menunjukkan:
 \begin{itemize}
-    \item \texttt{bath} dan \texttt{price} memiliki korelasi positif yang cukup kuat (sekitar 0.5--0.6), artinya semakin banyak kamar mandi, harga properti cenderung semakin tinggi.
-    \item \texttt{balcony} dan \texttt{price} memiliki korelasi positif lemah (sekitar 0.1--0.2), artinya jumlah balkon tidak terlalu memengaruhi harga.
-    \item \texttt{bath} dan \texttt{balcony} memiliki korelasi positif lemah, menunjukkan keduanya relatif independen.
+    \item \texttt{bath} dan \texttt{price} memiliki korelasi positif sedang (0.456), artinya semakin banyak kamar mandi, harga properti cenderung semakin tinggi.
+    \item \texttt{balcony} dan \texttt{price} memiliki korelasi positif lemah (0.120), artinya jumlah balkon tidak terlalu memengaruhi harga.
+    \item \texttt{bath} dan \texttt{balcony} memiliki korelasi positif lemah (0.204), menunjukkan keduanya relatif independen.
 \end{itemize}
 
 \subsubsection{EDA: Descriptive Statistics, Missing Value, dan Duplikasi}
@@ -749,8 +754,8 @@ print('X_train:', X_train_b.shape, 'X_test:', X_test_b.shape)
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-tugas-03-bengaluru-hist-corr-preprocessing.jpg}}
-\caption{Hasil encoding, train-test split, dan scaling dataset Bengaluru (bagian dari Gambar \ref{fig:tugas-bengaluru-hist-corr-preprocessing}).}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-tugas-03c-bengaluru-preprocessing.jpg}}
+\caption{Hasil train-test split dan scaling dataset Bengaluru.}
 \label{fig:tugas-bengaluru-preprocessing}
 \end{figure}
 
