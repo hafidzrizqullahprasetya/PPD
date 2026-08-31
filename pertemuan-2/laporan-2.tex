@@ -202,8 +202,8 @@
 {\large \textbf{\MakeUppercase{Laporan Praktikum}}} \\[0.4cm]
 {\large \textbf{\MakeUppercase{PRAKTIKUM
 PENAMBANGAN DATA}}} \\[0.4cm]
-{\large \textbf{\MakeUppercase{Pertemuan 1}}} \\[0.4cm]
-{\large \textbf{\MakeUppercase{PENGENALAN NUMPY DAN PANDAS}}} \\[1.5cm]
+{\large \textbf{\MakeUppercase{Pertemuan 2}}} \\[0.4cm]
+{\large \textbf{\MakeUppercase{EXPLORATORY DATA ANALYSIS DAN DATA PREPROCESSING}}} \\[1.5cm]
 
 \includegraphics[height=7cm]{../template-pertemuan/images/UGM.png} \\[0.7cm]
 
@@ -243,213 +243,130 @@ PENAMBANGAN DATA}}} \\[0.4cm]
 
 \chapter[Tujuan Praktikum]{Tujuan Praktikum}
 \begin{enumerate}
-   \item Mahasiswa mampu menjelaskan konsep dasar NumPy, membuat array berdimensi-N, serta melakukan indexing, slicing, reshape, penggabungan, pencarian, pengurutan, dan operasi numerik pada array.
-   \item Mahasiswa mampu menjelaskan struktur data Series dan DataFrame serta melakukan manipulasi dan transformasi data menggunakan pandas.
-   \item Mahasiswa mampu menerapkan NumPy dan pandas untuk mengolah, meringkas, dan menganalisis data tabular.
+   \item Mahasiswa mampu memahami konsep dasar Artificial Intelligence (AI) dan Machine Learning (ML).
+   \item Mahasiswa mampu menerapkan Exploratory Data Analysis (EDA) untuk memahami karakteristik, distribusi, dan kualitas dataset.
+   \item Mahasiswa mampu menerapkan teknik dasar data preprocessing, meliputi penanganan missing value dan duplikasi, encoding, pembagian dataset, serta scaling fitur.
 \end{enumerate}
 \clearpage
 
 \chapter{Dasar Teori}
 
-\section{NumPy}
+\section{Artificial Intelligence dan Machine Learning}
 
-\subsection{Pengertian NumPy dan Array ndarray}
-NumPy merupakan pustaka Python sumber terbuka yang digunakan untuk komputasi
-numerik. Struktur data utama NumPy adalah \textit{ndarray}, yaitu array
-berdimensi-N yang menyimpan elemen dengan tipe data yang homogen. Berbeda
-dengan list Python yang dapat menyimpan elemen dengan tipe berbeda, array NumPy
-dirancang untuk menyimpan data sejenis secara efisien. Karakteristik tersebut
-mendukung operasi numerik pada data dalam jumlah besar \cite{numpy-basics,petanikode-numpy}.
+\subsection{Artificial Intelligence}
+Artificial Intelligence (AI) adalah bidang ilmu komputer yang mengembangkan sistem
+agar mampu melakukan tugas yang umumnya membutuhkan kecerdasan manusia, seperti
+mengenali pola, belajar dari pengalaman, memahami informasi, dan mengambil
+keputusan. Dalam penerapannya, kualitas data sangat memengaruhi kemampuan sistem
+AI karena data menjadi dasar untuk menemukan pola dan menghasilkan prediksi
+\cite{dicoding-workflow}.
 
-Istilah \textit{ndarray} merupakan singkatan dari \textit{N-dimensional array}.
-Istilah ini bukan pustaka yang terpisah, melainkan tipe objek array yang
-digunakan NumPy untuk merepresentasikan data satu dimensi, dua dimensi, atau
-lebih. Oleh karena itu, pembahasan array NumPy pada praktikum ini merujuk pada
-objek \textit{ndarray}.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=0.8\textwidth]{images/ilustrasi-array-numpy.jpg}}
-    \caption{Ilustrasi array NumPy 1D, 2D, dan 3D.}
-    \label{fig:ndarray-dimensi}
-\end{figure}
-
-Array NumPy dapat dibuat dari sekuens Python, seperti list dan \textit{nested
-list}, menggunakan fungsi \texttt{np.array()}. Array satu dimensi dapat
-digunakan untuk merepresentasikan deret data, sedangkan array dua dimensi dapat
-digunakan untuk merepresentasikan tabel. Penambahan tingkat kemanunggalan
-struktur menghasilkan array tiga dimensi atau lebih.
-
-\subsection{Dimensi, shape, size, dan dtype}
-Array mempunyai beberapa atribut penting. Atribut \texttt{ndim} menyatakan
-jumlah dimensi atau sumbu array. Atribut \texttt{shape} menghasilkan tuple yang
-menyatakan jumlah elemen pada setiap sumbu. Atribut \texttt{size} menyatakan
-jumlah seluruh elemen, sedangkan \texttt{dtype} menyatakan tipe data elemen
-array. Sebagai contoh, array dengan \texttt{shape} \texttt{(2, 3)} mempunyai
-dua baris dan tiga kolom, sehingga jumlah elemennya adalah enam
-\cite{numpy-basics}.
-
-Pemahaman terhadap \texttt{shape} penting ketika array akan diubah bentuknya
-atau digabungkan. Operasi \texttt{reshape()} hanya dapat dilakukan apabila
-jumlah elemen sebelum dan sesudah perubahan tetap sama. Dengan demikian, array
-yang mempunyai dua belas elemen dapat diubah menjadi bentuk \texttt{(3, 4)}
-atau \texttt{(2, 6)}, tetapi tidak menjadi bentuk yang jumlah elemennya bukan
-dua belas.
-
-\subsection{Indexing dan slicing}
-Indexing digunakan untuk mengambil satu elemen berdasarkan posisinya. NumPy
-menggunakan indeks berbasis nol, sehingga elemen pertama berada pada indeks
-\texttt{0}. Pada array dua dimensi, elemen dapat diakses dengan format
-\texttt{array[baris, kolom]}. Pada array dengan lebih banyak dimensi, indeks
-diberikan untuk setiap sumbu secara berurutan.
-
-Slicing digunakan untuk mengambil sebagian array menggunakan format batas awal,
-batas akhir, dan langkah, misalnya \texttt{array[1:4]}. Batas akhir tidak
-termasuk dalam hasil slicing. Slicing juga dapat diterapkan pada beberapa
-sumbu, misalnya \texttt{array[2, 1:, 0]}. Pada banyak kasus, hasil slicing
-NumPy berupa \textit{view} terhadap data asal, bukan salinan baru. Oleh karena
-itu, perubahan pada hasil slicing dapat memengaruhi array asal
-\cite{numpy-basics}.
+\subsection{Machine Learning}
+Machine Learning (ML) merupakan cabang AI yang memungkinkan komputer mempelajari
+pola dari data dan meningkatkan kinerjanya tanpa aturan yang diprogram secara
+eksplisit untuk setiap kasus. ML dapat dibagi menjadi \textit{supervised learning},
+\textit{unsupervised learning}, dan \textit{reinforcement learning}. Pada
+\textit{supervised learning}, data memiliki label untuk keperluan klasifikasi atau
+prediksi. Pada \textit{unsupervised learning}, model mencari struktur atau pola
+tersembunyi tanpa label. Sementara itu, \textit{reinforcement learning} belajar
+melalui umpan balik berupa penghargaan dan hukuman
+\cite{google-ml-categorical}.
 
 \begin{figure}[H]
     \centering
-    \fbox{\includegraphics[width=0.8\textwidth]{images/ilustrasi-indexing-slicing-numpy.jpg}}
-    \caption{Ilustrasi indexing dan slicing pada array NumPy 2D.}
-    \label{fig:ndarray-indexing}
+    \fbox{\includegraphics[width=0.85\textwidth]{images/ai-ml-relationship-diagram.jpg}}
+    \caption{Klasifikasi Artificial Intelligence, Machine Learning, dan Deep Learning.}
+    \label{fig:ai-ml-relationship}
 \end{figure}
 
-\subsection{Operasi dan manipulasi array}
-NumPy menyediakan operasi element-wise, yaitu operasi yang diterapkan pada
-elemen-elemen yang bersesuaian, seperti penjumlahan, pengurangan, perkalian,
-dan pembagian. Fungsi \texttt{np.add()} dapat digunakan untuk penjumlahan dua
-array. Fungsi agregasi seperti \texttt{np.sum()}, \texttt{np.prod()},
-\texttt{np.min()}, \texttt{np.max()}, dan \texttt{np.mean()} digunakan untuk
-meringkas nilai array. Parameter \texttt{axis} dapat digunakan untuk
-menentukan sumbu tempat operasi dilakukan \cite{numpy-basics}.
+\section{Exploratory Data Analysis}
+Exploratory Data Analysis (EDA) adalah proses memeriksa dan memahami dataset
+sebelum dilakukan pemodelan. EDA digunakan untuk mengetahui struktur data, tipe
+atribut, distribusi nilai, hubungan antarvariabel, outlier, missing value, dan
+duplikasi. Pemeriksaan dapat dilakukan menggunakan \texttt{head()},
+\texttt{tail()}, \texttt{shape}, \texttt{describe()}, dan
+\texttt{isnull().sum()} pada DataFrame pandas.
 
-Beberapa fungsi manipulasi yang digunakan dalam praktikum adalah
-\texttt{np.concatenate()} untuk menggabungkan array, \texttt{np.array\_split()}
-untuk membaginya menjadi beberapa bagian, \texttt{np.where()} untuk mencari
-posisi elemen yang memenuhi kondisi, dan \texttt{np.sort()} untuk mengurutkan
-elemen. NumPy juga menyediakan modul random untuk menghasilkan bilangan
-\textit{pseudo-random} dengan bentuk array tertentu. Penggunaan seed dapat
-membuat hasil percobaan dapat diulang.
-
-\section{Pandas}
-
-\subsection{Pengertian Series dan DataFrame}
-Pandas merupakan pustaka Python untuk pengolahan dan analisis data tabular.
-Pandas menyediakan dua struktur data utama, yaitu \textit{Series} dan
-\textit{DataFrame}. Series adalah array satu dimensi yang memiliki label,
-sedangkan DataFrame adalah struktur data dua dimensi yang memiliki baris dan
-kolom. Setiap kolom DataFrame dapat mempunyai tipe data yang berbeda, sehingga
-DataFrame sesuai untuk merepresentasikan dataset tabular
-\cite{pandas-ten-minutes}.
-
-DataFrame dapat dibuat dari list, dictionary, array NumPy, atau data terstruktur
-lainnya. Label baris disebut indeks dan label kolom digunakan untuk mengenali
-variabel. Indeks dapat dibuat secara otomatis atau ditentukan secara manual
-ketika DataFrame dibuat.
+Visualisasi membantu menyampaikan karakteristik data secara lebih mudah. Line
+plot digunakan untuk melihat perubahan atau tren, pie chart untuk proporsi,
+bar plot untuk membandingkan kategori, histogram untuk distribusi numerik,
+scatter plot untuk hubungan dua variabel, box plot untuk ringkasan kuartil dan
+outlier, serta violin plot untuk bentuk distribusi dan kepadatan data. Korelasi
+antarvariabel numerik juga dapat dihitung dengan \texttt{corr()} untuk mengetahui
+arah dan kekuatan hubungan linear \cite{ibm-eda,pandas-describe}.
 
 \begin{figure}[H]
     \centering
-    \fbox{\includegraphics[width=0.8\textwidth]{images/series-vs-dataframe.jpg}}
-    \caption{Perbandingan struktur Series dan DataFrame pada pandas.}
-    \label{fig:series-dataframe}
+    \fbox{\includegraphics[width=1\textwidth]{images/eda-workflow-diagram.jpg}}
+    \caption{Alur Exploratory Data Analysis mulai dari data mentah hingga menghasilkan kesimpulan.}
+    \label{fig:eda-workflow}
 \end{figure}
 
-\subsection{Seleksi, penambahan, dan penghapusan data}
-Kolom baru dapat ditambahkan menggunakan assignment seperti
-\texttt{df['Status'] = nilai}. Fungsi \texttt{insert()} dapat digunakan apabila
-kolom perlu ditempatkan pada posisi tertentu. Beberapa kolom dapat ditambahkan
-sekaligus menggunakan \texttt{assign()} atau dengan menggabungkan DataFrame
-kolom baru menggunakan \texttt{concat()}.
-
-Kolom dapat dihapus menggunakan \texttt{drop()}, \texttt{pop()}, atau
-perintah \texttt{del}. Fungsi \texttt{drop()} dapat menghapus satu atau
-beberapa kolom. Perbedaan pentingnya adalah \texttt{pop()} menghapus sekaligus
-mengembalikan kolom yang dihapus, sedangkan \texttt{drop()} mengembalikan
-DataFrame hasil penghapusan apabila tidak digunakan dengan
-\texttt{inplace=True}.
-
-DataFrame dapat diurutkan berdasarkan indeks menggunakan
-\texttt{sort\_index()} atau berdasarkan isi kolom menggunakan
-\texttt{sort\_values()}. Penyaringan data dilakukan dengan mask Boolean,
-misalnya \texttt{df[df['Gaji'] > 7000000]}. Beberapa kondisi dapat digabungkan
-dengan operator \texttt{\&} dan \texttt{|}; setiap kondisi perlu diberi tanda
-kurung. Pandas juga menyediakan \texttt{isin()}, \texttt{query()}, dan
-\texttt{str.contains()} untuk kebutuhan penyaringan yang lebih spesifik
-\cite{pandas-ten-minutes}.
-
-\subsection{Grouping dan aggregation}
-Operasi \textit{groupby} mengikuti pola \textit{split-apply-combine}. Data
-dibagi menjadi kelompok berdasarkan satu atau beberapa kolom, fungsi tertentu
-diterapkan pada setiap kelompok, kemudian hasilnya digabungkan kembali.
-Contohnya, data karyawan dapat dikelompokkan berdasarkan kolom
-\texttt{Pekerjaan}.
-
-Setelah pengelompokan, fungsi agregasi seperti \texttt{mean()}, \texttt{sum()},
-\texttt{min()}, \texttt{max()}, dan \texttt{std()} dapat digunakan untuk
-meringkas data numerik. Fungsi \texttt{agg()} memungkinkan beberapa fungsi
-agregasi diterapkan sekaligus, termasuk fungsi yang berbeda untuk kolom yang
-berbeda. Hasil agregasi membantu membandingkan karakteristik setiap kelompok
-secara ringkas \cite{pandas-groupby}.
+\section{Data Preprocessing}
+Data preprocessing merupakan serangkaian langkah untuk membersihkan dan
+mengubah data mentah menjadi data yang siap dianalisis atau digunakan oleh model
+ML. Tahap ini penting karena data yang tidak konsisten, tidak lengkap, atau
+memiliki skala berbeda dapat menurunkan kualitas analisis dan performa model.
 
 \begin{figure}[H]
     \centering
-    \fbox{\includegraphics[width=0.8\textwidth]{images/struktur-index-kolom-dataframe.jpg}}
-    \caption{Ilustrasi indeks baris, kolom, dan data pada DataFrame pandas.}
-    \label{fig:dataframe-index}
+    \fbox{\includegraphics[width=0.82\textwidth]{images/data-preprocessing-workflow.jpg}}
+    \caption{Contoh alur data preprocessing yang meliputi ekstraksi, standardisasi spasial, smoothing, pemilihan citra, dan normalisasi intensitas.}
+    \label{fig:data-preprocessing-workflow}
 \end{figure}
 
-\subsection{Merge, join, dan concatenate}
-Pandas menyediakan beberapa cara untuk menggabungkan DataFrame. Fungsi
-\texttt{merge()} melakukan penggabungan berdasarkan kolom kunci atau indeks,
-seperti operasi join pada basis data relasional. Parameter \texttt{how} dapat
-bernilai \texttt{inner}, \texttt{left}, \texttt{right}, atau \texttt{outer}.
-Pada \textit{left join}, seluruh baris dari DataFrame sebelah kiri
-dipertahankan, sedangkan data dari DataFrame kanan ditambahkan jika kuncinya
-sesuai. Parameter \texttt{left\_on} dan \texttt{right\_on} digunakan ketika
-nama kolom kunci pada kedua DataFrame berbeda. Parameter \texttt{suffixes}
-digunakan untuk membedakan nama kolom yang sama \cite{pandas-merging}.
+\subsection{Pembersihan Data dan Imputasi}
+Missing value dapat diperiksa menggunakan \texttt{isnull().sum()}, sedangkan
+baris duplikat dapat diperiksa menggunakan \texttt{duplicated().sum()}.
+Missing value dapat ditangani dengan menghapus baris atau kolom yang bermasalah,
+atau dengan imputasi. Nilai median sering digunakan untuk atribut numerik karena
+lebih tahan terhadap outlier, sedangkan modus dapat digunakan untuk atribut
+kategorikal. Duplikasi perlu dihapus apabila merepresentasikan pengamatan yang
+tercatat lebih dari satu kali \cite{ilmudatapy-missing}.
 
-Fungsi \texttt{join()} umumnya menggabungkan DataFrame berdasarkan indeks,
-sedangkan \texttt{concat()} menyatukan beberapa objek pandas pada sumbu
-tertentu. Dengan \texttt{axis=0}, data digabungkan secara vertikal sebagai
-baris baru; dengan \texttt{axis=1}, data digabungkan secara horizontal sebagai
-kolom baru. Jika label tidak cocok, hasil penggabungan dapat berisi nilai
-\texttt{NaN}.
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[width=0.9\textwidth]{images/missing-value-imputation-distributions.jpg}}
+    \caption{Hubungan mean, median, dan mode pada distribusi data sebagai pertimbangan pemilihan metode imputasi.}
+    \label{fig:missing-value-imputation}
+\end{figure}
 
-\subsection{Reshaping dan indeks}
-Indeks berfungsi sebagai label untuk baris DataFrame. Fungsi
-\texttt{reset\_index(drop=True)} mengembalikan indeks menjadi indeks berurutan
-dan membuang indeks lama. Sebaliknya, \texttt{set\_index()} menetapkan salah
-satu kolom sebagai indeks baru. Pemilihan indeks yang tepat memudahkan akses
-data menggunakan \texttt{loc}.
+\subsection{Encoding Atribut Kategorikal}
+Algoritma ML umumnya memerlukan input numerik. One-hot encoding mengubah kategori
+menjadi beberapa kolom biner dan sesuai untuk kategori nominal. Label encoding
+mengubah kategori menjadi bilangan integer dan perlu digunakan secara hati-hati
+karena angka dapat dianggap memiliki urutan. Pada fitur kategorikal nominal,
+one-hot encoding biasanya lebih aman untuk mencegah model menganggap adanya
+hubungan ordinal yang sebenarnya tidak ada \cite{google-ml-categorical,ilmudatapy-ohe}.
 
-\textit{Pivot table} mengubah susunan data sehingga nilai unik pada kolom
-tertentu menjadi indeks atau kolom baru. Fungsi \texttt{pivot\_table()} dapat
-melakukan agregasi ketika terdapat lebih dari satu data pada kombinasi indeks
-dan kolom. Kebalikan dari format lebar adalah format panjang, yang dapat dibuat
-dengan \texttt{melt()}. Pada operasi ini, kolom yang dipertahankan ditentukan
-oleh \texttt{id\_vars}, sedangkan kolom yang diubah menjadi pasangan nama dan
-nilai ditentukan oleh \texttt{value\_vars} \cite{pandas-reshaping}.
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[width=0.72\textwidth]{images/one-hot-vs-label-encoding.jpg}}
+    \caption{Perbandingan label encoding dan one-hot encoding pada variabel kategorikal.}
+    \label{fig:one-hot-vs-label}
+\end{figure}
 
-\subsection{Membaca dataset CSV}
-CSV adalah format teks untuk menyimpan data tabular dengan pemisah antarnilai.
-Pandas menyediakan \texttt{pd.read\_csv()} untuk membaca file CSV menjadi
-DataFrame. Setelah selesai diolah, DataFrame dapat disimpan kembali menggunakan
-\texttt{to\_csv()}. Dalam Google Colab, file yang berada di Google Drive dapat
-diakses setelah Drive di-mount ke lingkungan Colab. Path file kemudian diberikan
-sebagai argumen kepada \texttt{pd.read\_csv()} \cite{pandas-io}.
+\subsection{Pembagian Dataset dan Scaling}
+Dataset biasanya dibagi menjadi data latih dan data uji menggunakan
+\texttt{train\_test\_split()}. Data latih digunakan untuk membangun model,
+sedangkan data uji digunakan untuk mengukur kemampuan generalisasi model.
+Parameter pembagian harus disesuaikan dengan instruksi praktikum, misalnya
+80:20.
 
-\subsection{Keterkaitan NumPy dan pandas}
-NumPy dan pandas saling melengkapi dalam analisis data. NumPy menyediakan array
-homogen dan operasi numerik yang efisien, sedangkan pandas menyediakan struktur
-berlabel untuk mengelola data tabular. DataFrame pandas dapat dibangun dari
-array NumPy dan nilai di dalamnya dapat dikonversi ke representasi NumPy
-menggunakan \texttt{to\_numpy()}. Kombinasi keduanya memungkinkan proses mulai
-dari pembentukan data, transformasi, peringkasan, hingga analisis dataset.
+Scaling digunakan agar fitur numerik berada pada skala yang sebanding.
+\textit{Standardization} menggunakan rata-rata dan simpangan baku sehingga data
+memiliki rata-rata mendekati nol dan simpangan baku mendekati satu. Sementara itu,
+\textit{normalization} seperti Min-Max Scaling memetakan nilai ke rentang tertentu,
+umumnya 0 sampai 1. Parameter scaler harus di-fit pada data latih saja, kemudian
+digunakan untuk mentransformasi data uji agar tidak terjadi kebocoran informasi
+\cite{sklearn-preprocessing,sklearn-pitfalls}.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\includegraphics[width=1\textwidth]{images/train-test-split-diagram.jpg}}
+    \caption{Alur pembagian features dan target menjadi data latih serta data uji menggunakan train-test split.}
+    \label{fig:train-test-split}
+\end{figure}
 
 \clearpage
 
@@ -457,210 +374,184 @@ dari pembentukan data, transformasi, peringkasan, hingga analisis dataset.
 
 \section{Percobaan Latihan Praktikum}
 
-Pada bagian ini saya mendokumentasikan langkah-langkah percobaan NumPy dan pandas. Setiap percobaan dilengkapi kode, hasil eksekusi, dan pembahasan singkat.
+Pada bagian ini saya mendokumentasikan percobaan EDA dan data preprocessing sesuai langkah pada modul Pertemuan 2. Karena screenshot hasil eksekusi belum dilampirkan, setiap lokasi keluaran notebook diberi placeholder yang akan saya ganti setelah praktikum selesai.
 
-\subsection{Persiapan dan Instalasi Pustaka}
-Pada tahap awal, saya mengaktifkan virtual environment kemudian memasang pustaka NumPy dan pandas menggunakan perintah \texttt{pip install numpy pandas}. Proses instalasi berhasil dilakukan pada lingkungan Python 3.11 berbasis Linux. Versi NumPy yang terpasang adalah 2.4.6, sedangkan versi pandas adalah 3.0.5.
+\subsection{Persiapan dan Impor Pustaka}
+Saya menyiapkan lingkungan Python dan mengimpor pandas untuk manipulasi data, NumPy untuk komputasi numerik, Matplotlib untuk visualisasi, serta scikit-learn untuk preprocessing.
+
+\begin{lstlisting}[style=pythonstyle,caption={Impor pustaka praktikum.}]
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, LabelEncoder
+\end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/instalasi-numpy-pandas.jpg}}
-    \caption{Instalasi pustaka NumPy dan pandas pada virtual environment.}
-    \label{fig:instalasi-numpy-pandas}
+\centering
+\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Screenshot impor pustaka dan versi library}}
+\caption{Impor pustaka yang digunakan dalam praktikum.}
+\label{fig:placeholder-import}
 \end{figure}
 
-\subsection{Impor Library dan Pemeriksaan Versi}
-Saya mengimpor NumPy dengan alias \texttt{np} dan pandas dengan alias \texttt{pd}. Pemeriksaan versi dilakukan untuk memastikan kedua pustaka telah terpasang dan dapat digunakan.
+\section{Exploratory Data Analysis}
+\subsection{Memuat Dataset Bank Churners}
+Untuk latihan EDA, saya menggunakan dataset Bank Churners dari Kaggle. Dataset ini berisi informasi nasabah kartu kredit dengan label \texttt{Attrition\_Flag} yang menunjukkan status nasabah. Dataset saya muat menggunakan \texttt{pd.read\_csv()}.
+
+\begin{lstlisting}[style=pythonstyle,caption={Memuat dataset Bank Churners.}]
+df_churning = pd.read_csv('https://raw.githubusercontent.com/ganjar87/data_science_practice/main/BankChurners.csv')
+df_churning.head()
+\end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/import-dan-versi-library.jpg}}
-    \caption{Impor library dan pemeriksaan versi NumPy serta pandas.}
-    \label{fig:import-versi-library}
+\centering
+\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output df\_churning.head()}}
+\caption{Lima baris pertama dataset Bank Churners.}
+\label{fig:placeholder-churn-head}
 \end{figure}
 
-\subsection{Pembuatan Array NumPy}
-Saya membuat array NumPy satu dimensi, dua dimensi, dan tiga dimensi menggunakan fungsi \texttt{np.array()}. Saya juga membuat array yang berisi elemen bertipe string. Atribut \texttt{shape}, \texttt{ndim}, dan \texttt{dtype} digunakan untuk mengetahui bentuk, jumlah dimensi, dan tipe data array.
+\subsection{Pemeriksaan dan Pemisahan Kelas}
+Saya menggunakan \texttt{tail()} untuk memeriksa baris terakhir dataset. Setelah itu, saya memisahkan data menjadi nasabah aktif dan nasabah yang berhenti berdasarkan kolom \texttt{Attrition\_Flag}.
+
+\begin{lstlisting}[style=pythonstyle,caption={Pemeriksaan akhir dan pemisahan kelas.}]
+df_churning.tail()
+existing_data = df_churning[df_churning['Attrition_Flag'] == 'Existing Customer']
+attrited_data = df_churning[df_churning['Attrition_Flag'] == 'Attrited Customer']
+\end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/pembuatan-array-numpy.jpg}}
-    \caption{Pembuatan array NumPy satu, dua, dan tiga dimensi serta array string.}
-    \label{fig:pembuatan-array-numpy}
+\centering
+\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output tail() dan jumlah kelas}}
+\caption{Pemeriksaan baris terakhir dan pemisahan kelas nasabah.}
+\label{fig:placeholder-churn-tail}
 \end{figure}
 
-\subsection{Indexing dan Slicing Array}
-Saya melakukan indexing pada array satu, dua, dan tiga dimensi. Indexing digunakan untuk mengambil elemen tertentu berdasarkan indeks yang dimulai dari nol. Selain itu, saya menggunakan slicing untuk mengambil sebagian elemen array pada rentang indeks tertentu.
+\subsection{Visualisasi Dataset Bank Churners}
+Saya membuat line chart, pie chart, bar plot, dan stacked bar plot untuk melihat tren serta perbandingan kategori. Untuk data numerik, saya menggunakan histogram, scatter plot, box plot, dan violin plot. Visualisasi tersebut membantu saya mengamati distribusi usia, perbandingan status nasabah, serta kemungkinan outlier.
 
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/indexing-slicing-numpy.jpg}}
-    \caption{Indexing dan slicing pada array NumPy satu, dua, dan tiga dimensi.}
-    \label{fig:indexing-slicing-numpy}
+\centering
+\fbox{\parbox[c][4cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Screenshot visualisasi EDA Bank Churners}}
+\caption{Visualisasi EDA dataset Bank Churners.}
+\label{fig:placeholder-churn-plots}
 \end{figure}
 
-\subsection{Konversi Tipe Data dan Reshape}
-Saya mengubah tipe data array menggunakan \texttt{astype()}. Saya juga mengubah bentuk array menggunakan \texttt{reshape()}, dengan tetap mempertahankan jumlah seluruh elemen. Untuk mengembalikan array menjadi satu dimensi, saya menggunakan \texttt{reshape(-1)} dan \texttt{flatten()}.
+\subsection{Visualisasi Dataset IoT}
+Saya memuat dataset IoT dan memvisualisasikan perubahan kelembapan terhadap waktu menggunakan line chart.
+
+\begin{lstlisting}[style=pythonstyle,caption={Visualisasi kelembapan dataset IoT.}]
+df_iot = pd.read_csv('https://raw.githubusercontent.com/ganjar87/data_science_practice/main/IoT.csv')
+plt.figure(figsize=(15, 3))
+plt.plot(df_iot['date'], df_iot['Humidity'])
+plt.xlabel('Date')
+plt.ylabel('Humidity')
+plt.show()
+\end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/reshape-dan-iterasi-numpy.jpg}}
-    \caption{Konversi tipe data, reshape, perbandingan len() dan shape, serta iterasi array NumPy.}
-    \label{fig:reshape-numpy}
+\centering
+\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Screenshot line chart dataset IoT}}
+\caption{Perubahan kelembapan terhadap waktu pada dataset IoT.}
+\label{fig:placeholder-iot}
 \end{figure}
 
-\subsection{Iterasi dan Operasi Dasar Array}
-Saya membandingkan fungsi \texttt{len()} dengan atribut \texttt{shape}. Saya juga melakukan iterasi langsung terhadap array dan iterasi menggunakan indeks. Hasilnya menunjukkan bahwa \texttt{len()} hanya mengembalikan ukuran pada sumbu pertama, sedangkan \texttt{shape} memberikan ukuran seluruh dimensi.
+\section{Data Preprocessing}
+\subsection{Memuat dan Memeriksa Dataset Titanic}
+Untuk latihan preprocessing, saya menggunakan dataset Titanic. Dataset ini memiliki target \texttt{Survived}. Saya memeriksa data awal, ukuran dataset, statistik deskriptif, dan distribusi target sebelum melakukan transformasi.
+
+\begin{lstlisting}[style=pythonstyle,caption={Pemeriksaan awal dataset Titanic.}]
+df = pd.read_csv('https://raw.githubusercontent.com/ganjar87/data_science_practice/main/train.csv')
+df.head()
+df.tail()
+df.shape
+df.describe()
+\end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/reshape-dan-iterasi-numpy.jpg}}
-    \caption{Perbandingan len(), shape, dan iterasi array NumPy.}
-    \label{fig:iterasi-numpy}
+\centering
+\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output head(), tail(), shape(), dan describe()}}
+\caption{Pemeriksaan awal dataset Titanic.}
+\label{fig:placeholder-titanic-initial}
 \end{figure}
 
-\subsection{Join, Split, Search, Sorting, dan Random}
-Saya menggabungkan array menggunakan \texttt{np.concatenate()}, membagi array menggunakan \texttt{np.array\_split()}, mencari elemen menggunakan \texttt{np.where()}, serta mengurutkan data menggunakan \texttt{np.sort()}. Saya juga menggunakan \texttt{np.random} untuk menghasilkan bilangan acak.
+\subsection{Distribusi, Korelasi, dan Kualitas Data}
+Saya membuat pie chart target dan histogram fitur numerik. Saya menghitung korelasi menggunakan \texttt{corr(numeric\_only=True)} serta memeriksa missing value dan duplikasi. Hasil pemeriksaan ini menjadi dasar keputusan pembersihan data.
+
+\begin{lstlisting}[style=pythonstyle,caption={Pemeriksaan distribusi dan kualitas data.}]
+df['Survived'].value_counts().plot.pie(autopct='%.2f%%')
+plt.show()
+df.hist(figsize=(10, 8))
+plt.show()
+df.corr(numeric_only=True)
+df.isnull().sum()
+df.duplicated().sum()
+\end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/join-split-search-sorting-numpy.jpg}}
-    \caption{Operasi join, split, search, sorting, random, dan operasi numerik pada NumPy.}
-    \label{fig:operasi-numpy}
+\centering
+\fbox{\parbox[c][4cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Screenshot histogram, korelasi, missing value, dan duplikasi}}
+\caption{Analisis distribusi, korelasi, dan kualitas dataset Titanic.}
+\label{fig:placeholder-titanic-quality}
 \end{figure}
 
-\subsection{Operasi Numerik NumPy}
-Saya melakukan penjumlahan elemen dengan \texttt{np.add()}, menghitung total elemen menggunakan \texttt{np.sum()}, dan menghitung hasil perkalian seluruh elemen dengan \texttt{np.prod()}.
+\subsection{Imputasi Missing Value}
+Saya mengisi missing value pada \texttt{Age} menggunakan median karena median lebih tahan terhadap outlier. Kolom kategorikal \texttt{Cabin} dan \texttt{Embarked} saya isi menggunakan modus. Setelah itu, saya memeriksa kembali missing value.
+
+\begin{lstlisting}[style=pythonstyle,caption={Imputasi missing value.}]
+df['Age'] = df['Age'].fillna(df['Age'].median())
+df['Cabin'] = df['Cabin'].fillna(df['Cabin'].mode()[0])
+df['Embarked'] = df['Embarked'].fillna(df['Embarked'].mode()[0])
+df.isnull().sum()
+\end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/join-split-search-sorting-numpy.jpg}}
-    \caption{Operasi numerik pada array NumPy.}
-    \label{fig:numerik-numpy}
+\centering
+\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output missing value setelah imputasi}}
+\caption{Pengecekan missing value setelah imputasi.}
+\label{fig:placeholder-imputation}
 \end{figure}
 
-\subsection{Membuat dan Menambah DataFrame}
-Saya membuat DataFrame dari list dengan kolom dan indeks tertentu. Selanjutnya, saya menambahkan kolom menggunakan assignment, \texttt{insert()}, dan \texttt{assign()}. DataFrame digunakan untuk merepresentasikan data karyawan dalam bentuk tabel.
+\subsection{Seleksi Fitur dan Encoding}
+Saya memisahkan fitur dan target dengan menghapus kolom identitas atau kolom yang tidak digunakan. Atribut kategorikal \texttt{Sex} dan \texttt{Embarked} kemudian saya ubah menjadi numerik menggunakan one-hot encoding. Saya juga mempelajari label encoding sebagai metode alternatif.
+
+\begin{lstlisting}[style=pythonstyle,caption={Seleksi fitur dan one-hot encoding.}]
+X = df.drop(['PassengerId', 'Name', 'Survived', 'Cabin', 'Ticket'], axis=1)
+y = df['Survived']
+X = pd.get_dummies(X, columns=['Sex', 'Embarked'], drop_first=True)
+\end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/pembuatan-penambahan-dataframe.jpg}}
-    \caption{Pembuatan DataFrame dan penambahan kolom menggunakan assignment, insert(), assign(), dan concat().}
-    \label{fig:tambah-dataframe}
+\centering
+\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output fitur setelah encoding}}
+\caption{Hasil encoding atribut kategorikal.}
+\label{fig:placeholder-encoding}
 \end{figure}
 
-\subsection{Menghapus Kolom dan Sorting DataFrame}
-Saya menghapus kolom menggunakan \texttt{drop()}, \texttt{pop()}, dan perintah \texttt{del}. Setelah itu, saya mengurutkan baris berdasarkan indeks dan mengurutkan data berdasarkan nilai kolom gaji menggunakan \texttt{sort\_values()}.
+\subsection{Pembagian Dataset dan Scaling}
+Saya membagi dataset dengan proporsi 80:20. Data latih digunakan untuk proses pembelajaran, sedangkan data uji digunakan untuk evaluasi. Saya menerapkan standardization dengan \texttt{StandardScaler} dan normalization dengan \texttt{MinMaxScaler}. Scaler di-fit hanya pada data latih untuk mencegah data leakage.
+
+\begin{lstlisting}[style=pythonstyle,caption={Train-test split dan scaling.}]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+standard_scaler = StandardScaler()
+X_train_standard = standard_scaler.fit_transform(X_train)
+X_test_standard = standard_scaler.transform(X_test)
+minmax_scaler = MinMaxScaler()
+X_train_normalized = minmax_scaler.fit_transform(X_train)
+X_test_normalized = minmax_scaler.transform(X_test)
+\end{lstlisting}
 
 \begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/penghapusan-sorting-dataframe.jpg}}
-    \caption{Penghapusan kolom dengan drop(), pop(), dan del serta pengurutan DataFrame berdasarkan indeks, kolom, dan gaji.}
-    \label{fig:hapus-sorting-dataframe}
-\end{figure}
-
-\subsection{Filtering DataFrame}
-Saya melakukan filtering menggunakan kondisi Boolean, beberapa kondisi dengan operator logika, \texttt{isin()}, \texttt{query()}, dan \texttt{str.contains()}. Filtering membantu saya menampilkan hanya baris yang memenuhi kriteria tertentu.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/filtering-dataframe.jpg}}
-    \caption{Filtering DataFrame menggunakan kondisi Boolean, isin(), query(), dan str.contains().}
-    \label{fig:filtering-dataframe}
-\end{figure}
-
-\subsection{Grouping dan Aggregation}
-Saya mengelompokkan data karyawan berdasarkan kolom \texttt{Pekerjaan} menggunakan \texttt{groupby()}. Setelah itu, saya menerapkan fungsi agregasi seperti rata-rata, jumlah, nilai minimum, maksimum, dan standar deviasi untuk meringkas data pada setiap kelompok.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/grouping-dataframe.jpg}}
-    \caption{Pengelompokan data karyawan berdasarkan pekerjaan dan pengambilan kelompok Programmer.}
-    \label{fig:groupby-aggregation}
-\end{figure}
-
-\subsection{Aggregation}
-Saya menerapkan aggregation pada hasil pengelompokan data untuk menghitung rata-rata, minimum, maksimum, jumlah, dan standar deviasi.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/aggregation-dataframe.jpg}}
-    \caption{Hasil aggregation rata-rata, minimum, maksimum, jumlah, dan standar deviasi berdasarkan pekerjaan.}
-    \label{fig:aggregation-dataframe}
-\end{figure}
-
-\subsection{Merge, Join, Concatenate, dan Indeks}
-Saya menggabungkan DataFrame menggunakan \texttt{merge()} berdasarkan kolom kunci, menggunakan \texttt{join()} berdasarkan indeks, serta menggunakan \texttt{concat()} untuk menggabungkan data secara vertikal dan horizontal. Saya juga mengatur ulang indeks menggunakan \texttt{reset\_index()} dan menetapkan kolom indeks menggunakan \texttt{set\_index()}.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/merge-join-dataframe.jpg}}
-    \caption{Penggabungan DataFrame menggunakan merge() dan join() dengan left join.}
-    \label{fig:gabung-dataframe}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/concatenate-dataframe.jpg}}
-    \caption{Penggabungan DataFrame secara vertikal, horizontal, dan outer menggunakan concat().}
-    \label{fig:concatenate-dataframe}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/reset-set-index-dataframe.jpg}}
-    \caption{Reset index, set index, dan akses data menggunakan loc pada DataFrame.}
-    \label{fig:reset-set-index}
-\end{figure}
-
-\subsection{Lambda Function dan Membaca Dataset}
-Saya menggunakan lambda function untuk melakukan operasi singkat dan memberikan kategori berdasarkan nilai. Dataset CSV dibaca menggunakan \texttt{pd.read\_csv()} dan hasil pengolahan dapat disimpan kembali menggunakan \texttt{to\_csv()}.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/pivot-melt-lambda.jpg}}
-    \caption{Pivot table, melt, dan lambda function pada pandas.}
-    \label{fig:pivot-melt-lambda}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/membaca-file-csv.jpg}}
-    \caption{Pembacaan file CSV dan penampilan data menggunakan pandas.}
-    \label{fig:membaca-csv}
+\centering
+\fbox{\parbox[c][3cm][c]{0.9\textwidth}{\centering PLACEHOLDER\\Output ukuran split dan hasil scaling}}
+\caption{Pembagian dataset dan scaling fitur.}
+\label{fig:placeholder-scaling}
 \end{figure}
 
 \section{Tugas dan Analisis Praktikum}
-
-\subsection{Tugas 1: Array Acak dan Reshape}
-Saya membuat array NumPy berukuran 4$\times$4 berisi bilangan acak dari 0 sampai 50, kemudian mengubah bentuknya menjadi 2$\times$8. Dari hasil eksekusi, elemen yang lebih besar dari 25 adalah 37, 43, dan 45. Proses ini menunjukkan bahwa operasi Boolean indexing dapat digunakan untuk memilih elemen berdasarkan kondisi.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/tugas-1-array-random.jpg}}
-    \caption{Hasil Tugas 1: pembuatan array acak 4$\times$4, reshape menjadi 2$\times$8, dan pemilihan elemen lebih dari 25.}
-    \label{fig:tugas-1}
-\end{figure}
-
-\subsection{Tugas 2: Groupby dan Aggregation Gaji}
-Saya membuat DataFrame karyawan kemudian mengelompokkan data berdasarkan pekerjaan. Hasil aggregation menunjukkan nilai maksimum, minimum, dan standar deviasi gaji pada setiap kelompok. Kelompok Programmer memiliki gaji maksimum Rp9.000.000 dan minimum Rp8.000.000, sedangkan kelompok Analis memiliki gaji maksimum Rp7.500.000 dan minimum Rp7.000.000. Kelompok Desainer hanya memiliki satu data sehingga standar deviasinya bernilai NaN.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/tugas-2-groupby-aggregation.jpg}}
-    \caption{Hasil Tugas 2: nilai maksimum, minimum, dan standar deviasi gaji berdasarkan pekerjaan.}
-    \label{fig:tugas-2}
-\end{figure}
-
-\subsection{Tugas 3: Merge DataFrame Karyawan dan Gaji}
-Saya menggabungkan DataFrame karyawan dan DataFrame gaji menggunakan \texttt{merge()} dengan parameter \texttt{left\_on='Emp\_id'}, \texttt{right\_on='ID'}, dan \texttt{how='left'}. Hasilnya, data E01 dan E02 berhasil memperoleh informasi gaji, sedangkan E03 tetap ditampilkan dengan nilai \texttt{NaN} karena tidak memiliki pasangan ID pada DataFrame gaji.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=1\textwidth]{images/tugas-3-merge.jpg}}
-    \caption{Hasil Tugas 3: penggabungan DataFrame karyawan dan gaji menggunakan merge() dengan left join.}
-    \label{fig:tugas-3}
-\end{figure}
+\subsection{Rencana Analisis Tugas}
+Tugas EDA akan saya kerjakan menggunakan dataset \textit{Credit Card Customers}. Saya akan membaca dataset, menjelaskan tujuan penggunaannya, menentukan atribut input dan label, serta mendeskripsikan setiap atribut. Tugas preprocessing akan saya kerjakan menggunakan dataset harga rumah Bengaluru dengan visualisasi, korelasi, statistik deskriptif, pemeriksaan missing value dan duplikasi, encoding, train-test split 80:20, serta scaling.
 
 \clearpage
 
@@ -668,10 +559,9 @@ Saya menggabungkan DataFrame karyawan dan DataFrame gaji menggunakan \texttt{mer
 Berdasarkan praktikum yang telah saya lakukan, saya memahami beberapa hal berikut:
 
 \begin{enumerate}
-    \item NumPy digunakan untuk mengolah array berdimensi satu atau lebih secara efisien. Saya mempelajari indexing, slicing, reshape, penggabungan, pencarian, pengurutan, bilangan acak, serta operasi numerik pada array.
-    \item Fungsi \texttt{len()} pada NumPy hanya menunjukkan jumlah elemen pada sumbu pertama, sedangkan atribut \texttt{shape} menunjukkan ukuran array pada seluruh dimensinya. Sebagai contoh, array dengan bentuk \texttt{(4, 2, 3)} memiliki nilai \texttt{len()} sebesar 4 dan \texttt{shape} \texttt{(4, 2, 3)}.
-    \item Fungsi \texttt{groupby()} pada pandas digunakan untuk mengelompokkan data berdasarkan kategori tertentu. Setelah dikelompokkan, data dapat diringkas menggunakan fungsi aggregation seperti \texttt{mean()}, \texttt{sum()}, \texttt{min()}, \texttt{max()}, dan \texttt{std()}.
-    \item Fungsi \texttt{merge()} menggabungkan DataFrame berdasarkan kolom kunci, sedangkan \texttt{join()} umumnya menggabungkan DataFrame berdasarkan indeks. Fungsi \texttt{concat()} dapat menggabungkan data secara vertikal maupun horizontal.
+    \item EDA digunakan untuk memahami struktur, distribusi, kualitas, dan hubungan antaratribut sebelum pemodelan.
+    \item Data preprocessing diperlukan untuk menangani missing value dan duplikasi serta mengubah data ke format yang sesuai bagi algoritma ML.
+    \item Encoding mengubah atribut kategorikal menjadi representasi numerik, sedangkan train-test split dan scaling membantu menyiapkan data untuk pemodelan secara lebih objektif.
 \end{enumerate}
 
 Dengan demikian, praktikum ini memberikan dasar yang penting bagi saya untuk melakukan pengolahan dan analisis data menggunakan Python.
@@ -680,33 +570,30 @@ Dengan demikian, praktikum ini memberikan dasar yang penting bagi saya untuk mel
 \addcontentsline{toc}{chapter}{Daftar Pustaka}
 \renewcommand{\bibname}{Daftar Pustaka}
 \begin{thebibliography}{99}
-    \bibitem{numpy-basics} NumPy Developers, ``NumPy: The Absolute Basics for Beginners,''
-    \textit{NumPy User Guide}. [Online]. Tersedia:
-    \url{https://numpy.org/doc/stable/user/absolute_beginners.html}.
+    \bibitem{dicoding-workflow} Dicoding Indonesia, ``Machine Learning Workflow: Di Balik Model AI yang Sukses,''
+    23 Oktober 2024. [Online]. Tersedia:
+    \url{https://www.dicoding.com/blog/machine-learning-workflow-langkah-langkah-praktis-untuk-membangun-model-ai/}.
 
-    \bibitem{pandas-ten-minutes} The pandas Development Team, ``10 Minutes to pandas,''
-    \textit{pandas User Guide}. [Online]. Tersedia:
-    \url{https://pandas.pydata.org/docs/user_guide/10min.html}.
+    \bibitem{ibm-eda} IBM, ``Apa Itu Analisis Data Eksplorasi?'' [Online]. Tersedia:
+    \url{https://www.ibm.com/id-id/think/topics/exploratory-data-analysis}.
 
-    \bibitem{pandas-groupby} The pandas Development Team, ``Group by: split-apply-combine,''
-    \textit{pandas User Guide}. [Online]. Tersedia:
-    \url{https://pandas.pydata.org/docs/user_guide/groupby.html}.
+    \bibitem{ilmudatapy-missing} IlmudataPy, ``Cara Menangani Missing Values di Project Data Science.'' [Online]. Tersedia:
+    \url{https://ilmudatapy.com/menangani-missing-values/}.
 
-    \bibitem{pandas-merging} The pandas Development Team, ``Merge, join, concatenate and compare,''
-    \textit{pandas User Guide}. [Online]. Tersedia:
-    \url{https://pandas.pydata.org/docs/user_guide/merging.html}.
+    \bibitem{ilmudatapy-ohe} IlmudataPy, ``2 Cara Implementasi One-Hot Encoding di Python.'' [Online]. Tersedia:
+    \url{https://ilmudatapy.com/one-hot-encoding-di-python/}.
 
-    \bibitem{pandas-reshaping} The pandas Development Team, ``Reshaping and pivot tables,''
-    \textit{pandas User Guide}. [Online]. Tersedia:
-    \url{https://pandas.pydata.org/docs/user_guide/reshaping.html}.
+    \bibitem{google-ml-categorical} Google for Developers, ``Working with categorical data.'' [Online]. Tersedia:
+    \url{https://developers.google.com/machine-learning/crash-course/categorical-data}.
 
-    \bibitem{pandas-io} The pandas Development Team, ``IO tools,''
-    \textit{pandas User Guide}. [Online]. Tersedia:
-    \url{https://pandas.pydata.org/docs/user_guide/io.html}.
+    \bibitem{pandas-describe} The pandas Development Team, ``pandas.DataFrame.describe.'' [Online]. Tersedia:
+    \url{https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html}.
 
-    \bibitem{petanikode-numpy} A. Muhardian, ``Memahami: Apa itu Numpy pada Python?,''
-    \textit{Petani Kode}, 12 November 2022. [Online]. Tersedia:
-    \url{https://www.petanikode.com/python-numpy/}. [Diakses 24 Agustus 2026].
+    \bibitem{sklearn-preprocessing} Scikit-learn Developers, ``Preprocessing data.'' [Online]. Tersedia:
+    \url{https://scikit-learn.org/stable/modules/preprocessing.html}.
+
+    \bibitem{sklearn-pitfalls} Scikit-learn Developers, ``Common pitfalls and recommended practices.'' [Online]. Tersedia:
+    \url{https://scikit-learn.org/stable/common_pitfalls.html}.
 \end{thebibliography}
 
 \end{document}
