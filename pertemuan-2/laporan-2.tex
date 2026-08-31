@@ -473,7 +473,7 @@ plt.title('Histogram Attrited')
 plt.show()
 \end{lstlisting}
 
-\textbf{Annotation.} Annotation digunakan untuk menambahkan informasi statistik langsung pada grafik menggunakan \texttt{plt.text()}. Saya menambahkan nilai median dan mean usia pada histogram \texttt{Customer\\_Age}.
+\textbf{Annotation.} Annotation digunakan untuk menambahkan informasi statistik langsung pada grafik menggunakan \texttt{plt.text()}. Saya menambahkan nilai median dan mean usia pada histogram \texttt{Customer\_Age}.
 
 \begin{lstlisting}[style=pythonstyle,caption={Annotation median dan mean pada histogram.}]
 plt.hist(df_churning['Customer_Age'])
@@ -609,7 +609,7 @@ display(X.head())
 \label{fig:encoding}
 \end{figure}
 
-Selain \texttt{pd.get\\_dummies()}, modul juga memperkenalkan penerapan one-hot encoding menggunakan \texttt{OneHotEncoder} dari scikit-learn. Encoder di-fit pada kolom kategorikal, lalu hasilnya diubah menjadi DataFrame biner.
+Selain \texttt{pd.get\_dummies()}, modul juga memperkenalkan penerapan one-hot encoding menggunakan \texttt{OneHotEncoder} dari scikit-learn. Encoder di-fit pada kolom kategorikal, lalu hasilnya diubah menjadi DataFrame biner.
 
 \begin{lstlisting}[style=pythonstyle,caption={One-hot encoding dengan OneHotEncoder.}]
 from sklearn.preprocessing import OneHotEncoder
@@ -620,7 +620,7 @@ df_ohe = pd.DataFrame(encoded_data.toarray(), columns=encoder.get_feature_names_
 display(df_ohe.head())
 \end{lstlisting}
 
-Hasilnya berupa kolom-kolom biner seperti \texttt{Sex\\_male}, \texttt{Embarked\\_Q}, dan \texttt{Embarked\\_S} yang siap digunakan sebagai fitur model.
+Hasilnya berupa kolom-kolom biner seperti \texttt{Sex\_male}, \texttt{Embarked\_Q}, dan \texttt{Embarked\_S} yang siap digunakan sebagai fitur model.
 
 Sebagai metode alternatif, saya juga mempelajari label encoding menggunakan \texttt{LabelEncoder}. Metode ini mengubah setiap kategori menjadi bilangan integer sehingga lebih efisien untuk kolom dengan banyak kategori, tetapi perlu digunakan secara hati-hati karena bilangan yang dihasilkan dapat dianggap memiliki urutan oleh model.
 
@@ -639,10 +639,10 @@ df_combined = pd.concat([X, y], axis=1)
 display(df_combined.corr(numeric_only=True))
 \end{lstlisting}
 
-Dari matriks korelasi tersebut, terlihat bahwa \texttt{Sex\\_male} memiliki korelasi negatif kuat dengan \texttt{Survived} (-0,54), artinya penumpang laki-laki cenderung lebih kecil kemungkinannya untuk selamat. \texttt{Pclass} berkorelasi negatif (-0,34), sedangkan \texttt{Fare} berkorelasi positif (0,26) terhadap \texttt{Survived}. Hasil ini konsisten dengan analisis korelasi sebelum encoding.
+Dari matriks korelasi tersebut, terlihat bahwa \texttt{Sex\_male} memiliki korelasi negatif kuat dengan \texttt{Survived} (-0,54), artinya penumpang laki-laki cenderung lebih kecil kemungkinannya untuk selamat. \texttt{Pclass} berkorelasi negatif (-0,34), sedangkan \texttt{Fare} berkorelasi positif (0,26) terhadap \texttt{Survived}. Hasil ini konsisten dengan analisis korelasi sebelum encoding.
 
 \subsection{Pembagian Dataset dan Scaling}
-Saya membagi dataset dengan proporsi 70:30 sesuai modul (\texttt{test\\_size=0.3}). Data latih digunakan untuk proses pembelajaran, sedangkan data uji digunakan untuk evaluasi. Saya menerapkan standardization dengan \texttt{StandardScaler} dan normalization dengan \texttt{MinMaxScaler}. Scaler di-fit hanya pada data latih untuk mencegah data leakage.
+Saya membagi dataset dengan proporsi 70:30 sesuai modul (\texttt{test\_size=0.3}). Data latih digunakan untuk proses pembelajaran, sedangkan data uji digunakan untuk evaluasi. Saya menerapkan standardization dengan \texttt{StandardScaler} dan normalization dengan \texttt{MinMaxScaler}. Scaler di-fit hanya pada data latih untuk mencegah data leakage.
 
 \begin{lstlisting}[style=pythonstyle,caption={Train-test split dan scaling.}]
 X_train, X_test, y_train, y_test = train_test_split(
