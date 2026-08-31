@@ -615,7 +615,7 @@ Selain \texttt{pd.get\_dummies()}, modul juga memperkenalkan penerapan one-hot e
 from sklearn.preprocessing import OneHotEncoder
 
 encoder = OneHotEncoder(drop='first')
-encoded_data = encoder.fit_transform(X[['Sex', 'Embarked']])
+encoded_data = encoded_data = encoder.fit_transform(df[['Sex', 'Embarked']])
 df_ohe = pd.DataFrame(encoded_data.toarray(), columns=encoder.get_feature_names_out(['Sex', 'Embarked']))
 display(df_ohe.head())
 \end{lstlisting}
