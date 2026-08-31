@@ -620,6 +620,13 @@ df_ohe = pd.DataFrame(encoded_data.toarray(), columns=encoder.get_feature_names_
 display(df_ohe.head())
 \end{lstlisting}
 
+\begin{figure}[H]
+\centering
+\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-13-onehot-encoder.jpg}}
+\caption{Hasil one-hot encoding menggunakan OneHotEncoder.}
+\label{fig:onehot-encoder}
+\end{figure}
+
 Hasilnya berupa kolom-kolom biner seperti \texttt{Sex\_male}, \texttt{Embarked\_Q}, dan \texttt{Embarked\_S} yang siap digunakan sebagai fitur model.
 
 Sebagai metode alternatif, saya juga mempelajari label encoding menggunakan \texttt{LabelEncoder}. Metode ini mengubah setiap kategori menjadi bilangan integer sehingga lebih efisien untuk kolom dengan banyak kategori, tetapi perlu digunakan secara hati-hati karena bilangan yang dihasilkan dapat dianggap memiliki urutan oleh model.
