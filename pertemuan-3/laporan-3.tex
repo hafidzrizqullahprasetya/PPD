@@ -191,7 +191,7 @@ Sesuai dengan Modul Pertemuan 3, tujuan pembelajaran pada praktikum ini adalah:
 \chapter{Dasar Teori}
 
 \section{Classification}
-Klasifikasi merupakan salah satu teknik \textit{supervised learning} yang bertujuan untuk memprediksi label atau kategori dari sebuah sampel berdasarkan fitur yang dimiliki. Model klasifikasi belajar dari data berlabel, kemudian menghasilkan suatu fungsi yang mampu menentukan kelas dari data baru yang belum pernah dilihat. Klasifikasi bekerja dengan cara mencari pola dari data historis untuk menentukan keputusan kelas yang paling mendekati. Contoh penerapannya meliputi deteksi spam, diagnosis medis, hingga rekomendasi konten \cite{han2022,google-ml-categorical,trivusi-aimldl}.
+Klasifikasi merupakan salah satu teknik \textit{supervised learning} yang bertujuan untuk memprediksi label atau kategori dari sebuah sampel berdasarkan fitur yang dimiliki. Model klasifikasi belajar dari data berlabel, kemudian menghasilkan suatu fungsi yang mampu menentukan kelas dari data baru yang belum pernah dilihat. Klasifikasi bekerja dengan cara mencari pola dari data historis untuk menentukan keputusan kelas yang paling mendekati. Contoh penerapannya meliputi deteksi spam, diagnosis medis, hingga rekomendasi konten \cite{han2022,google-ml-categorical,trivusi-aimldl,ibm-classification}.
 
 Pada klasifikasi, dataset terdiri dari fitur input $X$ dan label target $y$ yang bersifat kategorikal (misalnya $y \in \{0,1\}$ untuk klasifikasi biner). Model dilatih pada data historis untuk meminimalkan kesalahan klasifikasi, kemudian diuji pada data yang belum pernah dilihat untuk mengukur kemampuan generalisasinya. Karena target bersifat diskrit, evaluasi tidak cukup menggunakan error regresi, melainkan menggunakan matriks kebingungan dan metrik turunan seperti \textit{accuracy}, \textit{precision}, \textit{recall}, dan \textit{F1-score} \cite{sklearn-metrics,ibm-eda,dicoding-workflow}.
 
@@ -312,10 +312,18 @@ Performa model dapat dipengaruhi oleh distribusi kelas, biaya kesalahan klasifik
 \chapter[\tocboldsection{Hasil dan Pembahasan}]{Hasil dan Pembahasan}
 
 \section{Percobaan Latihan Praktikum}
-Pada bagian ini saya mendokumentasikan percobaan klasifikasi sesuai langkah pada Modul Pertemuan 3. Dataset yang digunakan adalah \textit{Stroke Prediction Dataset} dari Kaggle (\url{https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset}) yang juga tersedia di GitHub \texttt{ganjar87/data\_science\_practice}. Setiap langkah disertai kode yang saya jalankan di Google Colaboratory beserta screenshot hasil eksekusinya. Notebook yang saya gunakan dapat diakses melalui tautan Google Colab berikut: \url{https://colab.research.google.com/drive/1u5hrJQDwnOMdlWAobI8k7-zzQ_X5HPU0?usp=sharing}.
+Pada bagian ini saya mendokumentasikan percobaan klasifikasi sesuai langkah pada Modul Pertemuan 3. Dataset yang digunakan adalah \textit{Stroke Prediction Dataset} dari Kaggle~\cite{kaggle-stroke} (\url{https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset}) yang juga tersedia di GitHub \texttt{ganjar87/data\_science\_practice}. Setiap langkah disertai kode yang saya jalankan di Google Colaboratory beserta screenshot hasil eksekusinya. Notebook yang saya gunakan dapat diakses melalui tautan Google Colab berikut: \url{https://colab.research.google.com/drive/1u5hrJQDwnOMdlWAobI8k7-zzQ_X5HPU0?usp=sharing}.
+
+\subsection{Alat dan Bahan}
+Sesuai Modul 3.3, alat dan bahan yang saya gunakan adalah:
+\begin{itemize}
+    \item \textbf{Perangkat keras:} Laptop/komputer dengan akses internet.
+    \item \textbf{Perangkat lunak:} Python~3~\cite{python-docs} dan Google Colaboratory sebagai lingkungan eksekusi notebook. Pustaka utama yang saya gunakan meliputi pandas~\cite{pandas-docs}, NumPy~\cite{numpy-docs}, Matplotlib, Seaborn, dan Scikit-Learn untuk preprocessing serta pemodelan klasifikasi \cite{sklearn-metrics,sklearn-preprocessing}.
+\end{itemize}
+Dataset stroke saya akses melalui mirror GitHub agar dapat dimuat langsung dengan \texttt{pd.read\_csv()} tanpa unduhan manual dari Kaggle, sedangkan dataset tugas loan saya akses melalui mirror \texttt{shrikant-temburwar/Loan-Prediction-Dataset} di GitHub.
 
 \subsection{Persiapan dan Impor Pustaka}
-Saya menyiapkan lingkungan Python dan mengimpor pustaka yang dibutuhkan untuk manipulasi data, visualisasi, dan pemodelan klasifikasi.
+Saya menyiapkan lingkungan Python~\cite{python-docs} dan mengimpor pustaka yang dibutuhkan untuk manipulasi data dengan pandas~\cite{pandas-docs}, komputasi numerik dengan NumPy~\cite{numpy-docs}, visualisasi, dan pemodelan klasifikasi.
 
 \begin{lstlisting}[style=pythonstyle,caption={Impor pustaka praktikum klasifikasi.}]
 import pandas as pd
@@ -385,10 +393,10 @@ df.describe()
 
 Rata-rata usia (\texttt{age}) adalah 43,22 tahun, rata-rata \texttt{avg\_glucose\_level} 106,15, dan rata-rata \texttt{stroke} 0,048 (4,8\%), yang sudah mengindikasikan ketidakseimbangan kelas.
 
-\subsubsection{Presentase Target Kelas}
+\subsubsection{Persentase Target Kelas}
 Saya memvisualisasikan distribusi target menggunakan pie chart.
 
-\begin{lstlisting}[style=pythonstyle,caption={Presentase target kelas.}]
+\begin{lstlisting}[style=pythonstyle,caption={Persentase target kelas.}]
 data = df['stroke'].value_counts()
 data.plot(kind='pie', autopct='%.2f%%')
 plt.title('Distribusi Kelas Stroke')
@@ -813,7 +821,8 @@ Berdasarkan eksplorasi awal dataset (614 baris, 13 kolom), atribut dapat didefin
 Saya memuat dataset dan melakukan EDA singkat: memeriksa head, info, deskripsi statistik, distribusi target, missing value, dan duplikasi. Kolom dengan missing value (\texttt{Gender}, \texttt{Married}, \texttt{Dependents}, \texttt{Self\_Employed}, \texttt{LoanAmount}, \texttt{Loan\_Amount\_Term}, \texttt{Credit\_History}) diisi menggunakan median untuk numerik dan modus untuk kategorikal. Kolom \texttt{Dependents} dengan nilai ``3+'' diubah menjadi 3.
 
 \begin{lstlisting}[style=pythonstyle,caption={Memuat dan memeriksa dataset Loan.}]
-loan_df = pd.read_csv('loan_prediction.csv') # dari Kaggle
+loan_url = 'https://raw.githubusercontent.com/shrikant-temburwar/Loan-Prediction-Dataset/master/train.csv' # mirror GitHub dari Kaggle
+loan_df = pd.read_csv(loan_url)
 print(loan_df.head())
 print(loan_df.info())
 print(loan_df['Loan_Status'].value_counts())
