@@ -227,13 +227,6 @@ y = \frac{\sum_{i=1}^{k} w_i \cdot y_i}{\sum w_i}, \quad w_i = \frac{1}{d(x_i, x
 \end{equation}
 Pemilihan nilai $k$ sangat krusial: $k$ yang terlalu kecil sensitif terhadap noise, sedangkan $k$ yang terlalu besar dapat memasukkan titik dari kelas lain. Selain itu, KNN sensitif terhadap skala fitur, sehingga scaling sangat dianjurkan \cite{sklearn-preprocessing}.
 
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=0.85\textwidth]{images/knn-k-selection.jpg}}
-    \caption{Ilustrasi pemilihan nilai $k$: $k=1$ sensitif terhadap noise, $k=11$ mencakup titik dari kelas lain.}
-    \label{fig:knn-k}
-\end{figure}
-
 \subsection{Decision Tree}
 Decision Tree bekerja dengan cara membagi dataset secara rekursif berdasarkan fitur yang memberikan informasi terbaik. Proses pemilihan fitur dilakukan menggunakan ukuran seperti \textit{Gini impurity} atau \textit{entropy/information gain}. Struktur pohon terdiri dari \textit{root node}, \textit{internal node} (uji atribut), dan \textit{leaf node} (prediksi kelas). Kelebihannya adalah interpretasi yang mudah dan kemampuannya menangani fitur kategorikal maupun numerik, tetapi mudah mengalami \textit{overfitting} tanpa pengaturan parameter seperti \texttt{max\_depth} atau pruning \cite{sklearn-tree,han2022,digitalskola-preprocessing}.
 
@@ -254,24 +247,10 @@ Gain(A) = E(S) - \sum_{j=1}^{v} \frac{|S_j|}{|S|} E(S_j)
 \end{equation}
 Atribut dengan \textit{gain} terbesar dipilih sebagai node pemisah. Dari pohon, aturan IF-THEN dapat diekstrak, misalnya: IF \texttt{age} = ``$<=$30'' AND \texttt{student} = ``no'' THEN \texttt{buys\_computer} = ``no''.
 
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=0.85\textwidth]{images/information-gain-table.jpg}}
-    \caption{Perhitungan Information Gain untuk atribut \texttt{age} pada dataset \texttt{buys\_computer}.}
-    \label{fig:information-gain}
-\end{figure}
-
 Untuk menghindari overfitting, dapat digunakan \textit{pre-pruning} (menghentikan konstruksi pohon lebih awal) atau \textit{post-pruning} (memangkas cabang yang tidak signifikan terhadap test set).
 
 \subsection{Random Forest}
 Random Forest adalah algoritma \textit{ensemble} yang menggabungkan banyak Decision Tree melalui teknik \textit{bagging} (\textit{bootstrap aggregating}). Setiap pohon dilatih pada subset data yang berbeda yang diambil secara \textit{sampling with replacement} (bootstrap), dan hasil akhirnya ditentukan melalui voting mayoritas. Random Forest membuat model lebih stabil, mengurangi \textit{overfitting}, dan meningkatkan akurasi dibanding satu pohon tunggal \cite{sklearn-ensemble}.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=0.9\textwidth]{images/ensemble-general-idea.jpg}}
-    \caption{Ide umum ensemble methods: membuat beberapa dataset, melatih beberapa classifier, dan menggabungkan hasilnya.}
-    \label{fig:ensemble-general}
-\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -284,13 +263,6 @@ Analogi bagging adalah diagnosis berdasarkan suara mayoritas dari banyak dokter.
 
 \subsection{AdaBoost (Adaptive Boosting)}
 AdaBoost bekerja dengan menggabungkan beberapa \textit{weak learner} (biasanya Decision Tree kecil / stump) secara berurutan. Pada setiap iterasi, bobot sampel diperbarui sehingga model berikutnya lebih fokus pada data yang sebelumnya salah diklasifikasikan. Setiap \textit{weak learner} diberi bobot berdasarkan akurasinya, dan prediksi akhir merupakan kombinasi berbobot dari seluruh learner. Dengan cara ini, AdaBoost mampu meningkatkan performa model secara signifikan terutama pada dataset yang kompleks, namun berisiko overfitting pada data yang sangat noisy \cite{sklearn-ensemble}.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=0.9\textwidth]{images/boosting-illustration.jpg}}
-    \caption{Ilustrasi Boosting: bobot sampel yang salah diklasifikasi ditingkatkan sehingga lebih sering terpilih di ronde berikutnya. Contoh implementasi adalah AdaBoost.}
-    \label{fig:boosting}
-\end{figure}
 
 \section{Metrik Evaluasi Classification}
 Dalam \textit{machine learning} khususnya pada model klasifikasi, diperlukan metrik evaluasi untuk menilai seberapa baik model mampu memprediksi label dengan benar. Evaluasi ini dilakukan dengan membandingkan hasil prediksi model terhadap nilai aktual melalui sebuah struktur yang disebut \textit{confusion matrix} \cite{sklearn-metrics}.
@@ -333,21 +305,7 @@ Performa model dapat dipengaruhi oleh distribusi kelas, biaya kesalahan klasifik
 
 \textbf{Holdout:} Data dibagi menjadi dua bagian, yaitu training set (misalnya 70\%) dan testing set (30\%). Model dilatih pada training set dan dievaluasi pada testing set yang tidak pernah dilihat selama pelatihan. Proporsi umum adalah 60:40, 70:30, atau 80:20 \cite{han2022}.
 
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=0.9\textwidth]{images/holdout-diagram.jpg}}
-    \caption{Ilustrasi Holdout Method: dataset dibagi menjadi training set dan testing set.}
-    \label{fig:holdout}
-\end{figure}
-
 \textbf{Cross Validation:} Data dipartisi menjadi $k$ subset yang saling lepas. Pada $k$-fold cross validation, model dilatih pada $k-1$ partisi dan diuji pada 1 partisi yang tersisa, diulang sebanyak $k$ kali. Hasil akhir adalah rata-rata performa dari $k$ iterasi. Pada \textit{stratified} $k$-fold, setiap fold mempertahankan proporsi kelas yang sama dengan dataset asli, sehingga evaluasi lebih representatif untuk dataset yang imbalanced \cite{sklearn-cross-validation,dicoding-workflow,digitalskola-preprocessing}.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\includegraphics[width=0.95\textwidth]{images/cross-validation-diagram.jpg}}
-    \caption{Ilustrasi $k$-Fold Cross Validation ($k=5$): setiap fold bergantian menjadi test set.}
-    \label{fig:cross-validation}
-\end{figure}
 
 \clearpage
 
