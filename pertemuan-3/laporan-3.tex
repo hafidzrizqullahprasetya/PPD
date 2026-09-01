@@ -191,15 +191,15 @@ Sesuai dengan Modul Pertemuan 3, tujuan pembelajaran pada praktikum ini adalah:
 \chapter{Dasar Teori}
 
 \section{Classification}
-Klasifikasi merupakan salah satu teknik \textit{supervised learning} yang bertujuan untuk memprediksi label atau kategori dari sebuah sampel berdasarkan fitur yang dimiliki. Model klasifikasi belajar dari data berlabel, kemudian menghasilkan suatu fungsi yang mampu menentukan kelas dari data baru yang belum pernah dilihat. Klasifikasi bekerja dengan cara mencari pola dari data historis untuk menentukan keputusan kelas yang paling mendekati. Contoh penerapannya meliputi deteksi spam, diagnosis medis, hingga rekomendasi konten \cite{han2022,google-ml-categorical}.
+Klasifikasi merupakan salah satu teknik \textit{supervised learning} yang bertujuan untuk memprediksi label atau kategori dari sebuah sampel berdasarkan fitur yang dimiliki. Model klasifikasi belajar dari data berlabel, kemudian menghasilkan suatu fungsi yang mampu menentukan kelas dari data baru yang belum pernah dilihat. Klasifikasi bekerja dengan cara mencari pola dari data historis untuk menentukan keputusan kelas yang paling mendekati. Contoh penerapannya meliputi deteksi spam, diagnosis medis, hingga rekomendasi konten \cite{han2022,google-ml-categorical,trivusi-aimldl}.
 
-Pada klasifikasi, dataset terdiri dari fitur input $X$ dan label target $y$ yang bersifat kategorikal (misalnya $y \in \{0,1\}$ untuk klasifikasi biner). Model dilatih pada data historis untuk meminimalkan kesalahan klasifikasi, kemudian diuji pada data yang belum pernah dilihat untuk mengukur kemampuan generalisasinya. Karena target bersifat diskrit, evaluasi tidak cukup menggunakan error regresi, melainkan menggunakan matriks kebingungan dan metrik turunan seperti \textit{accuracy}, \textit{precision}, \textit{recall}, dan \textit{F1-score} \cite{sklearn-metrics,ibm-eda}.
+Pada klasifikasi, dataset terdiri dari fitur input $X$ dan label target $y$ yang bersifat kategorikal (misalnya $y \in \{0,1\}$ untuk klasifikasi biner). Model dilatih pada data historis untuk meminimalkan kesalahan klasifikasi, kemudian diuji pada data yang belum pernah dilihat untuk mengukur kemampuan generalisasinya. Karena target bersifat diskrit, evaluasi tidak cukup menggunakan error regresi, melainkan menggunakan matriks kebingungan dan metrik turunan seperti \textit{accuracy}, \textit{precision}, \textit{recall}, dan \textit{F1-score} \cite{sklearn-metrics,ibm-eda,dicoding-workflow}.
 
 \section{Algoritma Classification}
 Ada banyak metode yang dapat dipakai untuk melakukan klasifikasi. Modul Pertemuan 3 menekankan lima algoritma yang paling sering digunakan karena sederhana, efektif, dan terdokumentasi baik di Scikit-Learn: Logistic Regression, K-Nearest Neighbors, Decision Tree, Random Forest, dan AdaBoost.
 
 \subsection{Logistic Regression}
-Logistic Regression merupakan algoritma klasifikasi berbasis regresi linier yang memodelkan probabilitas suatu sampel termasuk ke dalam kelas tertentu menggunakan fungsi sigmoid. Output model berada dalam rentang 0--1, yang kemudian dikonversi menjadi label kelas melalui threshold (umumnya 0,5). Meskipun sederhana, algoritma ini efisien dan bekerja baik pada data yang memiliki hubungan \textit{linearly separable} \cite{sklearn-logreg}.
+Logistic Regression merupakan algoritma klasifikasi berbasis regresi linier yang memodelkan probabilitas suatu sampel termasuk ke dalam kelas tertentu menggunakan fungsi sigmoid. Output model berada dalam rentang 0--1, yang kemudian dikonversi menjadi label kelas melalui threshold (umumnya 0,5). Meskipun sederhana, algoritma ini efisien dan bekerja baik pada data yang memiliki hubungan \textit{linearly separable} \cite{sklearn-logreg,itbox-algoritma}.
 
 Secara matematis, probabilitas kelas positif dimodelkan sebagai:
 \begin{equation}
@@ -208,7 +208,7 @@ P(y=1 \mid x) = \sigma(w^T x + b) = \frac{1}{1 + e^{-(w^T x + b)}}
 di mana $w$ adalah koefisien untuk setiap fitur dan $b$ adalah intercept (bias). Nilai koefisien positif berarti fitur tersebut meningkatkan peluang kelas 1, sedangkan nilai negatif menurunkannya. Kelebihan Logistic Regression adalah interpretabilitasnya yang tinggi dan kecepatannya pada dataset besar, namun ia terbatas pada batas keputusan linier.
 
 \subsection{K-Nearest Neighbors (KNN)}
-K-Nearest Neighbors mengklasifikasikan suatu data baru berdasarkan mayoritas kelas dari $k$ tetangga terdekatnya. Kedekatan dihitung menggunakan metrik jarak seperti \textit{Euclidean distance}. Algoritma ini bersifat \textit{non-parametric} dan \textit{lazy learner}: tidak ada fase pelatihan eksplisit selain menyimpan data latih, sehingga prediksi baru dilakukan dengan menghitung jarak ke seluruh sampel latih \cite{sklearn-knn,han2022}.
+K-Nearest Neighbors mengklasifikasikan suatu data baru berdasarkan mayoritas kelas dari $k$ tetangga terdekatnya. Kedekatan dihitung menggunakan metrik jarak seperti \textit{Euclidean distance}. Algoritma ini bersifat \textit{non-parametric} dan \textit{lazy learner}: tidak ada fase pelatihan eksplisit selain menyimpan data latih, sehingga prediksi baru dilakukan dengan menghitung jarak ke seluruh sampel latih \cite{sklearn-knn,han2022,itbox-algoritma}.
 
 \begin{figure}[H]
     \centering
@@ -235,7 +235,7 @@ Pemilihan nilai $k$ sangat krusial: $k$ yang terlalu kecil sensitif terhadap noi
 \end{figure}
 
 \subsection{Decision Tree}
-Decision Tree bekerja dengan cara membagi dataset secara rekursif berdasarkan fitur yang memberikan informasi terbaik. Proses pemilihan fitur dilakukan menggunakan ukuran seperti \textit{Gini impurity} atau \textit{entropy/information gain}. Struktur pohon terdiri dari \textit{root node}, \textit{internal node} (uji atribut), dan \textit{leaf node} (prediksi kelas). Kelebihannya adalah interpretasi yang mudah dan kemampuannya menangani fitur kategorikal maupun numerik, tetapi mudah mengalami \textit{overfitting} tanpa pengaturan parameter seperti \texttt{max\_depth} atau pruning \cite{sklearn-tree,han2022}.
+Decision Tree bekerja dengan cara membagi dataset secara rekursif berdasarkan fitur yang memberikan informasi terbaik. Proses pemilihan fitur dilakukan menggunakan ukuran seperti \textit{Gini impurity} atau \textit{entropy/information gain}. Struktur pohon terdiri dari \textit{root node}, \textit{internal node} (uji atribut), dan \textit{leaf node} (prediksi kelas). Kelebihannya adalah interpretasi yang mudah dan kemampuannya menangani fitur kategorikal maupun numerik, tetapi mudah mengalami \textit{overfitting} tanpa pengaturan parameter seperti \texttt{max\_depth} atau pruning \cite{sklearn-tree,han2022,digitalskola-preprocessing}.
 
 \begin{figure}[H]
     \centering
@@ -340,7 +340,7 @@ Performa model dapat dipengaruhi oleh distribusi kelas, biaya kesalahan klasifik
     \label{fig:holdout}
 \end{figure}
 
-\textbf{Cross Validation:} Data dipartisi menjadi $k$ subset yang saling lepas. Pada $k$-fold cross validation, model dilatih pada $k-1$ partisi dan diuji pada 1 partisi yang tersisa, diulang sebanyak $k$ kali. Hasil akhir adalah rata-rata performa dari $k$ iterasi. Pada \textit{stratified} $k$-fold, setiap fold mempertahankan proporsi kelas yang sama dengan dataset asli, sehingga evaluasi lebih representatif untuk dataset yang imbalanced \cite{sklearn-cross-validation}.
+\textbf{Cross Validation:} Data dipartisi menjadi $k$ subset yang saling lepas. Pada $k$-fold cross validation, model dilatih pada $k-1$ partisi dan diuji pada 1 partisi yang tersisa, diulang sebanyak $k$ kali. Hasil akhir adalah rata-rata performa dari $k$ iterasi. Pada \textit{stratified} $k$-fold, setiap fold mempertahankan proporsi kelas yang sama dengan dataset asli, sehingga evaluasi lebih representatif untuk dataset yang imbalanced \cite{sklearn-cross-validation,dicoding-workflow,digitalskola-preprocessing}.
 
 \begin{figure}[H]
     \centering
@@ -354,7 +354,7 @@ Performa model dapat dipengaruhi oleh distribusi kelas, biaya kesalahan klasifik
 \chapter[\tocboldsection{Hasil dan Pembahasan}]{Hasil dan Pembahasan}
 
 \section{Percobaan Latihan Praktikum}
-Pada bagian ini saya mendokumentasikan percobaan klasifikasi sesuai langkah pada Modul Pertemuan 3. Dataset yang digunakan adalah \textit{Stroke Prediction Dataset} dari Kaggle (\url{https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset}) yang juga tersedia di GitHub \texttt{ganjar87/data\_science\_practice}. Setiap langkah disertai kode yang saya jalankan di Google Colaboratory beserta screenshot hasil eksekusinya. Notebook yang saya gunakan dapat diakses melalui tautan Google Colab berikut: \url{https://colab.research.google.com/drive/placeholder-pertemuan-3?usp=sharing}.
+Pada bagian ini saya mendokumentasikan percobaan klasifikasi sesuai langkah pada Modul Pertemuan 3. Dataset yang digunakan adalah \textit{Stroke Prediction Dataset} dari Kaggle (\url{https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset}) yang juga tersedia di GitHub \texttt{ganjar87/data\_science\_practice}. Setiap langkah disertai kode yang saya jalankan di Google Colaboratory beserta screenshot hasil eksekusinya. Notebook yang saya gunakan dapat diakses melalui tautan Google Colab berikut: \url{https://colab.research.google.com/drive/1u5hrJQDwnOMdlWAobI8k7-zzQ_X5HPU0?usp=sharing}.
 
 \subsection{Persiapan dan Impor Pustaka}
 Saya menyiapkan lingkungan Python dan mengimpor pustaka yang dibutuhkan untuk manipulasi data, visualisasi, dan pemodelan klasifikasi.
@@ -1008,6 +1008,14 @@ Dengan demikian, praktikum ini memberikan dasar yang penting bagi saya untuk mem
     \bibitem{kaggle-stroke} F. Soriano, ``Stroke Prediction Dataset.'' Kaggle, 2021. [Online]. Tersedia: \url{https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset}.
 
     \bibitem{ibm-classification} IBM, ``What is Classification in Machine Learning?'' [Online]. Tersedia: \url{https://www.ibm.com/think/topics/classification}.
+
+    \bibitem{dicoding-workflow} Dicoding Indonesia, ``Machine Learning Workflow: Di Balik Model AI yang Sukses,'' 23 Oktober 2024. [Online]. Tersedia: \url{https://www.dicoding.com/blog/machine-learning-workflow-langkah-langkah-praktis-untuk-membangun-model-ai/}.
+
+    \bibitem{trivusi-aimldl} Trivusi, ``Apa Bedanya Artificial Intelligence, Machine Learning, dan Deep Learning?'' 13 Maret 2022. [Online]. Tersedia: \url{https://www.trivusi.web.id/2022/03/perbedaan-ai-ml-dl.html}.
+
+    \bibitem{itbox-algoritma} ITBOX, ``Algoritma Machine Learning: Pengertian, Penerapan, dan Contohnya,'' 23 Februari 2024. [Online]. Tersedia: \url{https://itbox.id/blog/algoritma-machine-learning-pengertian-penerapan-dan-contohnya/}.
+
+    \bibitem{digitalskola-preprocessing} Digital Skola, ``Data Preprocessing: Definisi, Tahapan, dan Implementasinya.'' [Online]. Tersedia: \url{https://digitalskola.com/blog/data-science/data-preprocessing}.
 
 \end{thebibliography}
 
