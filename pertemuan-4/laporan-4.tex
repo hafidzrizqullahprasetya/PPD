@@ -319,7 +319,7 @@ Saya memuat dataset KC House yang berisi 21.613 baris dengan 21 kolom, meliputi 
 
 \begin{lstlisting}[style=pythonstyle,caption={Memuat dataset KC House.}]
 df = pd.read_csv('https://raw.githubusercontent.com/ganjar87/data_science_practice/main/kc_house_data.csv')
-print(df.shape)  # (21613, 21)
+print(df.shape)
 df.head()
 \end{lstlisting}
 
@@ -361,7 +361,6 @@ display(df.describe())
 Saya memplot histogram untuk melihat distribusi tiap variabel numerik. Histogram \texttt{price} sangat condong ke kanan (\textit{right-skewed}) dengan banyak outlier di nilai tinggi, sementara \texttt{bedrooms} dan \texttt{bathrooms} menunjukkan distribusi diskrit yang terkonsentrasi pada nilai-nilai kecil.
 
 \begin{lstlisting}[style=pythonstyle,caption={Kode untuk menampilkan histogram.}]
-# check histogram for continuous columns
 df.hist(figsize=(10,10))
 plt.tight_layout()
 plt.show()
@@ -385,7 +384,6 @@ plt.show()
 Saya mengecek matriks korelasi Pearson antar variabel numerik. Korelasi positif terkuat dengan \texttt{price} adalah \texttt{sqft\_living} (0,70), \texttt{grade} (0,67), dan \texttt{sqft\_above} (0,61): semakin luas dan semakin tinggi grade rumah, semakin tinggi harganya.
 
 \begin{lstlisting}[style=pythonstyle,caption={Korelasi atribut numerik.}]
-# check correlation coef
 display(df.corr(numeric_only=True))
 \end{lstlisting}
 
@@ -519,8 +517,7 @@ data1 = pd.Series(y_test[:50].ravel())
 data2 = pd.Series(y_pred[:50].ravel())
 
 df_new = pd.concat([data1, data2], keys=['real values', 'predicted values'], axis=1)
-# df_new.plot.bar() # bisa pakai cara 1
-df_new.plot(kind='bar', figsize=(15,3)) # bisa pakai cara 2
+df_new.plot(kind='bar', figsize=(15,3))
 
 plt.title("Linear regression")
 plt.xlabel('Sample i')
@@ -789,7 +786,7 @@ Berdasarkan eksplorasi awal dataset, atribut dapat didefinisikan sebagai berikut
 \begin{table}[H]
 \centering
 \small
-\begin{tabular}{|l|p{9cm}|}
+\begin{tabular}{|p{5.5cm}|p{7.5cm}|}
 \hline
 \textbf{Atribut} & \textbf{Penjelasan} \\
 \hline
@@ -802,9 +799,13 @@ Berdasarkan eksplorasi awal dataset, atribut dapat didefinisikan sebagai berikut
 \texttt{carbody} & Bentuk bodi (sedan/hatchback/wagon/dsb). \\
 \texttt{drivewheel} & Penggerak roda (fwd/rwd/4wd). \\
 \texttt{enginelocation} & Posisi mesin (front/rear). \\
-\texttt{wheelbase}, \texttt{carlength}, \texttt{carwidth}, \texttt{carheight}, \texttt{curbweight} & Dimensi dan bobot mobil. \\
-\texttt{enginetype}, \texttt{cylindernumber}, \texttt{enginesize}, \texttt{fuelsystem} & Spesifikasi mesin dan sistem bahan bakar. \\
-\texttt{boreratio}, \texttt{stroke}, \texttt{compressionratio}, \texttt{horsepower}, \texttt{peakrpm} & Parameter performa mesin. \\
+\texttt{wheelbase} & Jarak antar sumbu roda. \\
+\texttt{carlength}, \texttt{carwidth}, \texttt{carheight} & Dimensi panjang, lebar, dan tinggi mobil. \\
+\texttt{curbweight} & Berat mobil tanpa muatan. \\
+\texttt{enginetype}, \texttt{cylindernumber} & Tipe mesin dan jumlah silinder. \\
+\texttt{enginesize}, \texttt{fuelsystem} & Kapasitas mesin dan sistem bahan bakar. \\
+\texttt{boreratio}, \texttt{stroke} & Diameter dan langkah piston. \\
+\texttt{compressionratio}, \texttt{horsepower}, \texttt{peakrpm} & Kompresi, tenaga puncak, dan putaran maksimum mesin. \\
 \texttt{citympg}, \texttt{highwaympg} & Konsumsi BBM dalam kota dan jalan tol. \\
 \texttt{price} & Target: harga mobil (kontinu). \\
 \hline
@@ -817,13 +818,13 @@ Berdasarkan eksplorasi awal dataset, atribut dapat didefinisikan sebagai berikut
 Saya memuat dataset dari mirror GitHub dan melakukan EDA singkat: memeriksa head, info, deskripsi statistik, dan korelasi. Tidak ada missing value di seluruh kolom. Korelasi tertinggi dengan \texttt{price} adalah \texttt{enginesize} (0,87), \texttt{curbweight} (0,84), dan \texttt{horsepower} (0,81) --- spesifikasi mesin dan bobot paling menentukan harga mobil.
 
 \begin{lstlisting}[style=pythonstyle,caption={Memuat dan memeriksa dataset Car.}]
-car_url = 'https://raw.githubusercontent.com/SampattKumar/Linear-Regression-Car-Dataset/master/CarPrice_Assignment.csv' # mirror GitHub dari Kaggle
+car_url = 'https://raw.githubusercontent.com/SampattKumar/Linear-Regression-Car-Dataset/master/CarPrice_Assignment.csv'
 car_df = pd.read_csv(car_url)
-print(car_df.shape)  # (205, 26)
+print(car_df.shape)
 print(car_df.head())
 print(car_df.info())
 print(car_df.describe())
-print(car_df.isnull().sum())  # 0 missing di semua kolom
+print(car_df.isnull().sum())
 print(car_df.corr(numeric_only=True)['price'].drop('price').sort_values(ascending=False).head(6))
 \end{lstlisting}
 
@@ -848,7 +849,7 @@ from sklearn.preprocessing import StandardScaler
 
 car2 = car_df.drop(['car_ID', 'CarName'], axis=1)
 X_car = pd.get_dummies(car2.drop(['price'], axis=1), drop_first=True).astype(int)
-y_car = car2['price'].astype(float).values  # hasil: (205, 43) fitur numerik
+y_car = car2['price'].astype(float).values
 print('X_car shape:', X_car.shape)
 
 X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(X_car.values, y_car, test_size=0.3, random_state=42)
