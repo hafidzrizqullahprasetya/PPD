@@ -281,7 +281,7 @@ Performa model dapat dipengaruhi oleh ukuran data latih dan uji. Teknik validasi
 \chapter[\tocboldsection{Hasil dan Pembahasan}]{Hasil dan Pembahasan}
 
 \section{Percobaan Latihan Praktikum}
-Pada bagian ini saya mendokumentasikan percobaan regresi sesuai langkah pada Modul Pertemuan 4. Dataset yang digunakan adalah \textit{KC House Data} dari Kaggle~\cite{kaggle-kc} (\url{https://www.kaggle.com/datasets/shivachandel/kc-house-data}) yang juga tersedia di GitHub \texttt{ganjar87/data\_science\_practice}. Dataset ini berisi data penjualan rumah di King County (termasuk Seattle, AS) dari Mei 2014 sampai Mei 2015. Setiap langkah disertai kode yang saya jalankan di Google Colaboratory beserta screenshot hasil eksekusinya. Notebook yang saya gunakan adalah \texttt{praktikum-4-regression.ipynb} pada repositori PPD, yang siap diimpor ke Google Colaboratory melalui \texttt{colab.research.google.com/github}.
+Pada bagian ini saya mendokumentasikan percobaan regresi sesuai langkah pada Modul Pertemuan 4. Dataset yang digunakan adalah \textit{KC House Data} dari Kaggle~\cite{kaggle-kc} (\url{https://www.kaggle.com/datasets/shivachandel/kc-house-data}) yang juga tersedia di GitHub \texttt{ganjar87/data\_science\_practice}. Dataset ini berisi data penjualan rumah di King County (termasuk Seattle, AS) dari Mei 2014 sampai Mei 2015. Setiap langkah disertai kode yang saya jalankan di Google Colaboratory beserta screenshot hasil eksekusinya. Notebook yang saya gunakan dapat diakses melalui tautan Google Colab berikut: \url{https://colab.research.google.com/drive/17jU11pvunjtHV_Ve04KyfYFfoERYGoPS?usp=sharing}.
 
 \subsection{Alat dan Bahan}
 Sesuai Modul 4.3, alat dan bahan yang saya gunakan adalah:
@@ -577,7 +577,7 @@ print(y_test[0:10])
 \label{fig:ss16-dtcode}
 \end{figure}
 
-Hasilnya R\textsuperscript{2} training 0,9185 berbanding testing 0,7636: selisihnya cukup besar, yang menandakan pohon mulai overfitting meski kedalamannya sudah dibatasi.
+Hasilnya R\textsuperscript{2} training 0,9185 berbanding testing 0,7743: selisihnya cukup besar, yang menandakan pohon mulai overfitting meski kedalamannya sudah dibatasi.
 
 \begin{figure}[H]
 \centering
@@ -608,7 +608,7 @@ print('r2:', r2)
 \label{fig:ss18-dtevalcode}
 \end{figure}
 
-Hasilnya RMSE 184.751,00 dan R\textsuperscript{2} 0,7636: lebih baik dari Linear Regression karena struktur pohon mampu menangkap pola non-linear pada data.
+Hasilnya RMSE 180.524,26 dan R\textsuperscript{2} 0,7743: lebih baik dari Linear Regression karena struktur pohon mampu menangkap pola non-linear pada data.
 
 \begin{figure}[H]
 \centering
@@ -684,7 +684,7 @@ print(y_test[0:10])
 \label{fig:ss22-rfcode}
 \end{figure}
 
-Hasilnya R\textsuperscript{2} training 0,9821 berbanding testing 0,8572. Nilai training yang tinggi wajar untuk ensemble; yang lebih penting, skor testingnya tetap tertinggi di antara ketiga model sehingga generalisasinya paling baik.
+Hasilnya R\textsuperscript{2} training 0,9820 berbanding testing 0,8557. Nilai training yang tinggi wajar untuk ensemble; yang lebih penting, skor testingnya tetap tertinggi di antara ketiga model sehingga generalisasinya paling baik.
 
 \begin{figure}[H]
 \centering
@@ -713,7 +713,7 @@ print('r2:', r2)
 \label{fig:ss24-rfevalcode}
 \end{figure}
 
-Hasilnya RMSE 143.577,64 dan R\textsuperscript{2} 0,8572: RMSE terendah dan R\textsuperscript{2} tertinggi di antara ketiga model, membuktikan keunggulan metode ensemble dalam menangkap pola data yang kompleks.
+Hasilnya RMSE 144.338,94 dan R\textsuperscript{2} 0,8557: RMSE terendah dan R\textsuperscript{2} tertinggi di antara ketiga model, membuktikan keunggulan metode ensemble dalam menangkap pola data yang kompleks.
 
 \begin{figure}[H]
 \centering
@@ -760,18 +760,18 @@ Ringkasan hasil eksperimen ketiga model pada dataset KC House (verifikasi lokal 
 \small
 \begin{tabular}{lccc}
 \toprule
-\textbf{Model} & \textbf{RMSE} & \textbf{R2} & \textbf{R} \\
+\textbf{Model} & \textbf{RMSE} & \textbf{R2} \\
 \midrule
-Linear Regression & 208296.73 & 0.6995 & 0.8365 \\
-Decision Tree (max\_depth=10) & 184751.00 & 0.7636 & 0.8727 \\
-Random Forest & 143577.64 & 0.8572 & 0.9243 \\
+Linear Regression & 208296.73 & 0.6995 \\
+Decision Tree (max\_depth=10) & 180524.26 & 0.7743 \\
+Random Forest & 144338.94 & 0.8557 \\
 \bottomrule
 \end{tabular}
-\caption{Perbandingan performa tiga model regresi pada dataset KC House.}
+\caption{Perbandingan performa tiga model regresi pada dataset KC House (output Google Colab).}
 \label{tab:performa-kc}
 \end{table}
 
-Urutannya konsisten: Random Forest terbaik di semua metrik, Decision Tree di tengah, dan Linear Regression paling rendah. Wajar saja, karena hubungan harga rumah terhadap fiturnya banyak yang non-linear (interaksi luas, grade, lokasi), sehingga model pohon yang fleksibel mengungguli garis linier. Selisih R\textsuperscript{2} training dan testing juga menarik untuk dicermati: Linear Regression hampir tidak overfitting (0,6995 vs 0,6995), sedangkan Decision Tree (0,9185 vs 0,7586) dan Random Forest (0,9821 vs 0,8572) menunjukkan gap yang wajar untuk model berkapasitas besar.
+Urutannya konsisten: Random Forest terbaik di semua metrik, Decision Tree di tengah, dan Linear Regression paling rendah. Wajar saja, karena hubungan harga rumah terhadap fiturnya banyak yang non-linear (interaksi luas, grade, lokasi), sehingga model pohon yang fleksibel mengungguli garis linier. Selisih R\textsuperscript{2} training dan testing juga menarik untuk dicermati: Linear Regression hampir tidak overfitting (0,6995 vs 0,6995), sedangkan Decision Tree (0,9185 vs 0,7743) dan Random Forest (0,9820 vs 0,8557) menunjukkan gap yang wajar untuk model berkapasitas besar.
 
 \subsection{Tugas dan Analisis: Car Price Prediction}
 Sesuai Modul 4.5, saya mengerjakan tugas tambahan menggunakan dataset \textit{Car Price Prediction} (\url{https://www.kaggle.com/datasets/hellbuoy/car-price-prediction/data}).
@@ -978,7 +978,7 @@ Random Forest & 1984.06 & 0.9432 & 0.9720 \\
 \subsubsection{Analisis Model Terbaik}
 Berdasarkan eksperimen pada dataset Car (Tabel~\ref{tab:performa-car}), model \textbf{Random Forest} menunjukkan performa terbaik secara keseluruhan dengan RMSE terendah 1.984,06, R2 tertinggi 0,9432, dan korelasi R tertinggi 0,9720. Keunggulan ini konsisten dengan karakteristik ensemble yang merata-ratakan banyak pohon sehingga meredam variansi pohon tunggal dan menangkap interaksi non-linear antar spesifikasi mobil. Decision Tree berada di posisi kedua (RMSE 2.822,67, R2 0,8850) dan Linear Regression ketiga (RMSE 2.854,60, R2 0,8824); selisih keduanya tipis karena hubungan harga mobil terhadap spesifikasi seperti \texttt{enginesize} dan \texttt{curbweight} memang cenderung linear, sehingga model sederhana sudah kompetitif, namun ensemble tetap menang dengan margin yang jelas.
 
-Pola yang sama terlihat pada percobaan KC House (Tabel~\ref{tab:performa-kc}): Random Forest terbaik (RMSE 143.577,64, R2 0,8572), diikuti Decision Tree (RMSE 184.751,00, R2 0,7636), dan Linear Regression terakhir (RMSE 208.296,73, R2 0,6995). Jadi pada kedua dataset, Random Forest menjadi pilihan terbaik dengan alasan yang sama: ensemble mampu menangkap pola kompleks tanpa mengorbankan generalisasi.
+Pola yang sama terlihat pada percobaan KC House (Tabel~\ref{tab:performa-kc}): Random Forest terbaik (RMSE 144.338,94, R2 0,8557), diikuti Decision Tree (RMSE 180.524,26, R2 0,7743), dan Linear Regression terakhir (RMSE 208.296,73, R2 0,6995). Jadi pada kedua dataset, Random Forest menjadi pilihan terbaik dengan alasan yang sama: ensemble mampu menangkap pola kompleks tanpa mengorbankan generalisasi.
 
 \clearpage
 
@@ -988,7 +988,7 @@ Berdasarkan praktikum yang telah saya lakukan pada Pertemuan 4, saya memahami be
     \item Regresi adalah teknik supervised learning untuk memprediksi target numerik yang kontinu. Saya telah memahami konsep dasarnya: model mempelajari fungsi matematis dari pasangan input--output berlabel untuk memprediksi nilai baru, berbeda dengan klasifikasi yang keluarannya label diskrit dan clustering yang tidak memakai label.
     \item Saya telah mempelajari prinsip kerja tiga algoritma regresi: Linear Regression (membangun garis/hyperplane terbaik dengan Least Squares yang meminimalkan SSE, cepat dan interpretable tetapi terbatas pada pola linear dan sensitif terhadap outlier), Decision Tree Regression (membagi data secara rekursif berdasarkan split yang meminimalkan MSE, efektif untuk pola non-linear tetapi rawan overfitting sehingga perlu \texttt{max\_depth} atau pruning), dan Random Forest Regression (ensemble bootstrap yang merata-ratakan banyak pohon sehingga stabil, akurat, dan memberi feature importance dengan biaya komputasi lebih besar).
     \item Saya berhasil menerapkan ketiga algoritma tersebut pada dataset KC House (21.613 baris, 21 kolom) dengan workflow yang benar: EDA (deskripsi statistik, histogram, korelasi, cek missing value, cek kategorikal), pemisahan fitur/target dengan membuang \texttt{id} dan \texttt{date}, konversi float, dan split 70:30 dengan \texttt{random\_state=42}.
-    \item Evaluasi model dengan RMSE, R\textsuperscript{2}, dan korelasi R menunjukkan hasil yang konsisten pada kedua dataset: pada KC House, Random Forest terbaik (RMSE 143.577,64, R2 0,8572, R 0,9243), diikuti Decision Tree (RMSE 184.751,00, R2 0,7636), dan Linear Regression (RMSE 208.296,73, R2 0,6995); pada tugas Car Price Prediction, Random Forest juga terbaik (RMSE 1.984,06, R2 0,9432, R 0,9720). Saya juga memahami mengapa accuracy/precision/recall tidak dipakai untuk regresi: metrik tersebut membutuhkan konsep benar/salah dari target diskrit, sedangkan prediksi regresi bersifat kontinu sehingga kualitasnya harus diukur dari besarnya error (RMSE) dan proporsi variansi yang dijelaskan (R\textsuperscript{2}).
+    \item Evaluasi model dengan RMSE, R\textsuperscript{2}, dan korelasi R menunjukkan hasil yang konsisten pada kedua dataset: pada KC House, Random Forest terbaik (RMSE 144.338,94, R2 0,8557), diikuti Decision Tree (RMSE 180.524,26, R2 0,7743), dan Linear Regression (RMSE 208.296,73, R2 0,6995); pada tugas Car Price Prediction, Random Forest juga terbaik (RMSE 1.984,06, R2 0,9432, R 0,9720). Saya juga memahami mengapa accuracy/precision/recall tidak dipakai untuk regresi: metrik tersebut membutuhkan konsep benar/salah dari target diskrit, sedangkan prediksi regresi bersifat kontinu sehingga kualitasnya harus diukur dari besarnya error (RMSE) dan proporsi variansi yang dijelaskan (R\textsuperscript{2}).
 \end{enumerate}
 Praktikum ini memberi saya dasar untuk memilih, melatih, dan mengevaluasi model regresi secara objektif, dengan mempertimbangkan RMSE, R\textsuperscript{2}, dan korelasi secara bersamaan alih-alih berhenti pada satu metrik.
 
