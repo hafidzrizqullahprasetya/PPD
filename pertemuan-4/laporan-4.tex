@@ -223,7 +223,7 @@ di mana $b_0$ adalah \textit{intercept} (nilai dasar ketika semua fitur nol), $b
     \label{fig:ols}
 \end{figure}
 
-Kelebihan Linear Regression adalah sangat cepat dan efisien untuk dataset besar, mudah dipahami dan dijelaskan (\textit{interpretable}), serta cocok untuk hubungan yang mendekati linear. Kekurangannya adalah kurang cocok untuk pola non-linear dan sensitif terhadap \textit{outlier}. Karena model memberi koefisien pada semua fitur termasuk yang daya prediksinya rendah, ia cenderung bersifat \textit{high-variance, low bias}, sehingga solusinya adalah regularisasi (Lasso, Ridge, Elastic Net) yang memberi penalti pada besarnya koefisien \cite{sklearn-linear,aws-linear}.
+Linear Regression cepat dan efisien untuk dataset besar, mudah dipahami dan dijelaskan (\textit{interpretable}), serta cocok untuk hubungan yang mendekati linear. Kekurangannya, model ini kurang cocok untuk pola non-linear dan sensitif terhadap \textit{outlier}. Karena model memberi koefisien pada semua fitur termasuk yang daya prediksinya rendah, ia cenderung bersifat \textit{high-variance, low bias}, sehingga solusinya adalah regularisasi (Lasso, Ridge, Elastic Net) yang memberi penalti pada besarnya koefisien \cite{sklearn-linear,aws-linear}.
 
 \begin{figure}[H]
     \centering
@@ -235,12 +235,12 @@ Kelebihan Linear Regression adalah sangat cepat dan efisien untuk dataset besar,
 \subsection{Decision Tree Regression}
 Decision Tree Regression bekerja dengan membangun struktur pohon keputusan sebagai representasi model. Algoritma ini membagi data menjadi beberapa subset berdasarkan titik \textit{split} yang dianggap paling optimal dalam mengurangi \textit{error}. Setiap pembagian \textit{node} dilakukan secara rekursif hingga mencapai \textit{leaf node} yang berisi nilai prediksi. Pemilihan \textit{split} biasanya dilakukan berdasarkan pengukuran \textit{error} seperti \textit{Mean Squared Error} (MSE), sehingga pemisahan data menghasilkan kelompok dengan variasi nilai target yang lebih homogen \cite{sklearn-tree,han2022,itbox-algoritma}.
 
-Decision Tree Regression sangat efektif untuk memodelkan hubungan non-linear karena struktur pohon memungkinkan model membuat batas keputusan yang kompleks. Selain itu, decision tree tidak memerlukan normalisasi atau \textit{scaling} data dan dapat menangani fitur numerik maupun kategorikal. Kelemahan utamanya adalah kecenderungan \textit{overfitting}, yaitu ketika model terlalu menyesuaikan diri dengan data \textit{training} sehingga performanya menurun pada data baru. Solusinya adalah pembatasan kedalaman pohon (\texttt{max\_depth}) atau \textit{pruning} (pemangkasan pohon) \cite{sklearn-tree}.
+Decision Tree Regression efektif untuk memodelkan hubungan non-linear karena struktur pohon memungkinkan model membuat batas keputusan yang kompleks. Decision tree juga tidak memerlukan normalisasi atau \textit{scaling} data dan dapat menangani fitur numerik maupun kategorikal. Kelemahan utamanya adalah kecenderungan \textit{overfitting}, yaitu ketika model terlalu menyesuaikan diri dengan data \textit{training} sehingga performanya menurun pada data baru. Solusinya adalah pembatasan kedalaman pohon (\texttt{max\_depth}) atau \textit{pruning} (pemangkasan pohon) \cite{sklearn-tree}.
 
 \subsection{Random Forest Regression}
 Random Forest Regression merupakan pengembangan dari Decision Tree yang menggunakan pendekatan \textit{ensemble learning}, yaitu membangun banyak pohon keputusan dan menggabungkan prediksinya. Setiap pohon dibangun menggunakan sampel data yang dipilih secara acak melalui \textit{bootstrap sampling}, serta subset fitur yang juga dipilih secara acak pada setiap pemisahan \textit{node}. Proses ini menciptakan berbagai variasi pohon yang kemudian memberikan hasil prediksi lebih stabil dan tidak mudah \textit{overfitting} dibanding \textit{tree} tunggal \cite{sklearn-ensemble,itbox-algoritma}.
 
-Prediksi akhir pada Random Forest diperoleh dari rata-rata hasil prediksi semua pohon (untuk kasus regresi; pada klasifikasi memakai voting mayoritas), sehingga model mampu menangkap pola kompleks tanpa mengorbankan akurasi. Selain itu, Random Forest menyediakan informasi mengenai \textit{feature importance}, yang menunjukkan fitur mana yang paling berpengaruh dalam proses prediksi. Hal ini membuat Random Forest menjadi salah satu algoritma regresi yang umum digunakan, terutama pada dataset yang besar dan memiliki banyak fitur, meski memerlukan sumber daya komputasi yang lebih besar \cite{sklearn-ensemble}.
+Prediksi akhir pada Random Forest diperoleh dari rata-rata hasil prediksi semua pohon (untuk kasus regresi; pada klasifikasi memakai voting mayoritas), sehingga model mampu menangkap pola kompleks tanpa mengorbankan akurasi. Random Forest juga menyediakan informasi \textit{feature importance} yang menunjukkan fitur mana yang paling berpengaruh dalam prediksi. Karena itu algoritma ini banyak dipakai pada dataset besar dengan banyak fitur, meski memerlukan sumber daya komputasi yang lebih besar \cite{sklearn-ensemble}.
 
 \section{Metrik Evaluasi Regression}
 Dalam \textit{machine learning} khususnya pada model regresi, diperlukan metrik evaluasi untuk menilai seberapa baik model mampu memprediksi nilai numerik dengan tepat. Evaluasi ini dilakukan dengan membandingkan hasil prediksi model terhadap nilai aktual menggunakan metrik khusus regresi \cite{sklearn-metrics}.
@@ -265,7 +265,7 @@ R^2 = 1 - \frac{SS_{res}}{SS_{tot}}
     \label{fig:r2}
 \end{figure}
 
-Nilai R\textsuperscript{2} yang semakin mendekati 1 menunjukkan bahwa model mampu menjelaskan proporsi variansi target dengan lebih baik. Sebaliknya, jika nilai R\textsuperscript{2} rendah, berarti model kurang mampu menangkap hubungan antara fitur dan target. Perlu dicatat bahwa R\textsuperscript{2} pada data \textit{training} dan \textit{testing} sebaiknya dibandingkan: selisih yang besar mengindikasikan \textit{overfitting} \cite{sklearn-metrics,han2022}.
+Nilai R\textsuperscript{2} yang semakin mendekati 1 menunjukkan bahwa model mampu menjelaskan proporsi variansi target dengan lebih baik. Sebaliknya, jika nilai R\textsuperscript{2} rendah, berarti model kurang mampu menangkap hubungan antara fitur dan target. R\textsuperscript{2} pada data \textit{training} dan \textit{testing} juga sebaiknya dibandingkan, karena selisih yang besar mengindikasikan \textit{overfitting} \cite{sklearn-metrics,han2022}.
 
 \subsection{Koefisien Korelasi Pearson (R)}
 Koefisien korelasi Pearson ($r$) mengukur kekuatan dan arah hubungan linier antara dua variabel, dalam hal ini antara nilai prediksi dan nilai sebenarnya. Nilainya berada pada rentang $-1$ hingga $1$: semakin dekat ke 1, semakin kuat hubungan linier positif antara prediksi dan aktual, yang berarti model semakin baik \cite{sklearn-metrics}.
@@ -509,7 +509,7 @@ Hasilnya RMSE sebesar 208.296,73 yang berarti rata-rata kesalahan prediksi model
 \label{fig:ss13-linevalres}
 \end{figure}
 
-Terakhir saya memvisualisasikan 50 sampel pertama dalam grafik batang untuk membandingkan nilai prediksi dan nilai sebenarnya. Pola batang prediksi secara umum mengikuti fluktuasi batang nilai sebenarnya, namun ada deviasi ketinggian pada beberapa titik yang merepresentasikan error prediksi.
+Terakhir saya memvisualisasikan 50 sampel pertama dalam grafik batang untuk membandingkan nilai prediksi dan nilai sebenarnya. Pola batang prediksi mengikuti fluktuasi batang nilai sebenarnya, meski ada deviasi ketinggian pada beberapa titik yang merepresentasikan error prediksi.
 
 \begin{lstlisting}[style=pythonstyle,caption={Kode visualisasi Linear Regression.}]
 import seaborn as sns
@@ -684,7 +684,7 @@ print(y_test[0:10])
 \label{fig:ss22-rfcode}
 \end{figure}
 
-Hasilnya R\textsuperscript{2} training 0,9821 berbanding testing 0,8572. Nilai training yang sangat tinggi wajar untuk ensemble, dan yang penting skor testingnya tetap yang tertinggi di antara ketiga model, artinya generalisasinya terbaik.
+Hasilnya R\textsuperscript{2} training 0,9821 berbanding testing 0,8572. Nilai training yang tinggi wajar untuk ensemble; yang lebih penting, skor testingnya tetap tertinggi di antara ketiga model sehingga generalisasinya paling baik.
 
 \begin{figure}[H]
 \centering
@@ -771,7 +771,7 @@ Random Forest & 143577.64 & 0.8572 & 0.9243 \\
 \label{tab:performa-kc}
 \end{table}
 
-Pola yang terlihat konsisten: Random Forest terbaik di semua metrik, Decision Tree di tengah, dan Linear Regression paling rendah. Hal ini wajar karena hubungan harga rumah terhadap fiturnya banyak yang non-linear (interaksi luas, grade, lokasi), sehingga model pohon yang fleksibel mengungguli garis linier. Selisih R\textsuperscript{2} training dan testing juga memberi pelajaran: Linear Regression hampir tidak overfitting (0,6995 vs 0,6995), sedangkan Decision Tree (0,9185 vs 0,7586) dan Random Forest (0,9821 vs 0,8572) menunjukkan gap yang wajar untuk model berkapasitas besar.
+Urutannya konsisten: Random Forest terbaik di semua metrik, Decision Tree di tengah, dan Linear Regression paling rendah. Wajar saja, karena hubungan harga rumah terhadap fiturnya banyak yang non-linear (interaksi luas, grade, lokasi), sehingga model pohon yang fleksibel mengungguli garis linier. Selisih R\textsuperscript{2} training dan testing juga menarik untuk dicermati: Linear Regression hampir tidak overfitting (0,6995 vs 0,6995), sedangkan Decision Tree (0,9185 vs 0,7586) dan Random Forest (0,9821 vs 0,8572) menunjukkan gap yang wajar untuk model berkapasitas besar.
 
 \subsection{Tugas dan Analisis: Car Price Prediction}
 Sesuai Modul 4.5, saya mengerjakan tugas tambahan menggunakan dataset \textit{Car Price Prediction} (\url{https://www.kaggle.com/datasets/hellbuoy/car-price-prediction/data}).
@@ -978,7 +978,7 @@ Random Forest & 1984.06 & 0.9432 & 0.9720 \\
 \subsubsection{Analisis Model Terbaik}
 Berdasarkan eksperimen pada dataset Car (Tabel~\ref{tab:performa-car}), model \textbf{Random Forest} menunjukkan performa terbaik secara keseluruhan dengan RMSE terendah 1.984,06, R2 tertinggi 0,9432, dan korelasi R tertinggi 0,9720. Keunggulan ini konsisten dengan karakteristik ensemble yang merata-ratakan banyak pohon sehingga meredam variansi pohon tunggal dan menangkap interaksi non-linear antar spesifikasi mobil. Decision Tree berada di posisi kedua (RMSE 2.822,67, R2 0,8850) dan Linear Regression ketiga (RMSE 2.854,60, R2 0,8824); selisih keduanya tipis karena hubungan harga mobil terhadap spesifikasi seperti \texttt{enginesize} dan \texttt{curbweight} memang cenderung linear, sehingga model sederhana sudah kompetitif, namun ensemble tetap menang dengan margin yang jelas.
 
-Pola yang sama terlihat pada percobaan KC House (Tabel~\ref{tab:performa-kc}): Random Forest terbaik (RMSE 143.577,64, R2 0,8572), diikuti Decision Tree (RMSE 184.751,00, R2 0,7636), dan Linear Regression terakhir (RMSE 208.296,73, R2 0,6995). Dengan demikian, pada kedua dataset, Random Forest adalah pilihan terbaik dengan alasan yang sama: kemampuan ensemble menangkap pola kompleks tanpa mengorbankan generalisasi.
+Pola yang sama terlihat pada percobaan KC House (Tabel~\ref{tab:performa-kc}): Random Forest terbaik (RMSE 143.577,64, R2 0,8572), diikuti Decision Tree (RMSE 184.751,00, R2 0,7636), dan Linear Regression terakhir (RMSE 208.296,73, R2 0,6995). Jadi pada kedua dataset, Random Forest menjadi pilihan terbaik dengan alasan yang sama: ensemble mampu menangkap pola kompleks tanpa mengorbankan generalisasi.
 
 \clearpage
 
@@ -990,7 +990,7 @@ Berdasarkan praktikum yang telah saya lakukan pada Pertemuan 4, saya memahami be
     \item Saya berhasil menerapkan ketiga algoritma tersebut pada dataset KC House (21.613 baris, 21 kolom) dengan workflow yang benar: EDA (deskripsi statistik, histogram, korelasi, cek missing value, cek kategorikal), pemisahan fitur/target dengan membuang \texttt{id} dan \texttt{date}, konversi float, dan split 70:30 dengan \texttt{random\_state=42}.
     \item Evaluasi model dengan RMSE, R\textsuperscript{2}, dan korelasi R menunjukkan hasil yang konsisten pada kedua dataset: pada KC House, Random Forest terbaik (RMSE 143.577,64, R2 0,8572, R 0,9243), diikuti Decision Tree (RMSE 184.751,00, R2 0,7636), dan Linear Regression (RMSE 208.296,73, R2 0,6995); pada tugas Car Price Prediction, Random Forest juga terbaik (RMSE 1.984,06, R2 0,9432, R 0,9720). Saya juga memahami mengapa accuracy/precision/recall tidak dipakai untuk regresi: metrik tersebut membutuhkan konsep benar/salah dari target diskrit, sedangkan prediksi regresi bersifat kontinu sehingga kualitasnya harus diukur dari besarnya error (RMSE) dan proporsi variansi yang dijelaskan (R\textsuperscript{2}).
 \end{enumerate}
-Dengan demikian, praktikum ini memberikan dasar yang penting bagi saya untuk memilih, melatih, dan mengevaluasi model regresi secara objektif, tidak hanya melihat satu metrik tetapi mempertimbangkan RMSE, R\textsuperscript{2}, dan korelasi secara bersamaan.
+Praktikum ini memberi saya dasar untuk memilih, melatih, dan mengevaluasi model regresi secara objektif, dengan mempertimbangkan RMSE, R\textsuperscript{2}, dan korelasi secara bersamaan alih-alih berhenti pada satu metrik.
 
 \clearpage
 \addcontentsline{toc}{chapter}{Daftar Pustaka}
