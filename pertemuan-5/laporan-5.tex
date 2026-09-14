@@ -190,7 +190,16 @@ Sesuai dengan Modul Pertemuan 5, tujuan pembelajaran pada praktikum ini adalah:
 \chapter{Dasar Teori}
 
 \section{Supervised Learning}
-\textit{Supervised learning} adalah teknik \textit{machine learning} yang melatih model memakai data berlabel. Sistem diberi pasangan masukan dan keluaran yang diinginkan, lalu mempelajari pola dari data tersebut untuk memprediksi nilai pada data baru. Algoritma yang termasuk di dalamnya antara lain Decision Tree, K-Nearest Neighbor, Naive Bayes, regresi, dan Support Vector Machine \cite{retnoningsih2020,santoso2021}. Karena pola yang dipelajari berasal dari contoh yang sudah diketahui jawabannya, kualitas prediksi bergantung pada seberapa representatif data latih yang diberikan.
+\textit{Supervised learning} adalah teknik \textit{machine learning} yang melatih model memakai data berlabel. Sistem diberi pasangan masukan dan keluaran yang diinginkan, lalu mempelajari pola dari data tersebut untuk memprediksi nilai pada data baru. Algoritma yang termasuk di dalamnya antara lain Decision Tree, K-Nearest Neighbor, Naive Bayes, regresi, dan Support Vector Machine \cite{retnoningsih2020,santoso2021}. Karena pola yang dipelajari berasal dari contoh yang sudah diketahui jawabannya, kualitas prediksi bergantung pada seberapa representatif data latih yang diberikan. Perbedaan kedua pendekatan ini ditunjukkan pada Gambar~\ref{fig:sup-unsup}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.7\textwidth]{images/teori-supervised.png}}
+\caption{Perbandingan \textit{supervised learning}
+ (data berlabel, ada acuan jawaban) dan \textit{unsupervised learning} (data tanpa label, mencari kelompok sendiri) \cite{wikipedia-supervised}.}
+\label{fig:sup-unsup}
+\end{figure}
+
 
 \section{Forecasting}
 \textit{Forecasting} adalah proses memperkirakan keadaan di masa depan dengan menguji pola pada data masa lalu \cite{vimala2022,hyndman2021}. Hasil ramalan membantu pengambilan keputusan, misalnya menentukan jumlah stok barang atau perencanaan kapasitas. Ramalan bisa bersifat kualitatif, seperti perkiraan bahwa besok cuaca cerah, atau kuantitatif berupa angka. Praktikum ini mengerjakan jenis yang kedua karena targetnya berupa nilai kontinu.
@@ -200,32 +209,113 @@ Peramalan deret waktu berbeda dari regresi biasa karena urutan waktu data tidak 
     \item \textbf{One-step forecast:} model memprediksi satu nilai untuk satu langkah waktu berikutnya.
     \item \textbf{Multi-step forecast:} model memprediksi beberapa langkah waktu sekaligus, misalnya dua hari ke depan seperti pada tugas praktikum ini.
 \end{itemize}
+Perbandingan kedua jenis peramalan ini tampak pada Gambar~\ref{fig:one-multi}, sedangkan komponen penyusun deret waktu ditunjukkan pada Gambar~\ref{fig:komponen-ts}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.6\textwidth]{images/teori-timeseries.png}}
+\caption{Komponen deret waktu: data mentah yang berfluktuasi, rata-rata bergerak sebagai penghalus, dan tren jangka panjang.}
+\label{fig:komponen-ts}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.9\textwidth]{images/teori-04-one-vs-multistep.png}}
+\caption{Perbandingan \textit{one-step forecast}
+ (satu langkah ke depan) dan \textit{multi-step forecast} (beberapa langkah sekaligus).}
+\label{fig:one-multi}
+\end{figure}
+
 
 \section{Sliding Window}
 Untuk mengubah deret waktu menjadi format \textit{supervised learning}, dipakai teknik \textit{sliding window}. Jendela berukuran tetap digeser satu langkah demi satu langkah sepanjang deret, sehingga setiap posisi menghasilkan satu pasangan masukan dan target \cite{wikipedia-sliding,hyndman2021}. Misalnya dengan ukuran jendela 7, nilai tujuh hari pertama menjadi masukan dan nilai hari ke-8 menjadi target, lalu jendela digeser satu hari untuk membentuk pasangan berikutnya.
 
-Pendekatan ini dipakai karena algoritma regresi pada umumnya menerima tabel fitur, bukan urutan. Setelah diubah, pola urutan waktu bisa dipelajari oleh model seperti Linear Regression, Decision Tree, maupun Random Forest.
+Pendekatan ini dipakai karena algoritma regresi pada umumnya menerima tabel fitur, bukan urutan. Setelah diubah, pola urutan waktu bisa dipelajari oleh model seperti Linear Regression, Decision Tree, maupun Random Forest. Cara kerja penggeseran jendela ini diilustrasikan pada Gambar~\ref{fig:sliding}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.95\textwidth]{images/teori-01-sliding-window.png}}
+\caption{Teknik \textit{sliding window}
+: jendela berisi tujuh nilai menjadi masukan, nilai hari ke-8 menjadi target, lalu jendela digeser satu hari untuk membentuk pasangan berikutnya.}
+\label{fig:sliding}
+\end{figure}
+
 
 \section{Feature Engineering: Fitur Statistik}
-Fitur statistik ditambahkan pada tiap jendela agar model mendapat gambaran distribusi data di dalamnya. Modul menyebut delapan fitur: nilai minimum, maksimum, selisih maksimum dan minimum, rata-rata, standar deviasi, median, kurtosis, dan skewness. Min, max, dan selisih menggambarkan rentang nilai; mean, median, dan standar deviasi menggambarkan pusat dan sebaran; sedangkan kurtosis dan skewness menggambarkan bentuk distribusi \cite{wikipedia-feature,scipy-kurtosis,scipy-skew}. Dengan tujuh nilai mentah ditambah delapan fitur statistik, satu sampel menjadi 15 fitur.
+Fitur statistik ditambahkan pada tiap jendela agar model mendapat gambaran distribusi data di dalamnya. Modul menyebut delapan fitur: nilai minimum, maksimum, selisih maksimum dan minimum, rata-rata, standar deviasi, median, kurtosis, dan skewness. Min, max, dan selisih menggambarkan rentang nilai; mean, median, dan standar deviasi menggambarkan pusat dan sebaran; sedangkan kurtosis dan skewness menggambarkan bentuk distribusi \cite{wikipedia-feature,scipy-kurtosis,scipy-skew}. Dengan tujuh nilai mentah ditambah delapan fitur statistik, satu sampel menjadi 15 fitur. Contoh perhitungan fitur-fitur ini pada satu jendela ditunjukkan pada Gambar~\ref{fig:fitur-stat}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.95\textwidth]{images/teori-03-fitur-statistik.png}}
+\caption{Fitur statistik pada satu jendela: minimum, maksimum, selisih, rata-rata, dan median tampak sebagai garis acuan terhadap deret harian. Standar deviasi, kurtosis, dan skewness juga dihitung sebagai angka, tetapi tidak digambar karena skalanya berbeda.}
+\label{fig:fitur-stat}
+\end{figure}
+
 
 \section{Algoritma Machine Learning}
 Modul memakai lima algoritma regresi. Linear Regression tidak dipakai di sini karena modul menyoroti lima model berikut.
 
 \subsection{Multilayer Perceptron (Neural Network)}
-MLPRegressor adalah jaringan saraf tiruan berlapis yang tersusun dari unit masukan, satu atau lebih lapisan tersembunyi, dan unit keluaran. Setiap koneksi punya bobot yang diperbarui lewat \textit{backpropagation} untuk menekan kesalahan prediksi \cite{sklearn-mlp,wikipedia-mlp}. Jaringan ini cukup lentur menangkap hubungan non-linear, tetapi hasilnya bisa berbeda tiap kali dijalankan bila \texttt{random\_state} tidak dikunci. Karena itu modul memakai \texttt{random\_state=42} agar hasilnya dapat direproduksi.
+MLPRegressor adalah jaringan saraf tiruan berlapis yang tersusun dari unit masukan, satu atau lebih lapisan tersembunyi, dan unit keluaran. Setiap koneksi punya bobot yang diperbarui lewat \textit{backpropagation} untuk menekan kesalahan prediksi \cite{sklearn-mlp,wikipedia-mlp}. Jaringan ini cukup lentur menangkap hubungan non-linear, tetapi hasilnya bisa berbeda tiap kali dijalankan bila \texttt{random\_state} tidak dikunci. Karena itu modul memakai \texttt{random\_state=42} agar hasilnya dapat direproduksi. Struktur jaringan yang dipakai tampak pada Gambar~\ref{fig:mlp}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.5\textwidth]{images/teori-mlp.png}}
+\caption{Arsitektur \textit{multilayer perceptron}: lapisan masukan, lapisan tersembunyi, dan lapisan keluaran yang terhubung penuh \cite{wikipedia-mlp}.}
+\label{fig:mlp}
+\end{figure}
+
 
 \subsection{K-Nearest Neighbors (KNN)}
-KNeighborsRegressor memprediksi nilai sebuah titik dengan merata-ratakan target dari $k$ tetangga terdekatnya \cite{sklearn-knn,wikipedia-knn}. Model ini tidak membangun persamaan saat pelatihan, seluruh data latih disimpan dan dibandingkan saat prediksi. Nilai $k$ bawaan adalah 5. Kelebihan KNN adalah kesederhanaannya, sedangkan kelemahannya ia sensitif terhadap skala fitur dan menjadi lambat ketika data latih membesar.
+KNeighborsRegressor memprediksi nilai sebuah titik dengan merata-ratakan target dari $k$ tetangga terdekatnya \cite{sklearn-knn,wikipedia-knn}. Model ini tidak membangun persamaan saat pelatihan, seluruh data latih disimpan dan dibandingkan saat prediksi. Nilai $k$ bawaan adalah 5. Kelebihan KNN adalah kesederhanaannya, sedangkan kelemahannya ia sensitif terhadap skala fitur dan menjadi lambat ketika data latih membesar. Ilustrasi cara kerja KNN ditunjukkan pada Gambar~\ref{fig:knn}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.55\textwidth]{images/teori-knn.png}}
+\caption{Konsep KNN: titik uji (tanda tanya) diklasifikasikan berdasarkan mayoritas $k$ tetangga terdekat, di mana nilai $k$ memengaruhi hasilnya \cite{wikipedia-knn}.}
+\label{fig:knn}
+\end{figure}
+
 
 \subsection{Decision Tree}
-DecisionTreeRegressor membagi data secara rekursif berdasarkan titik pemisah yang paling menurunkan kesalahan, biasanya diukur dengan \textit{Mean Squared Error}. Setiap daun berisi nilai prediksi berupa rata-rata target di dalamnya \cite{sklearn-tree,wikipedia-dt}. Pohon tunggal mudah dibaca, tetapi rawan \textit{overfitting} karena bisa tumbuh terlalu dalam mengikuti data latih.
+DecisionTreeRegressor membagi data secara rekursif berdasarkan titik pemisah yang paling menurunkan kesalahan, biasanya diukur dengan \textit{Mean Squared Error}. Setiap daun berisi nilai prediksi berupa rata-rata target di dalamnya \cite{sklearn-tree,wikipedia-dt}. Pohon tunggal mudah dibaca, tetapi rawan \textit{overfitting} karena bisa tumbuh terlalu dalam mengikuti data latih. Contoh pohon keputusan dan gejala \textit{overfitting} masing-masing tampak pada Gambar~\ref{fig:dt} dan Gambar~\ref{fig:overfit}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.7\textwidth]{images/teori-decision-tree.png}}
+\caption{Contoh pohon keputusan untuk memprediksi keputusan bermain berdasarkan atribut cuaca \cite{wikipedia-dt}.}
+\label{fig:dt}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.5\textwidth]{images/teori-overfitting.png}}
+\caption{Ilustrasi \textit{overfitting}: model terlalu mengikuti titik data latih sehingga kehilangan kemampuan generalisasi \cite{wikipedia-overfitting}.}
+\label{fig:overfit}
+\end{figure}
+
 
 \subsection{Support Vector Regression (SVR)}
-SVR mencari fungsi yang menyimpang paling jauh sebesar $\varepsilon$ dari target, sambil meminimalkan kompleksitas model \cite{sklearn-svr,wikipedia-svm}. Titik data yang berada di dalam batas $\varepsilon$ diabaikan dari fungsi biaya, sehingga SVR toleran terhadap derau kecil. Karena bekerja dengan jarak, fitur sebaiknya dinormalisasi lebih dulu agar tiap variabel memberi kontribusi seimbang.
+SVR mencari fungsi yang menyimpang paling jauh sebesar $\varepsilon$ dari target, sambil meminimalkan kompleksitas model \cite{sklearn-svr,wikipedia-svm}. Titik data yang berada di dalam batas $\varepsilon$ diabaikan dari fungsi biaya, sehingga SVR toleran terhadap derau kecil. Karena bekerja dengan jarak, fitur sebaiknya dinormalisasi lebih dulu agar tiap variabel memberi kontribusi seimbang. Konsep margin pada SVM ditunjukkan pada Gambar~\ref{fig:svr}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.5\textwidth]{images/teori-svr.png}}
+\caption{Konsep margin maksimum pada Support Vector: garis pemisah optimal dan \textit{support vector} yang menentukan posisinya \cite{wikipedia-svm}.}
+\label{fig:svr}
+\end{figure}
+
 
 \subsection{Random Forest}
-RandomForestRegressor membangun banyak pohon keputusan dari sampel \textit{bootstrap} dan subset fitur acak, lalu merata-ratakan prediksinya \cite{sklearn-ensemble,wikipedia-rf}. Cara ini meredam kelemahan pohon tunggal, sehingga hasilnya lebih stabil dan tidak mudah \textit{overfitting}. Harganya adalah waktu latih dan kebutuhan memori yang lebih besar.
+RandomForestRegressor membangun banyak pohon keputusan dari sampel \textit{bootstrap} dan subset fitur acak, lalu merata-ratakan prediksinya \cite{sklearn-ensemble,wikipedia-rf}. Cara ini meredam kelemahan pohon tunggal, sehingga hasilnya lebih stabil dan tidak mudah \textit{overfitting}. Harganya adalah waktu latih dan kebutuhan memori yang lebih besar. Skema penggabungan hasil antar pohon tampak pada Gambar~\ref{fig:rf}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.8\textwidth]{images/teori-random-forest.png}}
+\caption{Skema \textit{random forest}: beberapa pohon keputusan dibangun lalu hasilnya digabung melalui pemungutan suara atau rata-rata \cite{wikipedia-rf}.}
+\label{fig:rf}
+\end{figure}
+
 
 \section{Metrik Evaluasi}
 
@@ -241,18 +331,33 @@ Koefisien korelasi Pearson ($r$) mengukur kekuatan dan arah hubungan linear anta
 \begin{equation}
 r = \frac{\sum (y_{true,i} - \bar{y}_{true})(y_{pred,i} - \bar{y}_{pred})}{\sqrt{\sum (y_{true,i} - \bar{y}_{true})^2 \sum (y_{pred,i} - \bar{y}_{pred})^2}}
 \end{equation}
-RMSE dan Pearson saling melengkapi. RMSE menunjukkan besar kesalahan, sedangkan Pearson menunjukkan seberapa baik bentuk pola prediksi menyerupai pola aktual.
+RMSE dan Pearson saling melengkapi. RMSE menunjukkan besar kesalahan, sedangkan Pearson menunjukkan seberapa baik bentuk pola prediksi menyerupai pola aktual. Rentang nilai koefisien korelasi ini digambarkan pada Gambar~\ref{fig:pearson}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.95\textwidth]{images/teori-pearson.png}}
+\caption{Nilai koefisien korelasi Pearson dari 1 sampai $-1$: tanda menunjukkan arah hubungan, sedangkan besar nilainya menunjukkan kekuatan hubungan linear.}
+\label{fig:pearson}
+\end{figure}
+
 
 \section{Validasi dan Pencegahan Data Leakage}
-Data dibagi menjadi bagian latih dan bagian uji. Pada deret waktu, pembagian tidak boleh diacak karena akan membuat model "melihat" masa depan. Modul memakai \texttt{shuffle=False} pada \texttt{train\_test\_split} agar 80\% data awal menjadi latih dan 20\% data akhir menjadi uji \cite{sklearn-split}. Normalisasi juga di-\textit{fit} hanya pada data latih, lalu diterapkan ke data uji, supaya informasi dari data uji tidak bocor ke proses pelatihan \cite{sklearn-preprocessing}.
+Data dibagi menjadi bagian latih dan bagian uji. Pada deret waktu, pembagian tidak boleh diacak karena akan membuat model "melihat" masa depan. Modul memakai \texttt{shuffle=False} pada \texttt{train\_test\_split} agar 80\% data awal menjadi latih dan 20\% data akhir menjadi uji \cite{sklearn-split}. Normalisasi juga di-\textit{fit} hanya pada data latih, lalu diterapkan ke data uji, supaya informasi dari data uji tidak bocor ke proses pelatihan \cite{sklearn-preprocessing}. Skema pembagian data ini ditunjukkan pada Gambar~\ref{fig:split}.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=0.9\textwidth]{images/teori-02-split-kronologis.png}}
+\caption{Pembagian data kronologis dengan \texttt{shuffle=False}: 80\% data awal untuk latih dan 20\% data akhir untuk uji.}
+\label{fig:split}
+\end{figure}
+
 
 \clearpage
 
 \chapter[\tocboldsection{Hasil dan Pembahasan}]{Hasil dan Pembahasan}
 
 \section{Percobaan Latihan Praktikum}
-Bagian ini mendokumentasikan percobaan \textit{forecasting} sesuai langkah pada Modul Pertemuan 5. Dataset yang dipakai adalah \textit{Bike Sharing Dataset} \cite{kaggle-bike}, yang berisi catatan peminjaman sepeda harian beserta kondisi cuaca. Saya memuat data dari mirror GitHub \cite{bike-mirror} agar bisa langsung dibaca dengan \texttt{pd.read\_csv()} tanpa unduhan manual. Notebook yang saya gunakan tersedia pada repositori ini sebagai \texttt{praktikum-5-forecasting.ipynb}.
-% TODO: tambahkan tautan Google Colab bila notebook diunggah ke Colab
+Bagian ini mendokumentasikan percobaan \textit{forecasting} sesuai langkah pada Modul Pertemuan 5. Dataset yang dipakai adalah \textit{Bike Sharing Dataset} \cite{kaggle-bike}, yang berisi catatan peminjaman sepeda harian beserta kondisi cuaca. Saya memuat data dari mirror GitHub \cite{bike-mirror} agar bisa langsung dibaca dengan \texttt{pd.read\_csv()} tanpa unduhan manual. Notebook yang saya gunakan dapat dijalankan langsung melalui Google Colab pada tautan berikut: \url{https://colab.research.google.com/github/hafidzrizqullahprasetya/PPD/blob/main/pertemuan-5/praktikum-5-forecasting.ipynb} \cite{colab-notebook}, dan salinannya juga tersedia pada repositori ini sebagai \texttt{praktikum-5-forecasting.ipynb}.
 
 \subsection{Alat dan Bahan}
 Sesuai Modul 5.3, alat dan bahan yang saya gunakan adalah:
@@ -707,7 +812,7 @@ Berdasarkan praktikum yang telah saya lakukan pada Pertemuan 5, saya memahami be
 
     \bibitem{vimala2022} T. Vimala and S. Nugroho, ``Forecasting Penjualan Obat Menggunakan Metode Single, Double, dan Triple Exponential Smoothing (Studi Kasus: Apotek Mandiri Medika),'' \textit{Jurnal Penerapan Teknologi Informasi dan Komunikasi}, pp. 90--99, 2022.
 
-    \bibitem{hyndman2021} R. J. Hyndman and G. Athanasopoulos, \textit{Forecasting: Principles and Practice}, 3rd ed. Melbourne, Australia: OTexts, 2021. [Online]. Tersedia: \url{https://otexts.com/fpp3/}.
+    \bibitem{hyndman2021} R. J. Hyndman and G. Athanasopoulos, \textit{Forecasting: Principles and Practice}, 3rd ed. Melbourne, Australia: OTexts, 2021. [Online]. Tersedia: \url{https://web.archive.org/web/2024/https://otexts.com/fpp3/}.
 
     \bibitem{chai2014} T. Chai and R. R. Draxler, ``Root mean square error (RMSE) or mean absolute error (MAE)? Arguments against avoiding RMSE in the literature,'' \textit{Geoscientific Model Development}, vol. 7, no. 3, pp. 1247--1250, 2014. [Online]. Tersedia: \url{https://doi.org/10.5194/gmd-7-1247-2014}.
 
@@ -759,6 +864,14 @@ Berdasarkan praktikum yang telah saya lakukan pada Pertemuan 5, saya memahami be
 
     \bibitem{wikipedia-feature} Wikipedia, ``Feature engineering.'' [Online]. Tersedia: \url{https://en.wikipedia.org/wiki/Feature_engineering}.
 
+    \bibitem{wikipedia-supervised} Wikimedia Commons, ``Supervised and unsupervised learning.'' [Online]. Tersedia: \url{https://commons.wikimedia.org/wiki/File:Supervised_and_unsupervised_learning.png}.
+
+    \bibitem{wikipedia-timeseries} Wikipedia, ``Time series.'' [Online]. Tersedia: \url{https://en.wikipedia.org/wiki/Time_series}.
+
+    \bibitem{wikipedia-overfitting} Wikimedia Commons, ``Overfitting.'' [Online]. Tersedia: \url{https://commons.wikimedia.org/wiki/File:Overfitting.svg}.
+
+    \bibitem{colab-notebook} H. R. Prasetya, ``Praktikum 5: Forecasting (notebook).'' Google Colab. [Online]. Tersedia: \url{https://colab.research.google.com/github/hafidzrizqullahprasetya/PPD/blob/main/pertemuan-5/praktikum-5-forecasting.ipynb}.
+
     \bibitem{kaggle-bike} L. N. Pathi, ``Bike Sharing Dataset.'' Kaggle. [Online]. Tersedia: \url{https://www.kaggle.com/datasets/lakshmi25npathi/bikesharing-dataset}.
 
     \bibitem{kaggle-tesla} Timoboz, ``Tesla Stock Data from 2010 to 2020.'' Kaggle. [Online]. Tersedia: \url{https://www.kaggle.com/datasets/timoboz/tesla-stock-data-from-2010-to-2020}.
@@ -769,4 +882,5 @@ Berdasarkan praktikum yang telah saya lakukan pada Pertemuan 5, saya memahami be
 
 \end{thebibliography}
 
-\end{document}
+\end{document}}
+\label{fig:knn}
