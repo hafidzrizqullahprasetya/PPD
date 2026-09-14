@@ -285,7 +285,7 @@ from sklearn.preprocessing import StandardScaler
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.95\textwidth]{images/fig-01-import.png}}
+\customfbox{\includegraphics[width=0.95\textwidth]{images/t01-import.png}}
 \caption{Blok impor pustaka yang dipakai sepanjang praktikum.}
 \label{fig:import}
 \end{figure}
@@ -340,7 +340,7 @@ df.head()
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.98\textwidth]{images/fig-02-bike-head.png}}
+\customfbox{\includegraphics[width=0.98\textwidth]{images/t02-bike-head.png}}
 \caption{Lima baris pertama dataset bike sharing: kolom \texttt{instant}, \texttt{dteday}, \texttt{season}, hingga \texttt{cnt}.}
 \label{fig:bike-head}
 \end{figure}
@@ -355,7 +355,7 @@ df_ori['cnt'].iloc[:10]
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.55\textwidth]{images/fig-03-bike-cnt.png}}
+\customfbox{\includegraphics[width=0.55\textwidth]{images/t14-cnt.png}}
 \caption{Sepuluh nilai pertama kolom target \texttt{cnt}: 985, 801, 1349, 1562, 1600, 1606, 1510, 959, 822, dan 1321.}
 \label{fig:bike-cnt}
 \end{figure}
@@ -382,14 +382,14 @@ X_test = stats_features(X_test)
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.6\textwidth]{images/fig-04-window.png}}
+\customfbox{\includegraphics[width=0.6\textwidth]{images/t13-window.png}}
 \caption{Hasil pembentukan jendela: 724 sampel dengan tujuh nilai masukan. Sampel pertama berisi tujuh hari awal, targetnya 959,0 pada hari ke-8.}
 \label{fig:window}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.6\textwidth]{images/fig-05-preprocess.png}}
+\customfbox{\includegraphics[width=0.6\textwidth]{images/t12-preprocess.png}}
 \caption{Bentuk data setelah fitur statistik ditambahkan: 579 sampel latih dan 145 sampel uji, masing-masing dengan 15 fitur.}
 \label{fig:preprocess}
 \end{figure}
@@ -409,7 +409,7 @@ plt.show()
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.98\textwidth]{images/plot-01-timeseries-cnt.png}}
+\customfbox{\includegraphics[width=0.98\textwidth]{images/t03-timeseries.png}}
 \caption{Deret waktu jumlah peminjaman sepeda harian sepanjang 2011 sampai 2012. Terlihat pola musiman naik-turun dan tren yang menguat pada tahun kedua.}
 \label{fig:ts-bike}
 \end{figure}
@@ -452,14 +452,14 @@ plt.show()
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.98\textwidth]{images/plot-02-aktual-vs-mlp.png}}
+\customfbox{\includegraphics[width=0.98\textwidth]{images/t04-aktual-mlp.png}}
 \caption{Nilai aktual (biru) dibandingkan prediksi MLP (oranye) pada data uji. Kedua garis mengikuti pola yang mirip, meski prediksi tampak lebih halus dan melewatkan sebagian puncak.}
 \label{fig:aktual-mlp}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.98\textwidth]{images/plot-03-semua-model.png}}
+\customfbox{\includegraphics[width=0.98\textwidth]{images/t05-4model.png}}
 \caption{Perbandingan empat model pada 100 sampel pertama. MLP paling rapat mengikuti data aktual, sedangkan Decision Tree terlihat paling jauh dari pola.}
 \label{fig:semua-model}
 \end{figure}
@@ -485,7 +485,7 @@ for name, rmse, corr in [
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.6\textwidth]{images/fig-06-eval-bike.png}}
+\customfbox{\includegraphics[width=0.6\textwidth]{images/t06-eval-bike.png}}
 \caption{Hasil evaluasi kelima model pada dataset bike sharing.}
 \label{fig:eval-bike}
 \end{figure}
@@ -519,6 +519,13 @@ rmse_naive = sqrt(mean_squared_error(y_test, last_value[-len(y_test):]))
 print('naive RMSE: %.3f' % rmse_naive)
 \end{lstlisting}
 
+\begin{figure}[H]
+\centering
+\customfbox{\includegraphics[width=0.9\textwidth]{images/t07-naive.png}}
+\caption{Output perhitungan RMSE baseline naif pada notebook.}
+\label{fig:naive}
+\end{figure}
+
 Baseline naif menghasilkan RMSE 1290,766. MLP (1190,549) dan Random Forest (1324,452) berada di sekitar angka itu. Artinya untuk data peminjaman sepeda yang berfluktuasi harian, sebagian besar nilai prediksi yang wajar bisa didapat hanya dengan mengulang nilai terakhir. Keunggulan MLP di sini nyata, tetapi tidak besar, dan patut dibaca dengan hati-hati.
 
 \clearpage
@@ -538,7 +545,7 @@ ts.head()
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/fig-07-tesla-head.png}}
+\customfbox{\includegraphics[width=0.9\textwidth]{images/t15-tesla-head.png}}
 \caption{Lima baris pertama dataset Tesla: kolom \texttt{Date}, \texttt{Open}, \texttt{High}, \texttt{Low}, \texttt{Close}, \texttt{Volume}, \texttt{Dividends}, dan \texttt{Stock Splits}.}
 \label{fig:tesla-head}
 \end{figure}
@@ -568,7 +575,7 @@ Harga penutupan (\texttt{Close}) bergerak dari 3,16 sampai 880,02 dolar dengan r
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.98\textwidth]{images/plot-04-tesla-timeseries.png}}
+\customfbox{\includegraphics[width=0.98\textwidth]{images/t08-tesla-ts.png}}
 \caption{Deret waktu harga penutupan saham Tesla 2010 sampai 2021. Harga relatif datar pada tahun-tahun awal, lalu naik tajam menjelang akhir periode.}
 \label{fig:ts-tesla}
 \end{figure}
@@ -581,7 +588,8 @@ df_A = ts[['Close', 'Close']]
 seq_A = df_A.astype(float).values
 XA, yA = split_sequences(seq_A, 7, 2)
 XA = XA.reshape((XA.shape[0], XA.shape[1] * XA.shape[2]))
-XA_tr, XA_te, yA_tr, yA_te = train_test_split(XA, yA, test_size=0.2, random_state=42, shuffle=False)
+XA_tr, XA_te, yA_tr, yA_te = train_test_split(
+    XA, yA, test_size=0.2, random_state=42, shuffle=False)
 XA_tr = stats_features(XA_tr)
 XA_te = stats_features(XA_te)
 
@@ -601,7 +609,8 @@ df_B = ts[['Close', 'Open', 'Close']]
 seq_B = df_B.astype(float).values
 XB, yB = split_sequences(seq_B, 7, 2)
 XB = XB.reshape((XB.shape[0], XB.shape[1] * XB.shape[2]))
-XB_tr, XB_te, yB_tr, yB_te = train_test_split(XB, yB, test_size=0.2, random_state=42, shuffle=False)
+XB_tr, XB_te, yB_tr, yB_te = train_test_split(
+    XB, yB, test_size=0.2, random_state=42, shuffle=False)
 XB_tr = stats_features(XB_tr)
 XB_te = stats_features(XB_te)
 
@@ -615,8 +624,8 @@ resB['RF']  = rf(XB_tr, XB_te, yB_tr, yB_te)
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.62\textwidth]{images/fig-08-tesla-eval.png}}
-\caption{Hasil evaluasi kelima model pada kedua skenario Tesla.}
+\customfbox{\includegraphics[width=0.85\textwidth]{images/t09-tesla-compare.png}}
+\caption{Hasil evaluasi kelima model pada kedua skenario Tesla (tabel perbandingan dari Colab).}
 \label{fig:eval-tesla}
 \end{figure}
 
@@ -631,8 +640,8 @@ resB['RF']  = rf(XB_tr, XB_te, yB_tr, yB_te)
 \midrule
 MLP (Neural Network) & 18,766 & 0,995 & 18,010 & 0,996 \\
 KNN & 215,366 & 0,564 & 215,342 & 0,565 \\
-Random Forest & 216,154 & 0,541 & 215,876 & 0,548 \\
-Decision Tree & 215,814 & 0,554 & 215,883 & 0,543 \\
+Random Forest & 216,294 & 0,535 & 215,876 & 0,548 \\
+Decision Tree & 216,211 & 0,545 & 216,796 & 0,518 \\
 SVR & 235,231 & $-0,568$ & 235,261 & $-0,566$ \\
 \bottomrule
 \end{tabular}
@@ -650,9 +659,16 @@ persen = 100 * np.mean(yB_te > yB_tr.max())
 print('persen nilai uji di atas max latih: %.1f%%' % persen)
 \end{lstlisting}
 
+\begin{figure}[H]
+\centering
+\customfbox{\includegraphics[width=0.9\textwidth]{images/t11-ekstrapolasi.png}}
+\caption{Output pemeriksaan rentang data latih dan uji pada notebook Colab.}
+\label{fig:ekstrapolasi}
+\end{figure}
+
 Hasilnya, target data latih hanya mencakup harga 3,41 sampai 77,00 dolar, sedangkan data uji mencakup 35,79 sampai 880,02 dolar. Sebanyak 51,1\% nilai uji berada di atas harga tertinggi yang pernah dilihat model saat latihan. Ini terjadi karena pembagian datanya kronologis: 80\% awal berisi periode harga murah (2010 sampai sekitar 2019), dan 20\% akhir berisi lonjakan harga Tesla (2020 sampai awal 2021).
 
-Sifat ini membedakan model. Decision Tree, Random Forest, dan KNN hanya bisa memprediksi di dalam rentang nilai yang pernah mereka lihat, karena prediksinya berasal dari rata-rata target pada data latih. Pohon tidak bisa menghasilkan nilai di luar kotak nilai yang dikenalinya. Pemeriksaan langsung menunjukkan Random Forest memprediksi maksimum 74,86 dolar, sementara MLP bisa mencapai 862,67 dolar, mendekati harga aktual 880,02. MLP bisa melakukannya karena jaringan saraf memetakan masukan lewat fungsi kontinu yang bisa menghasilkan nilai di luar rentang data latih. Karena itu di sini MLP unggul terutama karena ia satu-satunya model yang mampu mengikuti tren naik yang belum pernah dilihatnya.
+Sifat ini membedakan model. Decision Tree, Random Forest, dan KNN hanya bisa memprediksi di dalam rentang nilai yang pernah mereka lihat, karena prediksinya berasal dari rata-rata target pada data latih. Pohon tidak bisa menghasilkan nilai di luar kotak nilai yang dikenalinya. Pemeriksaan langsung menunjukkan Random Forest memprediksi maksimum 75,00 dolar, sementara MLP bisa mencapai 866,00 dolar, mendekati harga aktual 880,02. MLP bisa melakukannya karena jaringan saraf memetakan masukan lewat fungsi kontinu yang bisa menghasilkan nilai di luar rentang data latih. Karena itu di sini MLP unggul terutama karena ia satu-satunya model yang mampu mengikuti tren naik yang belum pernah dilihatnya.
 
 SVR memberi korelasi negatif ($-0,568$). Ini terjadi karena SVR dengan parameter bawaan cenderung menghasilkan prediksi yang hampir rata, sehingga ketika harga aktual naik tajam, arah hubungannya berbalik. Tanpa normalisasi dan penyetelan parameter, SVR tidak cocok untuk data dengan rentang harga sebesar ini.
 
@@ -660,7 +676,7 @@ Perlu juga saya bandingkan dengan baseline naif yang memakai harga penutupan ter
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.98\textwidth]{images/plot-05-tesla-prediksi.png}}
+\customfbox{\includegraphics[width=0.98\textwidth]{images/t10-tesla-pred.png}}
 \caption{Perbandingan nilai aktual dan prediksi MLP pada Skenario B. MLP mampu mengikuti tren naik harga, sedangkan model berbasis pohon berhenti di sekitar 75 dolar.}
 \label{fig:tesla-prediksi}
 \end{figure}
