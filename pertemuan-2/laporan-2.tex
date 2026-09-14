@@ -258,7 +258,7 @@ PENAMBANGAN DATA}}} \\[0.4cm]
 Artificial Intelligence (AI) adalah bidang ilmu komputer yang mengembangkan sistem
 agar mampu melakukan tugas yang umumnya membutuhkan kecerdasan manusia, seperti
 mengenali pola, belajar dari pengalaman, memahami informasi, dan mengambil
-keputusan. Dalam penerapannya, kualitas data sangat memengaruhi kemampuan sistem
+keputusan. Dalam penerapannya, kualitas data menentukan kemampuan sistem
 AI karena data menjadi dasar untuk menemukan pola dan menghasilkan prediksi
 \cite{dicoding-workflow}.
 
@@ -716,7 +716,7 @@ Dataset \textit{Credit Card Customers} digunakan untuk menganalisis perilaku nas
 \subsubsection{Atribut Input dan Output}
 \begin{itemize}
     \item \textbf{Atribut input (fitur):} Seluruh kolom selain \texttt{Attrition\_Flag}, meliputi \texttt{CLIENTNUM}, \texttt{Customer\_Age}, \texttt{Gender}, \texttt{Dependent\_count}, \texttt{Education\_Level}, \texttt{Marital\_Status}, \texttt{Income\_Category}, \texttt{Card\_Category}, \texttt{Months\_on\_book}, \texttt{Total\_Relationship\_Count}, \texttt{Months\_Inactive\_12\_mon}, \texttt{Contacts\_Count\_12\_mon}, \texttt{Credit\_Limit}, \texttt{Total\_Revolving\_Bal}, \texttt{Avg\_Open\_To\_Buy}, \texttt{Total\_Amt\_Chng\_Q4\_Q1}, \texttt{Total\_Trans\_Amt}, \texttt{Total\_Trans\_Ct}, \texttt{Total\_Ct\_Chng\_Q4\_Q1}, dan \texttt{Avg\_Utilization\_Ratio}.
-    \item \textbf{Atribut output (label/target):} \texttt{Attrition\_Flag} — menunjukkan status nasabah (\texttt{Existing Customer} atau \texttt{Attrited Customer}).
+    \item \textbf{Atribut output (label/target):} \texttt{Attrition\_Flag} menunjukkan status nasabah (\texttt{Existing Customer} atau \texttt{Attrited Customer}).
 \end{itemize}
 
 \subsubsection{Penjelasan Setiap Atribut}
@@ -795,9 +795,9 @@ plt.show()
 
 Berdasarkan histogram yang dihasilkan, terlihat bahwa:
 \begin{itemize}
-    \item \texttt{bath}: Distribusi sangat \textit{right-skewed}, mayoritas properti memiliki 1--5 kamar mandi dengan puncak di sekitar 2 kamar mandi, namun terdapat outlier hingga 40 kamar mandi.
-    \item \texttt{balcony}: Distribusi cenderung \textit{right-skewed}, sebagian besar properti memiliki 0--2 balkon (dengan puncak di 1 dan 2 balkon), dan sangat sedikit yang memiliki 3 balkon atau lebih.
-    \item \texttt{price}: Distribusi sangat \textit{right-skewed} dengan \textit{long tail}, mayoritas properti berada di rentang harga rendah (di bawah 500), namun terdapat outlier dengan harga sangat tinggi hingga 3.600.
+    \item \texttt{bath}: Distribusi \textit{right-skewed}, mayoritas properti memiliki 1--5 kamar mandi dengan puncak di sekitar 2 kamar mandi, namun terdapat outlier hingga 40 kamar mandi.
+    \item \texttt{balcony}: Distribusi cenderung \textit{right-skewed}, sebagian besar properti memiliki 0--2 balkon (dengan puncak di 1 dan 2 balkon), dan sedikit yang memiliki 3 balkon atau lebih.
+    \item \texttt{price}: Distribusi \textit{right-skewed} dengan \textit{long tail}, mayoritas properti berada di rentang harga rendah (di bawah 500), namun terdapat outlier dengan harga hingga 3.600.
 \end{itemize}
 
 \subsubsection{Korelasi Antar Variabel}
@@ -904,7 +904,7 @@ Berdasarkan praktikum yang telah saya lakukan, saya memahami beberapa hal beriku
     \item Encoding mengubah atribut kategorikal menjadi representasi numerik, sedangkan train-test split dan scaling membantu menyiapkan data untuk pemodelan secara lebih objektif.
 \end{enumerate}
 
-Dengan demikian, praktikum ini memberikan dasar yang penting bagi saya untuk melakukan pengolahan dan analisis data menggunakan Python.
+Praktikum ini memberi saya dasar untuk mengolah dan menganalisis data memakai Python.
 
 \clearpage
 \addcontentsline{toc}{chapter}{Daftar Pustaka}
