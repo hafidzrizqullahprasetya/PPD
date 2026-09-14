@@ -514,7 +514,7 @@ MLP menempati urutan pertama pada kedua metrik: RMSE terendah 1190,549 dan Pears
 Untuk menilai apakah model benar-benar belajar, saya membandingkan hasilnya dengan \textit{baseline} sederhana yang memprediksi nilai besok sama dengan nilai hari terakhir pada jendela. Baseline ini hanya mengulang angka terakhir tanpa belajar pola.
 
 \begin{lstlisting}[style=pythonstyle,caption={Menghitung RMSE baseline naif.}]
-last_value = X[:, -1]  # nilai cnt hari terakhir pada tiap jendela
+last_value = X[:, -1]
 rmse_naive = sqrt(mean_squared_error(y_test, last_value[-len(y_test):]))
 print('naive RMSE: %.3f' % rmse_naive)
 \end{lstlisting}
