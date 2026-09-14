@@ -225,7 +225,7 @@ Jika menggunakan pembobotan jarak, prediksi dapat dihitung sebagai rata-rata ber
 \begin{equation}
 y = \frac{\sum_{i=1}^{k} w_i \cdot y_i}{\sum w_i}, \quad w_i = \frac{1}{d(x_i, x)}
 \end{equation}
-Pemilihan nilai $k$ sangat krusial: $k$ yang terlalu kecil sensitif terhadap noise, sedangkan $k$ yang terlalu besar dapat memasukkan titik dari kelas lain. Selain itu, KNN sensitif terhadap skala fitur, sehingga scaling sangat dianjurkan \cite{sklearn-preprocessing}.
+Pemilihan nilai $k$ berpengaruh besar: $k$ yang terlalu kecil sensitif terhadap noise, sedangkan $k$ yang terlalu besar dapat memasukkan titik dari kelas lain. KNN juga sensitif terhadap skala fitur, sehingga scaling dianjurkan \cite{sklearn-preprocessing}.
 
 \subsection{Decision Tree}
 Decision Tree bekerja dengan cara membagi dataset secara rekursif berdasarkan fitur yang memberikan informasi terbaik. Proses pemilihan fitur dilakukan menggunakan ukuran seperti \textit{Gini impurity} atau \textit{entropy/information gain}. Struktur pohon terdiri dari \textit{root node}, \textit{internal node} (uji atribut), dan \textit{leaf node} (prediksi kelas). Kelebihannya adalah interpretasi yang mudah dan kemampuannya menangani fitur kategorikal maupun numerik, tetapi mudah mengalami \textit{overfitting} tanpa pengaturan parameter seperti \texttt{max\_depth} atau pruning \cite{sklearn-tree,han2022,digitalskola-preprocessing}.
@@ -262,7 +262,7 @@ Random Forest adalah algoritma \textit{ensemble} yang menggabungkan banyak Decis
 Analogi bagging adalah diagnosis berdasarkan suara mayoritas dari banyak dokter. Karena setiap pohon melihat variasi data yang berbeda, varians model keseluruhan berkurang tanpa meningkatkan bias secara signifikan.
 
 \subsection{AdaBoost (Adaptive Boosting)}
-AdaBoost bekerja dengan menggabungkan beberapa \textit{weak learner} (biasanya Decision Tree kecil / stump) secara berurutan. Pada setiap iterasi, bobot sampel diperbarui sehingga model berikutnya lebih fokus pada data yang sebelumnya salah diklasifikasikan. Setiap \textit{weak learner} diberi bobot berdasarkan akurasinya, dan prediksi akhir merupakan kombinasi berbobot dari seluruh learner. Dengan cara ini, AdaBoost mampu meningkatkan performa model secara signifikan terutama pada dataset yang kompleks, namun berisiko overfitting pada data yang sangat noisy \cite{sklearn-ensemble}.
+AdaBoost bekerja dengan menggabungkan beberapa \textit{weak learner} (biasanya Decision Tree kecil / stump) secara berurutan. Pada setiap iterasi, bobot sampel diperbarui sehingga model berikutnya lebih fokus pada data yang sebelumnya salah diklasifikasikan. Setiap \textit{weak learner} diberi bobot berdasarkan akurasinya, dan prediksi akhir merupakan kombinasi berbobot dari seluruh learner. Dengan cara ini, AdaBoost mampu meningkatkan performa model terutama pada dataset yang kompleks, namun berisiko overfitting pada data yang noisy \cite{sklearn-ensemble}.
 
 \section{Metrik Evaluasi Classification}
 Dalam \textit{machine learning} khususnya pada model klasifikasi, diperlukan metrik evaluasi untuk menilai seberapa baik model mampu memprediksi label dengan benar. Evaluasi ini dilakukan dengan membandingkan hasil prediksi model terhadap nilai aktual melalui sebuah struktur yang disebut \textit{confusion matrix} \cite{sklearn-metrics}.
@@ -293,7 +293,7 @@ Precision = \frac{TP}{TP + FP}
 Recall = \frac{TP}{TP + FN}
 \end{equation}
 
-Karena \textit{precision} dan \textit{recall} memiliki fokus yang berbeda, \textbf{F1-Score} digunakan sebagai metrik yang menyeimbangkan keduanya. Metrik ini sangat berguna ketika dataset bersifat \textit{imbalanced} dan diperlukan keseimbangan antara kemampuan model menghindari \textit{false positives} serta \textit{false negatives}. F1-score merupakan \textit{harmonic mean} dari \textit{precision} dan \textit{recall}:
+Karena \textit{precision} dan \textit{recall} memiliki fokus yang berbeda, \textbf{F1-Score} digunakan sebagai metrik yang menyeimbangkan keduanya. Metrik ini berguna ketika dataset bersifat \textit{imbalanced} dan diperlukan keseimbangan antara kemampuan model menghindari \textit{false positives} serta \textit{false negatives}. F1-score merupakan \textit{harmonic mean} dari \textit{precision} dan \textit{recall}:
 \begin{equation}
 F1 = \frac{2 \times Precision \times Recall}{Precision + Recall}
 \end{equation}
@@ -407,7 +407,7 @@ plt.show()
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.6\textwidth]{images/ss-05-pie-target.jpg}}
-\caption{Pie chart distribusi variabel target \texttt{stroke}: kelas 0 (tidak stroke) 95,13\% dan kelas 1 (stroke) 4,87\% — dataset bersifat imbalanced.}
+\caption{Pie chart distribusi variabel target \texttt{stroke}: kelas 0 (tidak stroke) 95,13\% dan kelas 1 (stroke) 4,87\%, sehingga dataset bersifat imbalanced.}
 \label{fig:ss05-pie}
 \end{figure}
 
@@ -537,14 +537,14 @@ print(X_test[:3])
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.9\textwidth]{images/ss-13-X-train-scaled.jpg}}
-\caption{Hasil transformasi pada data training (X\_train) — nilai terstandarisasi dengan rata-rata sekitar 0.}
+\caption{Hasil transformasi pada data training (X\_train): nilai terstandarisasi dengan rata-rata sekitar 0.}
 \label{fig:ss13-xtrain}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.9\textwidth]{images/ss-14-X-test-scaled.jpg}}
-\caption{Hasil transformasi pada data testing (X\_test) — skala konsisten dengan X\_train tanpa data leakage.}
+\caption{Hasil transformasi pada data testing (X\_test): skala konsisten dengan X\_train tanpa data leakage.}
 \label{fig:ss14-xtest}
 \end{figure}
 
@@ -647,14 +647,14 @@ plt.show()
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.9\textwidth]{images/ss-22-knn-performance.jpg}}
-\caption{Output performa KNN: Accuracy 0.9419, Precision 0.4709, Recall 0.5000, Confusion Matrix [[1444, 0], [89, 0]] — identik dengan Logistic Regression, gagal mendeteksi kelas minoritas.}
+\caption{Output performa KNN: Accuracy 0.9419, Precision 0.4709, Recall 0.5000, Confusion Matrix [[1444, 0], [89, 0]], identik dengan Logistic Regression dan gagal mendeteksi kelas minoritas.}
 \label{fig:ss22-knn-perf}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.6\textwidth]{images/ss-23-knn-cm.jpg}}
-\caption{Confusion Matrix KNN — 1444 True Negative dan 89 False Negative tanpa True Positive.}
+\caption{Confusion Matrix KNN: 1444 True Negative dan 89 False Negative tanpa True Positive.}
 \label{fig:ss23-knn-cm}
 \end{figure}
 
@@ -686,14 +686,14 @@ plt.show()
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.9\textwidth]{images/ss-25-dt-performance.jpg}}
-\caption{Output performa Decision Tree: Accuracy 0.9021, Precision 0.5393, Recall 0.5368, Confusion Matrix [[1372, 72], [78, 11]] — mulai mampu memprediksi 11 True Positive.}
+\caption{Output performa Decision Tree: Accuracy 0.9021, Precision 0.5393, Recall 0.5368, Confusion Matrix [[1372, 72], [78, 11]], mulai mampu memprediksi 11 True Positive.}
 \label{fig:ss25-dt-perf}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.6\textwidth]{images/ss-26-dt-cm.jpg}}
-\caption{Confusion Matrix Decision Tree — terdapat 11 TP dan 72 FP, menunjukkan deteksi kelas minoritas mulai muncul.}
+\caption{Confusion Matrix Decision Tree: terdapat 11 TP dan 72 FP, menunjukkan deteksi kelas minoritas mulai muncul.}
 \label{fig:ss26-dt-cm}
 \end{figure}
 
@@ -725,14 +725,14 @@ plt.show()
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.9\textwidth]{images/ss-28-rf-performance.jpg}}
-\caption{Output performa Random Forest: Accuracy 0.9412, Precision 0.4709, Recall 0.4996, Confusion Matrix [[1443, 1], [89, 0]] — hanya 1 True Positive.}
+\caption{Output performa Random Forest: Accuracy 0.9412, Precision 0.4709, Recall 0.4996, Confusion Matrix [[1443, 1], [89, 0]], hanya 1 True Positive.}
 \label{fig:ss28-rf-perf}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.6\textwidth]{images/ss-29-rf-cm.jpg}}
-\caption{Confusion Matrix Random Forest — hampir identik dengan Logistic Regression, model sangat konservatif pada kelas minoritas.}
+\caption{Confusion Matrix Random Forest: hampir identik dengan Logistic Regression, model konservatif pada kelas minoritas.}
 \label{fig:ss29-rf-cm}
 \end{figure}
 
@@ -764,14 +764,14 @@ plt.show()
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.9\textwidth]{images/ss-31-adaboost-performance.jpg}}
-\caption{Output performa AdaBoost: Accuracy 0.9386, Precision 0.5825, Recall 0.5088, Confusion Matrix [[1437, 7], [87, 2]] — precision tertinggi di antara kelima model.}
+\caption{Output performa AdaBoost: Accuracy 0.9386, Precision 0.5825, Recall 0.5088, Confusion Matrix [[1437, 7], [87, 2]], precision tertinggi di antara kelima model.}
 \label{fig:ss31-ada-perf}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \customfbox{\includegraphics[width=0.6\textwidth]{images/ss-32-adaboost-cm.jpg}}
-\caption{Confusion Matrix AdaBoost — 2 True Positive dan 7 False Positive, performa deteksi minoritas sedikit lebih baik daripada Random Forest.}
+\caption{Confusion Matrix AdaBoost: 2 True Positive dan 7 False Positive, performa deteksi minoritas sedikit lebih baik daripada Random Forest.}
 \label{fig:ss32-ada-cm}
 \end{figure}
 
@@ -787,8 +787,8 @@ Dataset ini juga sering digunakan sebagai studi kasus klasifikasi biner yang imb
 Berdasarkan eksplorasi awal dataset (614 baris, 13 kolom), atribut dapat didefinisikan sebagai berikut:
 
 \begin{itemize}
-    \item \textbf{Atribut input (fitur) — 12 kolom:} \texttt{Gender}, \texttt{Married}, \texttt{Dependents}, \texttt{Education}, \texttt{Self\_Employed}, \texttt{ApplicantIncome}, \texttt{CoapplicantIncome}, \texttt{LoanAmount}, \texttt{Loan\_Amount\_Term}, \texttt{Credit\_History}, \texttt{Property\_Area}, dan \texttt{Loan\_ID} (dihapus sebagai identifier).
-    \item \textbf{Atribut output (target):} \texttt{Loan\_Status} (Y = disetujui, N = tidak disetujui) — dikonversi menjadi 1 dan 0 melalui LabelEncoder.
+    \item \textbf{Atribut input (fitur), 12 kolom:} \texttt{Gender}, \texttt{Married}, \texttt{Dependents}, \texttt{Education}, \texttt{Self\_Employed}, \texttt{ApplicantIncome}, \texttt{CoapplicantIncome}, \texttt{LoanAmount}, \texttt{Loan\_Amount\_Term}, \texttt{Credit\_History}, \texttt{Property\_Area}, dan \texttt{Loan\_ID} (dihapus sebagai identifier).
+    \item \textbf{Atribut output (target):} \texttt{Loan\_Status} (Y = disetujui, N = tidak disetujui), dikonversi menjadi 1 dan 0 melalui LabelEncoder.
 \end{itemize}
 
 \begin{table}[H]
@@ -843,7 +843,7 @@ print(loan_df.isnull().sum())
 \label{fig:tugas02-loan-eda}
 \end{figure}
 
-Untuk preprocessing, saya melakukan: (1) imputasi median/modus, (2) encoding kategorikal dengan LabelEncoder, (3) pemisahan X/y, (4) split 70:30, dan (5) StandardScaler (fit pada train saja) — konsisten dengan workflow pada percobaan stroke.
+Untuk preprocessing, saya melakukan: (1) imputasi median/modus, (2) encoding kategorikal dengan LabelEncoder, (3) pemisahan X/y, (4) split 70:30, dan (5) StandardScaler (fit pada train saja), konsisten dengan workflow pada percobaan stroke.
 
 \begin{lstlisting}[style=pythonstyle,caption={Preprocessing dataset Loan.}]
 # Imputasi, encoding, split 70:30, scaling
@@ -926,7 +926,7 @@ Random Forest & 0.7784 & 0.7862 & 0.7128 \\
 \subsubsection{Analisis Model Terbaik}
 Berdasarkan eksperimen pada dataset Loan (Tabel \ref{tab:performa-loan}), model \textbf{Logistic Regression} menunjukkan performa terbaik secara keseluruhan dengan accuracy 0,7838 dan precision macro tertinggi 0,8437 (recall 0,6994, F1 0,7148), diikuti Random Forest dengan accuracy 0,7784, precision 0,7862, recall 0,7128, dan F1 0,7274. Hasil ini konsisten dengan karakteristik dataset Loan yang relatif linear sehingga model sederhana sudah kompetitif, sementara Random Forest yang bersifat ensemble bagging memberikan keseimbangan terbaik antara precision dan recall serta lebih tahan terhadap overfitting dibanding Decision Tree tunggal (0,7135/0,6834/0,6663). KNN ($k=5$) berada di tengah (0,7622/0,7767/0,6862) karena sensitif terhadap distribusi lokal dan skala.
 
-Pada percobaan stroke yang sangat imbalanced (4,87\% stroke), kelima model mengalami kesulitan: Logistic Regression dan KNN gagal mendeteksi kelas minoritas (0 TP, accuracy 0,9419 menyesatkan), Random Forest hanya 1 TP (accuracy 0,9406), AdaBoost 0 TP pada verifikasi lokal (accuracy 0,9419), sedangkan Decision Tree mampu mendeteksi sedikit lebih banyak (12 TP dengan accuracy 0,9041, precision macro 0,5466, recall 0,5431) dengan trade-off accuracy yang menurun. Hal ini menegaskan bahwa pada dataset imbalanced, accuracy saja menyesatkan dan perlu melihat precision/recall/F1 serta mempertimbangkan teknik penanganan imbalance seperti resampling atau class weighting untuk perbaikan selanjutnya.
+Pada percobaan stroke yang imbalanced (4,87\% stroke), kelima model mengalami kesulitan: Logistic Regression dan KNN gagal mendeteksi kelas minoritas (0 TP, accuracy 0,9419 menyesatkan), Random Forest hanya 1 TP (accuracy 0,9406), AdaBoost 0 TP pada verifikasi lokal (accuracy 0,9419), sedangkan Decision Tree mampu mendeteksi sedikit lebih banyak (12 TP dengan accuracy 0,9041, precision macro 0,5466, recall 0,5431) dengan trade-off accuracy yang menurun. Ini menegaskan bahwa pada dataset imbalanced, accuracy saja menyesatkan dan perlu melihat precision/recall/F1 serta mempertimbangkan teknik penanganan imbalance seperti resampling atau class weighting untuk perbaikan selanjutnya.
 
 \clearpage
 
@@ -934,11 +934,11 @@ Pada percobaan stroke yang sangat imbalanced (4,87\% stroke), kelima model menga
 Berdasarkan praktikum yang telah saya lakukan pada Pertemuan 3, saya memahami beberapa hal berikut:
 \begin{enumerate}
     \item Classification adalah teknik supervised learning untuk memprediksi label kategorikal. Saya telah mempelajari lima algoritma: Logistic Regression (berbasis fungsi sigmoid untuk probabilitas), KNN (berbasis jarak dan mayoritas tetangga), Decision Tree (pembagian rekursif dengan entropy/information gain), Random Forest (ensemble bagging dari banyak pohon), dan AdaBoost (boosting berurutan dengan pembobotan sampel).
-    \item Metrik evaluasi klasifikasi sangat penting terutama pada data imbalanced. Accuracy mengukur proporsi benar keseluruhan, precision mengukur ketepatan prediksi positif, recall mengukur kemampuan menemukan seluruh positif, dan F1-score menyeimbangkan keduanya. Confusion matrix menjadi dasar perhitungan keempat metrik tersebut.
+    \item Metrik evaluasi klasifikasi penting terutama pada data imbalanced. Accuracy mengukur proporsi benar keseluruhan, precision mengukur ketepatan prediksi positif, recall mengukur kemampuan menemukan seluruh positif, dan F1-score menyeimbangkan keduanya. Confusion matrix menjadi dasar perhitungan keempat metrik tersebut.
     \item Saya berhasil menerapkan keempat algoritma utama (Logistic Regression, KNN, Decision Tree, Random Forest) ditambah AdaBoost pada dataset Stroke Prediction dengan workflow preprocessing yang benar: imputasi median untuk \texttt{bmi}, encoding kategorikal, split 70:30, dan StandardScaler yang di-fit hanya pada data train.
-    \item Evaluasi model menunjukkan bahwa pada dataset stroke yang sangat imbalanced (95,13\% vs 4,87\%), model sederhana seperti Logistic Regression dan KNN mencapai accuracy tinggi (0,9419) namun gagal mendeteksi kelas stroke (0 TP), Random Forest hanya 0--1 TP, sedangkan Decision Tree mampu mendeteksi 12 TP dengan trade-off accuracy 0,9041. Pada tugas Loan Status Prediction yang telah saya verifikasi secara lokal (Python 3.11, scikit-learn 1.9.0, split 70:30, StandardScaler), Logistic Regression menjadi yang terbaik secara accuracy/precision (0,7838/0,8437), diikuti Random Forest yang paling seimbang (accuracy 0,7784, F1 0,7274) dan lebih tahan overfitting dibanding Decision Tree tunggal, sehingga pemilihan model perlu mempertimbangkan distribusi kelas dan trade-off antar metrik.
+    \item Evaluasi model menunjukkan bahwa pada dataset stroke yang imbalanced (95,13\% vs 4,87\%), model sederhana seperti Logistic Regression dan KNN mencapai accuracy tinggi (0,9419) namun gagal mendeteksi kelas stroke (0 TP), Random Forest hanya 0--1 TP, sedangkan Decision Tree mampu mendeteksi 12 TP dengan trade-off accuracy 0,9041. Pada tugas Loan Status Prediction yang telah saya verifikasi secara lokal (Python 3.11, scikit-learn 1.9.0, split 70:30, StandardScaler), Logistic Regression menjadi yang terbaik secara accuracy/precision (0,7838/0,8437), diikuti Random Forest yang paling seimbang (accuracy 0,7784, F1 0,7274) dan lebih tahan overfitting dibanding Decision Tree tunggal, sehingga pemilihan model perlu mempertimbangkan distribusi kelas dan trade-off antar metrik.
 \end{enumerate}
-Dengan demikian, praktikum ini memberikan dasar yang penting bagi saya untuk memilih, melatih, dan mengevaluasi model klasifikasi secara objektif, tidak hanya mengandalkan accuracy tetapi juga precision, recall, dan pemahaman terhadap data.
+Praktikum ini memberi saya dasar untuk memilih, melatih, dan mengevaluasi model klasifikasi secara objektif dengan mempertimbangkan accuracy, precision, recall, dan pemahaman terhadap data.
 
 \clearpage
 \addcontentsline{toc}{chapter}{Daftar Pustaka}

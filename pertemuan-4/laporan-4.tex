@@ -344,7 +344,7 @@ df.tail()
 \subsection{Exploratory Data Analysis (EDA)}
 
 \subsubsection{Deskripsi Statistik}
-Saya melihat deskripsi statistik untuk memahami sebaran variabel numerik. Rata-rata harga rumah (\texttt{price}) sekitar 540.088 dengan rata-rata luas bangunan (\texttt{sqft\_living}) sekitar 2.079. Standar deviasi \texttt{price} yang besar menandakan sebaran harga yang lebar, termasuk rumah-rumah yang sangat mahal.
+Saya melihat deskripsi statistik untuk memahami sebaran variabel numerik. Rata-rata harga rumah (\texttt{price}) sekitar 540.088 dengan rata-rata luas bangunan (\texttt{sqft\_living}) sekitar 2.079. Standar deviasi \texttt{price} yang besar menandakan sebaran harga yang lebar, termasuk rumah dengan harga tinggi.
 
 \begin{lstlisting}[style=pythonstyle,caption={Deskripsi statistik dataset.}]
 display(df.describe())
@@ -358,7 +358,7 @@ display(df.describe())
 \end{figure}
 
 \subsubsection{Histogram Variabel Numerik}
-Saya memplot histogram untuk melihat distribusi tiap variabel numerik. Histogram \texttt{price} sangat condong ke kanan (\textit{right-skewed}) dengan banyak outlier di nilai tinggi, sementara \texttt{bedrooms} dan \texttt{bathrooms} menunjukkan distribusi diskrit yang terkonsentrasi pada nilai-nilai kecil.
+Saya memplot histogram untuk melihat distribusi tiap variabel numerik. Histogram \texttt{price} condong ke kanan (\textit{right-skewed}) dengan banyak outlier di nilai tinggi, sementara \texttt{bedrooms} dan \texttt{bathrooms} menunjukkan distribusi diskrit yang terkonsentrasi pada nilai-nilai kecil.
 
 \begin{lstlisting}[style=pythonstyle,caption={Kode untuk menampilkan histogram.}]
 df.hist(figsize=(10,10))
