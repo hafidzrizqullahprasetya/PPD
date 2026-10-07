@@ -1,0 +1,36 @@
+{
+    "model_name": "Random_Forest_Tuned",
+    "algorithm": "RandomForestClassifier",
+    "feature_names": [
+        "Age",
+        "Gender",
+        "Polyuria",
+        "Polydipsia",
+        "sudden weight loss",
+        "weakness",
+        "Polyphagia",
+        "Genital thrush",
+        "visual blurring",
+        "Itching",
+        "Irritability",
+        "delayed healing",
+        "partial paresis",
+        "muscle stiffness",
+        "Alopecia",
+        "Obesity"
+    ],
+    "feature_count": 16,
+    "target_classes": {
+        "0": "Negative",
+        "1": "Positive"
+    },
+    "best_hyperparameters": {
+        "criterion": "entropy",
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "min_samples_split": 5,
+        "n_estimators": 50
+    },
+    "test_f1_score": 0.8910891089108911,
+    "test_accuracy": 0.8552631578947368
+}

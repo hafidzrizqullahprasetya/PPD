@@ -17,3 +17,7 @@
 *.vrb
 *.dvi
 
+
+# Workspace & IDE
+.orca/
+JADWAL_UTS.md
