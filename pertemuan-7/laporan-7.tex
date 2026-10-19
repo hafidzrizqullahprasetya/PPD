@@ -242,6 +242,7 @@ Penanganan ketidakseimbangan kelas bisa ditempuh lewat tiga jalur: memanipulasi 
  & \textbf{Prediksi positif} & \textbf{Prediksi negatif} \\
 \hline
 \textbf{Aktual positif} & \textit{True Positive} (TP) & \textit{False Negative} (FN) \\
+\hline
 \textbf{Aktual negatif} & \textit{False Positive} (FP) & \textit{True Negative} (TN) \\
 \hline
 \end{tabular}
@@ -267,12 +268,14 @@ Manfaatnya meliputi pengurangan waktu komputasi, peningkatan akurasi, dan pemaha
 \caption{Perbandingan tiga pendekatan seleksi fitur.}
 \label{tab:metode-fs}
 \small
-\begin{tabularx}{\linewidth}{|l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X|}
+\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
 \hline
 \textbf{Pendekatan} & \textbf{Dasar penilaian} & \textbf{Biaya komputasi} & \textbf{Kekuatan} \\
 \hline
 \textit{Filter} & Statistik fitur terhadap target, tanpa melatih model & Ringan, satu kali hitung & Cepat dan mudah ditafsirkan \\
+\hline
 \textit{Wrapper} & Performa model pada setiap kombinasi fitur & Berat, model dilatih berulang & Menangkap interaksi antar-fitur \\
+\hline
 \textit{Embedded} & Seleksi berjalan di dalam proses pelatihan & Sedang & Seimbang antara akurasi dan waktu \\
 \hline
 \end{tabularx}
@@ -652,14 +655,18 @@ Tabel~\ref{tab:rekap-balancing} merangkum keempat percobaan penyeimbangan pada s
 \caption{Rekapitulasi hasil empat teknik penyeimbangan kelas pada set pelatihan dataset stroke.}
 \label{tab:rekap-balancing}
 \small
-\begin{tabularx}{\linewidth}{|lrrrr>{\raggedright\arraybackslash}X|}
+\begin{tabularx}{\linewidth}{|l|r|r|r|r|>{\raggedright\arraybackslash}X|}
 \hline
 \textbf{Teknik} & \textbf{Kelas 0} & \textbf{Kelas 1} & \textbf{Total} & \textbf{Sampel baru} & \textbf{Catatan} \\
 \hline
 Tanpa balancing & 3.663 & 169 & 3.832 & 0 & Data asli \\
+\hline
 \textit{Under-sampling} & 169 & 169 & 338 & 0 & 3.494 sampel mayoritas dibuang \\
+\hline
 \textit{Over-sampling} & 3.663 & 3.663 & 7.326 & 3.494 & Duplikasi sampel minoritas \\
+\hline
 SMOTE & 3.663 & 3.663 & 7.326 & 3.494 & Sampel sintetis di antara tetangga \\
+\hline
 ADASYN & 3.663 & 3.676 & 7.339 & 3.507 & Sintetis terpusat di batas kelas \\
 \hline
 \end{tabularx}
@@ -717,11 +724,17 @@ Hasil lengkapnya disusun pada Tabel~\ref{tab:anova}.
 \textbf{Fitur} & \textbf{$F$} & \textbf{$p$} & \textbf{Fitur} & \textbf{$F$} & \textbf{$p$} \\
 \hline
 \texttt{exng} & 70,9524 & 0,0000 & \texttt{sex} & 25,7922 & 0,0000 \\
+\hline
 \texttt{cp} & 69,7723 & 0,0000 & \texttt{age} & 16,1167 & 0,0001 \\
+\hline
 \texttt{oldpeak} & 68,5514 & 0,0000 & \texttt{trtbps} & 6,4582 & 0,0115 \\
+\hline
 \texttt{thalachh} & 65,1201 & 0,0000 & \texttt{restecg} & 5,7772 & 0,0168 \\
+\hline
 \texttt{caa} & 54,5598 & 0,0000 & \texttt{chol} & 2,2030 & 0,1388 \\
+\hline
 \texttt{slp} & 40,9021 & 0,0000 & \texttt{fbs} & 0,2369 & 0,6268 \\
+\hline
 \texttt{thall} & 40,4077 & 0,0000 & & & \\
 \hline
 \end{tabular}
@@ -824,13 +837,16 @@ Hasilnya dirangkum pada Tabel~\ref{tab:seleksi}.
 \caption{Perbandingan akurasi \textit{Decision Tree} pada empat skenario seleksi fitur dataset heart.}
 \label{tab:seleksi}
 \small
-\begin{tabularx}{\linewidth}{|lrl>{\raggedright\arraybackslash}X|}
+\begin{tabularx}{\linewidth}{|l|r|l|>{\raggedright\arraybackslash}X|}
 \hline
 \textbf{Skenario} & \textbf{Jumlah fitur} & \textbf{Akurasi uji} & \textbf{Fitur yang dipakai} \\
 \hline
 Tanpa seleksi & 13 & 0,754 & Seluruh fitur \\
+\hline
 \textit{Filter} ANOVA & 8 & 0,820 & \texttt{exng}, \texttt{cp}, \texttt{oldpeak}, \texttt{thalachh}, \texttt{caa}, \texttt{slp}, \texttt{thall}, \texttt{sex} \\
+\hline
 \textit{Wrapper} RFE & 5 & 0,820 & \texttt{age}, \texttt{cp}, \texttt{thalachh}, \texttt{caa}, \texttt{thall} \\
+\hline
 \textit{Embedded} ExtraTree & 6 & 0,770 & \texttt{caa}, \texttt{cp}, \texttt{exng}, \texttt{thall}, \texttt{oldpeak}, \texttt{thalachh} \\
 \hline
 \end{tabularx}
@@ -876,6 +892,7 @@ pd.DataFrame({
 \textbf{Model} & \textbf{Kedalaman} & \textbf{Jumlah daun} & \textbf{Akurasi latih} & \textbf{Akurasi uji} \\
 \hline
 Pohon penuh & 11 & 56 & 0,996 & 0,770 \\
+\hline
 Pohon dipangkas (\texttt{max\_depth=3}) & 3 & 8 & 0,843 & 0,787 \\
 \hline
 \end{tabular}
@@ -918,21 +935,32 @@ Penjelasan setiap fitur disusun pada Tabel~\ref{tab:fitur-stroke}.
 \caption{Arti setiap fitur pada \textit{Stroke Prediction Dataset}.}
 \label{tab:fitur-stroke}
 \small
-\begin{tabularx}{\linewidth}{|l>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X|}
+\begin{tabularx}{\linewidth}{|l|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}X|}
 \hline
 \textbf{Fitur} & \textbf{Tipe} & \textbf{Arti dan rentang nilai} \\
 \hline
 \texttt{id} & Bilangan bulat & Nomor unik pasien, 5.110 nilai berbeda. Tidak dipakai sebagai fitur karena tidak punya makna klinis. \\
+\hline
 \texttt{gender} & Kategorikal & Jenis kelamin pasien: \textit{Male}, \textit{Female}, \textit{Other}. \\
+\hline
 \texttt{age} & Pecahan & Usia pasien dalam tahun, rentang 0,08 sampai 82 dengan rata-rata 43,23. \\
+\hline
 \texttt{hypertension} & Biner & Riwayat hipertensi: 0 tidak, 1 ya. Rata-rata 0,10 berarti sekitar 10\% pasien hipertensi. \\
+\hline
 \texttt{heart\_disease} & Biner & Riwayat penyakit jantung: 0 tidak, 1 ya. Rata-rata 0,05. \\
+\hline
 \texttt{ever\_married} & Kategorikal & Status pernah menikah: \textit{Yes} atau \textit{No}. \\
+\hline
 \texttt{work\_type} & Kategorikal & Jenis pekerjaan: \textit{Private}, \textit{Self-employed}, \textit{Govt\_job}, \textit{children}, \textit{Never\_worked}. \\
+\hline
 \texttt{Residence\_type} & Kategorikal & Tipe tempat tinggal: \textit{Urban} atau \textit{Rural}. \\
+\hline
 \texttt{avg\_glucose\_level} & Pecahan & Rata-rata kadar glukosa darah dalam mg/dL, rentang 55,12 sampai 271,74 dengan rata-rata 106,15. \\
+\hline
 \texttt{bmi} & Pecahan & Indeks massa tubuh dalam kg/m$^2$, rentang 10,30 sampai 97,60 dengan rata-rata 28,89. Memiliki 201 nilai kosong. \\
+\hline
 \texttt{smoking\_status} & Kategorikal & Status merokok: \textit{formerly smoked}, \textit{never smoked}, \textit{smokes}, \textit{Unknown}. \\
+\hline
 \texttt{stroke} & Biner & Label target: 1 pasien mengalami stroke, 0 tidak. Hanya 4,87\% bernilai 1. \\
 \hline
 \end{tabularx}
@@ -1029,11 +1057,15 @@ tabel_performa
 \textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} \\
 \hline
 Decision Tree tanpa balancing & 0,8950 & 0,6111 & 0,6111 & 0,6111 \\
+\hline
 Decision Tree + SMOTE & 0,8775 & 0,5352 & 0,7037 & 0,6080 \\
+\hline
 Decision Tree + ADASYN & 0,8700 & 0,5132 & 0,7222 & 0,6000 \\
 \hline
 Random Forest tanpa balancing & 0,9400 & 0,8947 & 0,6296 & 0,7391 \\
+\hline
 Random Forest + SMOTE & 0,9025 & 0,6230 & 0,7037 & 0,6609 \\
+\hline
 Random Forest + ADASYN & 0,9050 & 0,6290 & 0,7222 & 0,6724 \\
 \hline
 \end{tabular}
