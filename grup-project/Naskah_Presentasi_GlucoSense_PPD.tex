@@ -1,0 +1,385 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[top=2.2cm,bottom=2.4cm,left=2.2cm,right=2.2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+% Konfigurasi Warna Modern
+\definecolor{primaryblue}{RGB}{20, 55, 110}
+\definecolor{accentteal}{RGB}{0, 128, 128}
+\definecolor{darkslate}{RGB}{35, 45, 55}
+\definecolor{lightgraybg}{RGB}{248, 250, 252}
+\definecolor{bordergray}{RGB}{218, 225, 233}
+\definecolor{speakerlilis}{RGB}{125, 30, 80}
+\definecolor{speakeraurell}{RGB}{180, 85, 0}
+\definecolor{speakerhafidz}{RGB}{15, 95, 140}
+\definecolor{speakerzidan}{RGB}{35, 115, 45}
+
+% Konfigurasi Header & Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{darkslate}{\textbf{GlucoSense} -- Panduan \& Naskah Presentasi UTS PPD}}
+\fancyhead[R]{\small\textcolor{darkslate}{Kelompok 3 (TRPL UGM)}}
+\fancyfoot[L]{\footnotesize\textcolor{darkslate}{\textit{Praktikum Penambangan Data Gasal 2026/2027}}}
+\fancyfoot[R]{\footnotesize\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+% Konfigurasi Judul Bab & Subbab
+\titleformat{\section}{\Large\bfseries\color{primaryblue}}{\thesection}{1em}{}[\titlerule]
+\titleformat{\subsection}{\large\bfseries\color{accentteal}}{\thesubsection}{1em}{}
+
+% Box Style untuk Naskah
+\newtcolorbox{scriptbox}[3][]{
+    enhanced,
+    colback=lightgraybg,
+    colframe=#2,
+    coltitle=white,
+    fonttitle=\bfseries\small,
+    title={#3},
+    arc=3mm,
+    boxrule=1pt,
+    left=4mm,
+    right=4mm,
+    top=3mm,
+    bottom=3mm,
+    #1
+}
+
+% Box Style untuk Poin Kritis / Defense Notes
+\newtcolorbox{defensebox}[1][]{
+    enhanced,
+    colback=white,
+    colframe=darkslate!40,
+    coltitle=darkslate,
+    fonttitle=\bfseries\footnotesize,
+    title={Poin Penekanan \& Antisipasi Dosen (Defense Guide)},
+    arc=2mm,
+    boxrule=0.8pt,
+    left=3mm,
+    right=3mm,
+    top=2mm,
+    bottom=2mm,
+    #1
+}
+
+\begin{document}
+
+% ==============================================================================
+% COVER & METADATA
+% ==============================================================================
+\begin{center}
+    {\large \textbf{UNIVERSITAS GADJAH MADA -- SEKOLAH VOKASI}}\\[0.2cm]
+    {\normalsize Departemen Teknik Elektro dan Informatika (TEDI)}\\[0.1cm]
+    {\normalsize Program Studi Sarjana Terapan Teknologi Rekayasa Perangkat Lunak}\\[0.6cm]
+
+    {\LARGE \textbf{\color{primaryblue}NASKAH PRESENTASI \& STRATEGI SIDANG UTS}}\\[0.3cm]
+    {\Large \textbf{Proyek: GlucoSense (Deteksi Dini Risiko Diabetes Melitus Tipe 2)}}\\[0.2cm]
+    {\normalsize \textbf{Mata Kuliah:} Praktikum Penambangan Data (SVPL261503) | \textbf{Dosen:} Dr. Imam Fahrurrozi, S.T., M.Cs.}\\[0.5cm]
+\end{center}
+
+\noindent\begin{tabularx}{\textwidth}{@{}X r@{}}
+    \toprule
+    \textbf{Anggota Kelompok 3 (Kelas PL5A1)} & \textbf{Alokasi Peran Presentasi} \\
+    \midrule
+    1. Lilis Puspita (24/533425/SV/23907) & Pembicara 1: Slide 01 -- 04 (Pendahuluan \& Permasalahan) \\
+    2. Aurell Achmad Madina Hartama (24/543963/SV/25299) & Pembicara 2: Slide 05 -- 08 (Metodologi \& Eksplorasi Data) \\
+    3. Hafidz Rizqullah Prasetya (24/543732/SV/25259) & Pembicara 3: Slide 09 -- 11 (Pemodelan ML \& Pipeline Backend) \\
+    4. Muhammad Zidan Alhilali (24/543673/SV/25244) & Pembicara 4: Slide 12 -- 17 (Komparasi Model, Fitur, \& Rencana) \\
+    \bottomrule
+\end{tabularx}
+
+\vspace{0.4cm}
+
+% ==============================================================================
+% MATRIKS DISTRIBUSI WAKTU & TIMELINE
+% ==============================================================================
+\section{Panduan Alur Waktu (Total Target: 10 Menit)}
+
+Presentasi dirancang dengan pembagian waktu yang disiplin agar pas 10 menit tanpa terburu-buru:
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}cllcp{6.5cm}@{}}
+    \toprule
+    \textbf{Urutan} & \textbf{Pembicara} & \textbf{Slide} & \textbf{Durasi} & \textbf{Fokus Pembahasan} \\
+    \midrule
+    \textbf{1} & \textbf{Lilis} & 01 -- 04 & 02:15 & Salam pembuka, profil kelompok, roadmap agenda, urgensi medis, rumusan masalah, dan tujuan riset. \\
+    \textbf{2} & \textbf{Aurell} & 05 -- 08 & 02:30 & Alur 6 tahap data mining, temuan distribusi kelas (173:78), analisis korelasi, dan rasio gejala klinis. \\
+    \textbf{3} & \textbf{Hafidz} & 09 -- 11 & 02:30 & Arsitektur 3 model baseline, tuning GridSearchCV 5-Fold, lonjakan F1-score, serta serialisasi pipeline backend. \\
+    \textbf{4} & \textbf{Zidan} & 12 -- 17 & 02:45 & Tabel komparasi 5 model, ROC-AUC (SVM 0.9519), Confusion Matrix, feature importance klinis, dan penutup. \\
+    \bottomrule
+\end{tabularx}
+\end{center}
+
+\vspace{0.2cm}
+
+% ==============================================================================
+% BAGIAN 1: PEMBICARA 1 (LILIS PUSPITA)
+% ==============================================================================
+\section{Bagian 1: Pendahuluan \& Latar Belakang (Lilis Puspita)}
+\textit{Alokasi Waktu: Menit 00:00 -- 02:15 | Slide 01 s.d. Slide 04}
+
+\subsection{Slide 01: Cover -- GlucoSense}
+\begin{scriptbox}{speakerlilis}{Slide 01 | Pembicara: Lilis | Durasi: 25 Detik}
+"Selamat pagi Bapak Dr. Imam Fahrurrozi dan rekan-rekan sekalian. 
+
+Pada kesempatan evaluasi tengah semester kali ini, perkenankan kami dari Kelompok 3 mempresentasikan hasil rancangan proyek data mining kami yang berjudul \textbf{GlucoSense: Deteksi Dini Risiko Diabetes Melitus Tipe 2 Berdasarkan Gejala Klinis Awal Menggunakan Machine Learning}."
+\end{scriptbox}
+
+\begin{defensebox}
+\textbf{Sikap:} Berdiri tegak, kontak mata tenang ke dosen, intonasi mantap dan artikulatif.
+\end{defensebox}
+
+\subsection{Slide 02: Our Profile}
+\begin{scriptbox}{speakerlilis}{Slide 02 | Pembicara: Lilis | Durasi: 25 Detik}
+"Kelompok 3 beranggotakan empat orang mahasiswa dari program studi Sarjana Terapan TRPL:
+Saya sendiri Lilis Puspita, rekan saya Muhammad Zidan Alhilali, Hafidz Rizqullah Prasetya, dan Aurell Achmad Madina Hartama. 
+
+Seluruh tahapan, mulai dari data preparation, analisis statistik, eksplorasi pemodelan machine learning, hingga kesiapan deployment ke web telah kami kerjakan secara terintegrasi."
+\end{scriptbox}
+
+\subsection{Slide 03: Our Contents}
+\begin{scriptbox}{speakerlilis}{Slide 03 | Pembicara: Lilis | Durasi: 25 Detik}
+"Presentasi kami pagi ini tersusun dalam empat bagian utama:
+Pertama, \textbf{Pendahuluan} mengenai latar belakang masalah dan tujuan.
+Kedua, \textbf{Metodologi} pengolahan data mining secara bertahap.
+Ketiga, \textbf{Hasil dan Pembahasan} yang mencakup eksplorasi data, pelatihan model, serta evaluasi performa komparatif.
+Dan keempat, \textbf{Kesimpulan serta Rencana Pengembangan} menuju tahap UAS."
+\end{scriptbox}
+
+\subsection{Slide 04: Pendahuluan \& Permasalahan}
+\begin{scriptbox}{speakerlilis}{Slide 04 | Pembicara: Lilis | Durasi: 60 Detik}
+"Masuk ke latar belakang: Diabetes Melitus Tipe 2 sering kali dijuluki sebagai \textit{silent killer} karena berkembang secara bertahap tanpa disadari oleh penderita. Sering kali pasien baru memeriksakan diri ketika komplikasi organ telah terjadi. Padahal, pada fase awal, tubuh sebenarnya telah menunjukkan sinyal-sinyal klinis spesifik.
+
+Dari latar belakang ini, kami merumuskan masalah: \textit{Bagaimana memanfaatkan teknik machine learning untuk mengklasifikasikan risiko Diabetes Melitus Tipe 2 secara akurat hanya berdasarkan karakteristik dan gejala klinis awal pasien tanpa memerlukan tes laboratorium yang invasif?}
+
+Tujuan riset ini adalah menghasilkan model klasifikasi yang andal, memetakan indikator klinis paling berpengaruh, dan menyiapkan dasar sistem inferensi untuk penapisan mandiri masyarakat. 
+
+Selanjutnya, alur metodologi data mining akan dipaparkan oleh rekan saya, Aurell. Kepada Aurell, dipersilakan."
+\end{scriptbox}
+
+\begin{defensebox}
+\textbf{Antisipasi Pertanyaan Dosen:} "Mengapa memilih dataset gejala kuesioner, bukan data hasil lab darah?"\\
+\textbf{Jawaban Lilis:} "Tujuan utama GlucoSense adalah deteksi dini tingkat pertama (\textit{early risk screening}) yang non-invasif dan dapat diakses mandiri oleh masyarakat luas sebelum mereka datang ke fasilitas kesehatan untuk tes darah HbA1c."
+\end{defensebox}
+
+\newpage
+
+% ==============================================================================
+% BAGIAN 2: PEMBICARA 2 (AURELL ACHMAD MADINA HARTAMA)
+% ==============================================================================
+\section{Bagian 2: Metodologi \& Eksplorasi Data (Aurell Achmad)}
+\textit{Alokasi Waktu: Menit 02:15 -- 04:45 | Slide 05 s.d. Slide 08}
+
+\subsection{Slide 05: Metodologi Penelitian}
+\begin{scriptbox}{speakeraurell}{Slide 05 | Pembicara: Aurell | Durasi: 40 Detik}
+"Terima kasih Lilis. Selamat pagi Bapak Imam dan teman-teman.
+
+Metodologi yang kami terapkan mengadopsi alur data mining terstandar yang terdiri dari enam tahapan terstruktur:
+Dimulai dari \textbf{Data Understanding} pada dataset 520 pasien dari Sylhet Diabetes Hospital;
+dilanjutkan ke \textbf{Data Cleaning dan Preprocessing} di mana kami melakukan penanganan missing value, deduplikasi rekaman data, encoding biner Yes/No menjadi satu dan nol, serta standardisasi fitur numerik.
+
+Kemudian tahap ketiga adalah \textbf{Exploratory Data Analysis (EDA)}; dilanjutkan \textbf{Data Splitting} dengan rasio 70 banding 30 menggunakan stratified sampling; 
+tahap kelima \textbf{Pemilihan dan Pelatihan Model}; dan diakhiri dengan \textbf{Evaluasi Model} secara komparatif."
+\end{scriptbox}
+
+\begin{defensebox}
+\textbf{Antisipasi Dosen:} "Mengapa data splitting memakai rasio 70:30 dan stratified sampling?"\\
+\textbf{Jawaban Aurell:} "Rasio 70:30 memberi porsi data latih yang cukup bagi model tanpa mengorbankan ukuran data uji (76 sampel test). Stratified sampling wajib digunakan untuk menjaga proporsi rasio kelas positif dan negatif tetap identik di kedua subset data."
+\end{defensebox}
+
+\subsection{Slide 06: Hasil EDA -- Distribusi Kelas Pasien}
+\begin{scriptbox}{speakeraurell}{Slide 06 | Pembicara: Aurell | Durasi: 35 Detik}
+"Pada slide keenam, kita melihat hasil analisis distribusi kelas pasien pasca pembersihan data. 
+
+Dataset bersih memiliki total 251 pasien unik, terdiri dari 173 pasien kelas \textit{Positive} risiko diabetes dan 78 pasien kelas \textit{Negative}. 
+Meskipun kelas positif lebih dominan dengan proporsi sekitar 68,9 persen berbanding 31,1 persen, ketimpangan ini masih berada pada tingkat ketidakseimbangan moderat yang dapat ditangani dengan baik melalui evaluasi berbasis F1-Score dan Stratified K-Fold Cross Validation."
+\end{scriptbox}
+
+\begin{defensebox}
+\textbf{Point Kritis (PENTING):} Jika Pak Imam bertanya: \textit{"Lho di paper dataset aslinya 520 baris, kenapa di slide Anda jadi 251 baris?"}\\
+\textbf{Jawaban Aurell:} "Dataset asli 520 baris mengandung 269 baris duplikat identik. Jika data duplikat tidak dibuang, rekaman yang sama akan tersebar di train set dan test set, menyebabkan \textit{data leakage} dan akurasi semu (overfitting tiruan). Oleh karena itu kami menduplikasi bersih menjadi 251 sampel unik."
+\end{defensebox}
+
+\subsection{Slide 07: Hasil EDA -- Korelasi Antar Fitur}
+\begin{scriptbox}{speakeraurell}{Slide 07 | Pembicara: Aurell | Durasi: 35 Detik}
+"Beralih ke matriks korelasi pada slide ketujuh. Dari enam belas fitur klinis yang dievaluasi, dua fitur menunjukkan korelasi positif linear paling kuat terhadap kelas target diagnosis:
+Yaitu gejala \textbf{Polyuria} dengan koefisien korelasi 0,62, disusul oleh \textbf{Polydipsia} dengan koefisien korelasi 0,59.
+
+Fitur lain seperti penurunan berat badan mendadak (\textit{sudden weight loss}) dan paresis parsial juga memiliki korelasi positif sedang sekitar 0,38 hingga 0,39. Sementara gejala seperti gatal-gatal (\textit{itching}) memiliki korelasi yang mendekati nol terhadap kelas target."
+\end{scriptbox}
+
+\subsection{Slide 08: Hasil EDA -- Perbandingan Gejala Klinis}
+\begin{scriptbox}{speakeraurell}{Slide 08 | Pembicara: Aurell | Durasi: 40 Detik}
+"Visualisasi pada slide kedelapan mempertegas temuan korelasi sebelumnya. Pada grafik perbandingan gejala antara pasien positif dan negatif, terlihat kesenjangan persentase yang sangat masif:
+
+Pada gejala Polyuria, terdapat 73,4 persen pasien positif yang mengalaminya, sementara pada pasien negatif hanya 6,4 persen -- selisih perbedaan mencapai 67 persen.
+Begitu pula Polydipsia, dialami oleh 69,4 persen pasien positif berbanding hanya 5,1 persen pada pasien negatif.
+
+Temuan statistik ini membuktikan bahwa Polyuria dan Polydipsia adalah pembeda klinis paling signifikan. Selanjutnya, proses pemodelan machine learning akan dipaparkan secara mendalam oleh rekan saya, Hafidz. Silakan Hafidz."
+\end{scriptbox}
+
+\newpage
+
+% ==============================================================================
+% BAGIAN 3: PEMBICARA 3 (HAFIDZ RIZQULLAH PRASETYA)
+% ==============================================================================
+\section{Bagian 3: Pemodelan Machine Learning \& Backend Pipeline (Hafidz)}
+\textit{Alokasi Waktu: Menit 04:45 -- 07:15 | Slide 09 s.d. Slide 11}
+
+\subsection{Slide 09: Pelatihan Model Baseline Klasifikasi}
+\begin{scriptbox}{speakerhafidz}{Slide 09 | Pembicara: Hafidz | Durasi: 50 Detik}
+"Terima kasih Aurell. Selamat pagi Bapak Dr. Imam Fahrurrozi dan rekan-rekan sekalian.
+
+Pada tahap pemodelan, kami mengimplementasikan tiga model klasifikasi utama dengan filosofi arsitektur yang saling melengkapi:
+Pertama, \textbf{Logistic Regression} sebagai patokan baseline probabilistik linier dengan efisiensi komputasi tinggi.
+Kedua, \textbf{Random Forest Classifier} sebagai algoritma ensemble berbasis \textit{bagging} pohon keputusan yang sangat tangguh terhadap interaksi fitur non-linear pada data medis.
+Dan ketiga, \textbf{Support Vector Machine (SVM)} dengan kernel \textit{Radial Basis Function} (RBF) yang memetakan fitur ke ruang dimensi lebih tinggi untuk mencari bidang pemisah (\textit{hyperplane}) dengan margin optimal.
+
+Pada pelatihan baseline ini, data dibagi menggunakan \textit{Stratified Sampling} 70 banding 30 -- yaitu 175 sampel training dan 76 sampel testing -- dengan seluruh fitur distandarisasi menggunakan \texttt{StandardScaler}."
+\end{scriptbox}
+
+\begin{defensebox}
+\textbf{Antisipasi Pertanyaan Dosen:} "Mengapa fitur biner (0/1) ikut distandarisasi dengan StandardScaler bersamaan dengan usia?"\\
+\textbf{Jawaban Hafidz:} "Fitur \textit{Age} memiliki rentang nilai 16 hingga 90, sementara fitur gejala bernilai 0 dan 1. Pada algoritma berbasis jarak seperti SVM (RBF) dan Logistic Regression dengan penalti L2, perbedaan skala yang drastis akan membuat fitur \textit{Age} mendominasi perhitungan jarak. Standardisasi menyeimbangkan kontribusi seluruh fitur ke ruang vektor."
+\end{defensebox}
+
+\subsection{Slide 10: Optimasi Model Menggunakan GridSearchCV \& 5-Fold CV}
+\begin{scriptbox}{speakerhafidz}{Slide 10 | Pembicara: Hafidz | Durasi: 50 Detik}
+"Masuk ke slide kesepuluh: Setelah baseline terbentuk, kami melakukan optimasi hyperparameter secara sistematis menggunakan \textbf{GridSearchCV} yang divalidasi silang dengan \textbf{5-Fold Stratified Cross Validation}.
+
+Kami sengaja menetapkan fungsi objektif optimasi pada metrik \textbf{F1-Score}, bukan sekadar akurasi. Alasannya adalah dalam ranah skrining medis, biaya kesalahan diagnosis \textit{False Negative} -- yaitu pasien penderita diabetes yang salah diprediksi sehat -- memiliki risiko klinis yang jauh lebih fatal.
+
+Hasil penalaan parameter terbaik:
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+    \item Pada Logistic Regression, didapatkan parameter terbaik $C = 1.0$ dengan solver \texttt{lbfgs}, menghasilkan rata-rata Cross Validation F1-Score sebesar 93,34 persen.
+    \item Pada Random Forest, konfigurasi optimal terpilih pada 50 pohon (\texttt{n\_estimators} = 50), kriteria \texttt{entropy}, dan \texttt{min\_samples\_split} = 5, mencapai CV F1-Score 95,90 persen.
+    \item Dan pada SVM, konfigurasi terbaik diperoleh pada penalti margin $C = 5.0$, kernel RBF, dan \texttt{gamma} = 'scale', membukukan CV F1-Score tertinggi mencapai 96,73 persen.
+\end{itemize}
+Tuning terbukti sukses mereduksi varians dan mengunci stabilitas generalisasi model."
+\end{scriptbox}
+
+\subsection{Slide 11: Kesiapan Deployment UAS -- Serialisasi Artefak \& Pipeline Backend}
+\begin{scriptbox}{speakerhafidz}{Slide 11 | Pembicara: Hafidz | Durasi: 50 Detik}
+"Sebagai bentuk komitmen arsitektural menuju tugas akhir semester (UAS), kami tidak berhenti pada kode notebook. Pada slide kesebelas ini, seluruh pipeline inferensi telah berhasil kami ekspor dan validasi menjadi artefak siap saji (\textit{ready-to-serve}):
+
+Pertama, \texttt{best\_diabetes\_model.joblib} berukuran 145 kilobyte yang memuat model terlatih optimal.
+Kedua, \texttt{diabetes\_scaler.joblib} berukuran 1,3 kilobyte untuk memastikan transformasi input pasien baru di masa depan terkalibrasi persis dengan parameter pelatihan data.
+Dan ketiga, \texttt{model\_metadata.json} yang mendefinisikan urutan enam belas fitur klinis dan ambang batas keputusan.
+
+Kami telah menguji fungsi inferensi backend terhadap dua skenario uji ekstrem:
+Pada kasus pasien dengan gejala Polyuria dan Polydipsia, pipeline memprediksi kelas \textbf{Positive} dengan probabilitas 100 persen.
+Sedangkan pada pasien sehat tanpa riwayat gejala, pipeline memprediksi kelas \textbf{Negative} dengan probabilitas 0 persen.
+Logika backend telah tervalidasi 100 persen dan siap dipadukan dengan antarmuka web Streamlit pada tahap UAS.
+
+Selanjutnya, hasil evaluasi komparatif lengkap dan kesimpulan akan dipaparkan oleh rekan saya, Zidan. Silakan Zidan."
+\end{scriptbox}
+
+\begin{defensebox}
+\textbf{Antisipasi Dosen:} "Apakah scaler diekspor dari data train saja atau seluruh dataset?"\\
+\textbf{Jawaban Hafidz:} "Scaler di-fit \textbf{hanya pada data training} (\texttt{scaler.fit(X\_train)}), lalu di-transform ke test set dan disimpan ke file .joblib. Ini dilakukan secara ketat untuk mencegah terjadinya kebocoran informasi masa depan (\textit{look-ahead bias / data leakage})."
+\end{defensebox}
+
+\newpage
+
+% ==============================================================================
+% BAGIAN 4: PEMBICARA 4 (MUHAMMAD ZIDAN ALHILALI)
+% ==============================================================================
+\section{Bagian 4: Komparasi Model, Fitur, \& Kesimpulan (Zidan)}
+\textit{Alokasi Waktu: Menit 07:15 -- 10:00 | Slide 12 s.d. Slide 17}
+
+\subsection{Slide 12: Komparasi 5 Model Keseluruhan}
+\begin{scriptbox}{speakerzidan}{Slide 12 | Pembicara: Zidan | Durasi: 40 Detik}
+"Terima kasih Hafidz. Selamat pagi Bapak Imam dan teman-teman sekalian.
+
+Untuk menguji keunggulan model secara objektif, pada slide kedua belas kami memperluas komparasi dengan menambahkan dua algoritma pembanding tambahan, yaitu \textbf{K-Nearest Neighbors (KNN)} dan \textbf{XGBoost Classifier}, sehingga total lima model diuji berdampingan pada data testing riil.
+
+Berdasarkan tabel evaluasi:
+Model \textbf{Support Vector Machine (SVM)} membuktikan dominasi mutlak di hampir seluruh metrik utama pada data testing:
+Mencapai \textbf{Test Accuracy 88,16 persen}, \textbf{Test Recall 88,46 persen}, \textbf{Test F1-Score 91,09 persen}, serta \textbf{Test ROC-AUC mencapai 0,9519}.
+
+Meskipun model KNN mencatatkan nilai Presisi 100 persen, nilai Recall KNN hanya 76,92 persen -- yang artinya KNN melewatkan cukup banyak pasien sakit. SVM memberikan keseimbangan paling superior antara sensitivitas dan spesifisitas diagnosis."
+\end{scriptbox}
+
+\subsection{Slide 13: Evaluasi Kurva ROC-AUC}
+\begin{scriptbox}{speakerzidan}{Slide 13 | Pembicara: Zidan | Durasi: 30 Detik}
+"Pada slide ketiga belas, kurva ROC-AUC menggambarkan kemampuan diskriminasi model pada berbagai variasi ambang batas probabilitas.
+
+Kelima model yang kami uji membentuk lengkungan kurva yang sangat mendekati sudut kiri atas, jauh melampaui garis putus-putus acak (\textit{random guess}).
+Garis hijau tebal yang merepresentasikan SVM membukukan skor AUC tertinggi yaitu \textbf{0,9519}, diikuti Random Forest sebesar 0,9495 dan XGBoost 0,9471. 
+Skor ini membuktikan bahwa kemampuan separasi SVM sangat stabil dan minim kesalahan peringkat probabilitas."
+\end{scriptbox}
+
+\subsection{Slide 14: Analisis Confusion Matrix}
+\begin{scriptbox}{speakerzidan}{Slide 14 | Pembicara: Zidan | Durasi: 35 Detik}
+"Masuk ke slide keempat belas, matriks konfusi memberikan gambaran riil prediksi terhadap 76 pasien data testing:
+
+Dari 52 pasien yang benar-benar berisiko diabetes positif, SVM berhasil mendeteksi secara tepat sebanyak 46 pasien (\textit{True Positive}), dan hanya menghasilkan 6 kasus \textit{False Negative}. 
+Angka \textit{False Negative} sebanyak 6 ini merupakan angka terkecil dibanding Logistic Regression dan KNN yang menghasilkan 9 dan 12 \textit{False Negative}. 
+Sedangkan pada kelas negatif, SVM mencatat 21 \textit{True Negative} dan hanya 3 \textit{False Positive}."
+\end{scriptbox}
+
+\subsection{Slide 15: Analisis Tingkat Kepentingan Fitur (Feature Importance)}
+\begin{scriptbox}{speakerzidan}{Slide 15 | Pembicara: Zidan | Durasi: 35 Detik}
+"Pada slide kelima belas, kami mengekstraksi nilai \textit{Feature Importance} berbasis penurunan derajat \textit{Entropy/Gini Impurity} dari model Random Forest.
+
+Hasilnya selaras sempurna dengan temuan EDA awal:
+Dua fitur teratas yang mendominasi lebih dari 40 persen bobot keputusan klasifikasi adalah \textbf{Polyuria} (tingkat kepentingan 0,22) dan \textbf{Polydipsia} (tingkat kepentingan 0,18), disusul oleh faktor usia, penurunan berat badan mendadak, serta jenis kelamin.
+Secara medis, ini valid karena sering buang air kecil dan rasa haus ekstrem adalah manifestasi fisiologis langsung dari tingginya kadar glukosa dalam darah."
+\end{scriptbox}
+
+\subsection{Slide 16 \& 17: Kesimpulan, Roadmap UAS, \& Penutup}
+\begin{scriptbox}{speakerzidan}{Slide 16 \& 17 | Pembicara: Zidan | Durasi: 40 Detik}
+"Sebagai kesimpulan:
+Penerapan machine learning dengan pendekatan non-invasif terbukti efektif dalam memprediksi risiko Diabetes Melitus Tipe 2 pada tahap awal, dengan algoritma SVM kernel RBF sebagai model performa terbaik.
+
+Sebagai kelanjutan menuju UAS, seluruh artefak model yang telah kami serialisasi akan diintegrasikan ke dalam aplikasi web berbasis Streamlit yang dilengkapi form skrining mandiri, indikator meter risiko, serta modul rekomendasi gaya hidup sehat bagi masyarakat.
+
+Demikian presentasi dari Kelompok 3. Kami mengucapkan terima kasih atas perhatian Bapak Dr. Imam Fahrurrozi dan rekan-rekan semua. Waktu kami kembalikan kepada Bapak dosen untuk sesi tanya jawab."
+\end{scriptbox}
+
+\newpage
+
+% ==============================================================================
+% BAGIAN 5: CHEAT SHEET TANYA JAWAB (DEFENSE GUIDE SIDANG UTS)
+% ==============================================================================
+\section{Cheat Sheet Tanya Jawab (Antisipasi Ujian Dosen)}
+
+Berikut adalah ringkasan argumentasi teknis untuk menjawab kemungkinan pertanyaan tajam dari dosen pengampu (\textbf{Dr. Imam Fahrurrozi, S.T., M.Cs.}):
+
+\begin{enumerate}[leftmargin=*,itemsep=8pt]
+    \item \textbf{Pertanyaan:} \textit{"Kenapa jumlah data menyusut dari 520 baris di paper UCI menjadi 251 baris di analisis kalian?"}\\
+    \textbf{Penjelasan Medis \& Teknis (Aurell / Lilis):}\\
+    Di dalam dataset raw UCI Early Stage Diabetes, terdapat 269 baris duplikasi identik yang berasal dari pengumpulan kuesioner berulang. Jika duplikasi tersebut dibiarkan, saat dilakukan \textit{train-test split}, sampel pasien yang persis sama akan berada di data latih dan data uji sekaligus (\textit{data leakage}). Hal tersebut akan menghasilkan evaluasi palsu (\textit{artificially high accuracy}). Dengan melakukan deduplikasi menjadi 251 data unik, model dievaluasi secara jujur terhadap sampel data yang benar-benar belum pernah dilihat sebelumnya.
+
+    \item \textbf{Pertanyaan:} \textit{"Mengapa SVM RBF bisa lebih unggul daripada Random Forest atau XGBoost yang biasanya menjadi juara di data tabular?"}\\
+    \textbf{Penjelasan Algoritmik (Hafidz):}\\
+    Dataset ini berukuran 251 sampel dengan 16 fitur yang mayoritas bersifat biner dan telah distandarisasi. Random Forest dan pohon keputusan memerlukan ribuan sampel untuk membangun \textit{split} partisi fitur yang halus. Sebaliknya, SVM dengan kernel RBF memproyeksikan fitur biner ke dalam ruang Hilbert berdimensi tak terhingga (\textit{infinite-dimensional feature space}) dan membentuk bidang margin pemisah yang mulus (\textit{maximum margin hyperplane}). Pada data medis berdimensi sedang (\textit{medium sample size}), karakteristik margin maksimal SVM memiliki kekebalan alami yang sangat tinggi terhadap \textit{overfitting}.
+
+    \item \textbf{Pertanyaan:} \textit{"Dalam ranah klinis, mengapa F1-Score dan Recall lebih diperhatikan dibanding sekadar nilai Accuracy?"}\\
+    \textbf{Penjelasan Metrik Evaluasi (Zidan / Hafidz):}\\
+    Akurasi hanya menghitung rasio tebakan benar secara total tanpa membedakan tipe kesalahan. Dalam penapisan medis, kesalahan tipe \textit{False Negative} (pasien penderita diabetes yang divonis sehat) berakibat fatal karena pasien kehilangan kesempatan intervensi dini dan berisiko mengalami komplikasi jantung atau ginjal. Recall mengukur kemampuan sistem menangkap seluruh penderita diabetes yang ada, dan F1-Score menjaga keseimbangan harmonis agar presisi tidak hancur akibat prediksi positif yang membabi buta.
+
+    \item \textbf{Pertanyaan:} \textit{"Bagaimana kalian menjamin bahwa model yang disimpan ke file .joblib tidak mengalami data leakage saat dipakai di aplikasi web UAS nanti?"}\\
+    \textbf{Penjelasan Pipeline Deployment (Hafidz):}\\
+    Objek \texttt{StandardScaler} di-fit secara eksklusif hanya pada subset \texttt{X\_train}. Parameter rata-rata ($\mu$) dan varians ($\sigma$) dari \texttt{X\_train} inilah yang disimpan ke dalam file \texttt{diabetes\_scaler.joblib}. Saat aplikasi web menerima input data baru dari pengguna, input tersebut langsung ditransformasi menggunakan parameter historis tersebut tanpa pernah memanggil fungsi \texttt{.fit()} kembali. Skema 16 fitur juga divalidasi urutan dan tipe datanya oleh \texttt{model\_metadata.json}.
+\end{enumerate}
+
+\vspace{0.6cm}
+\begin{center}
+    \small\textit{Naskah ini disusun untuk Kelompok 3 TRPL UGM -- Praktikum Penambangan Data Gasal 2026/2027.}
+\end{center}
+
+\end{document}
