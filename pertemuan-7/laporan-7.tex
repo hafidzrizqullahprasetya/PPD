@@ -319,16 +319,16 @@ Akibatnya, sampel minoritas yang berada dekat batas keputusan menerima porsi sin
 
 Sesuai Modul Pertemuan 7 Praktikum Penambangan Data, alat dan bahan yang digunakan dalam praktikum ini meliputi:
 
-\vspace{0.2cm}
+\vspace{0.1cm}
 \noindent\textbf{A. Perangkat Keras}
-\begin{enumerate}[noitemsep, topsep=2pt, parsep=1pt]
+\begin{enumerate}[noitemsep, topsep=1pt, parsep=0pt]
     \item Laptop atau komputer personal (PC) dengan kapasitas memori minimal 4 GB RAM (direkomendasikan 8 GB atau lebih).
     \item Koneksi internet yang stabil untuk mengakses lingkungan komputasi daring dan mengunduh berkas dataset.
 \end{enumerate}
 
-\vspace{0.2cm}
+\vspace{0.1cm}
 \noindent\textbf{B. Perangkat Lunak}
-\begin{enumerate}[noitemsep, topsep=2pt, parsep=1pt]
+\begin{enumerate}[noitemsep, topsep=1pt, parsep=0pt]
     \item Sistem operasi modern (Windows, macOS, atau Linux).
     \item Peramban web (Google Chrome, Mozilla Firefox, atau Microsoft Edge).
     \item Lingkungan pengembangan interaktif Python: Google Colaboratory dan Jupyter Notebook lokal.
@@ -342,9 +342,9 @@ Sesuai Modul Pertemuan 7 Praktikum Penambangan Data, alat dan bahan yang digunak
     \end{itemize}
 \end{enumerate}
 
-\vspace{0.2cm}
+\vspace{0.1cm}
 \noindent\textbf{C. Dataset}
-\begin{enumerate}[noitemsep, topsep=2pt, parsep=1pt]
+\begin{enumerate}[noitemsep, topsep=1pt, parsep=0pt]
     \item \textit{Stroke Prediction Dataset} dengan 5.110 baris dan 12 kolom, dipakai pada percobaan penyeimbangan kelas \cite{kaggle-stroke}.
     \item \textit{Heart Attack Analysis and Prediction Dataset} dengan 303 baris dan 14 kolom, dipakai pada percobaan seleksi fitur \cite{kaggle-heart}.
     \item \textit{Wine Quality (red)} dengan 1.599 baris dan 12 kolom, dipakai pada Tugas 2 \cite{uci-wine,cortez2009}.
@@ -1043,9 +1043,7 @@ Polanya konsisten pada kedua pengklasifikasi. Akurasi turun, \textit{recall} nai
 
 Penurunan akurasi adalah konsekuensi yang diharapkan dari pergeseran titik operasi ini. Model yang lebih jarang melewatkan sampel premium memang harus menerima lebih banyak tebakan salah pada kelas standar, dan itulah harga yang dibayar untuk menaikkan \textit{recall} sekitar 9 sampai 11 poin persen. Pada konteks penyaringan kualitas, melewatkan anggur premium yang sebenarnya laku mahal biasanya lebih merugikan dibanding salah menaikkan satu produk standar ke kategori premium.
 
-Perubahan \textit{precision} menjelaskan mekanismenya. Nilai \textit{precision} turun cukup tajam, dari 0,8947 menjadi 0,6230 pada \textit{Random Forest}. Model jadi lebih agresif menyatakan sebuah sampel premium, sehingga sebagian prediksi positif ternyata keliru. F1-Score sebagai rata-rata harmonik keduanya ikut turun karena penurunan \textit{precision} lebih besar daripada kenaikan \textit{recall}. Penyeimbangan memindahkan titik operasi model ke arah sensitivitas, dan pemilihan teknik tetap harus mempertimbangkan biaya kesalahan di domain yang dihadapi.
-
-ADASYN sedikit lebih unggul dibanding SMOTE pada \textit{recall} di kedua model, yaitu 0,7222 berbanding 0,7037. Selisihnya berasal dari cara ADASYN memusatkan sampel sintetis di sekitar batas keputusan, tepat di wilayah yang paling sering salah diklasifikasikan. Namun keunggulan itu diikuti \textit{precision} yang lebih rendah, sehingga F1-Score keduanya hampir setara.
+Perubahan \textit{precision} menjelaskan mekanismenya. Nilai \textit{precision} turun cukup tajam, dari 0,8947 menjadi 0,6230 pada \textit{Random Forest}. Model jadi lebih agresif menyatakan sebuah sampel premium, sehingga sebagian prediksi positif ternyata keliru. F1-Score sebagai rata-rata harmonik keduanya ikut turun karena penurunan \textit{precision} lebih besar daripada kenaikan \textit{recall}. Penyeimbangan memindahkan titik operasi model ke arah sensitivitas, dan pemilihan teknik tetap harus mempertimbangkan biaya kesalahan di domain yang dihadapi. ADASYN sedikit lebih unggul dibanding SMOTE pada \textit{recall} di kedua model, yaitu 0,7222 berbanding 0,7037. Selisihnya berasal dari cara ADASYN memusatkan sampel sintetis di sekitar batas keputusan, tepat di wilayah yang paling sering salah diklasifikasikan. Namun keunggulan itu diikuti \textit{precision} yang lebih rendah, sehingga F1-Score keduanya hampir setara.
 
 \clearpage
 
@@ -1053,13 +1051,13 @@ ADASYN sedikit lebih unggul dibanding SMOTE pada \textit{recall} di kedua model,
 Berdasarkan praktikum yang telah saya laksanakan pada Pertemuan 7, diperoleh kesimpulan sebagai berikut:
 \begin{enumerate}[noitemsep, topsep=2pt, parsep=0pt, partopsep=0pt]
     \item \textit{Imbalanced class} membuat model bias ke kelas mayoritas. Pada \textit{Stroke Prediction Dataset}, rasio kelas mencapai 19,52 banding 1 dengan hanya 4,87\% pasien mengalami stroke, sehingga akurasi menjadi metrik yang menyesatkan dan \textit{recall} kelas minoritas lebih layak dijadikan acuan.
-    \item Empat teknik penyeimbangan menghasilkan karakter data yang berbeda meski tujuannya sama. \textit{Random Under-Sampling} memangkas set pelatihan dari 3.832 menjadi 338 baris dan membuang 95,4\% sampel mayoritas. \textit{Random Over-Sampling}, SMOTE, dan ADASYN sama-sama menaikkan jumlah sampel minoritas menjadi sekitar 3.663, tetapi hanya SMOTE dan ADASYN yang menambah variasi karena membangkitkan data sintetis.
+    \item Empat teknik penyeimbangan menghasilkan karakter data yang berbeda meski tujuannya sama. \textit{Random Under-Sampling} memangkas set pelatihan dari 3.832 menjadi 338 baris dan membuang 95,4\% sampel mayoritas. \textit{Random Over-Sampling}, SMOTE, dan ADASYN sama-sama menaikkan jumlah sampel minoritas menjadi sekitar 3.663, tetapi hanya SMOTE dan ADASYN yang menambah variasi karena datanya sintetis.
     \item ADASYN membangkitkan 3.507 sampel sintetis dan berakhir dengan 3.676 sampel minoritas, tiga belas lebih banyak dari kelas mayoritas. Kelebihan itu muncul karena kuota sintetis dibagi menurut bobot kesulitan tiap sampel, bukan dibagi rata.
     \item Penyeimbangan hanya boleh diterapkan pada set pelatihan. Menerapkannya pada set pengujian akan membuat evaluasi kehilangan makna karena data uji tidak lagi mencerminkan sebaran asli.
     \item Seleksi fitur menaikkan akurasi uji \textit{Decision Tree} pada dataset heart dari 0,754 menjadi 0,820, atau 6,6 poin persen. \textit{Wrapper} RFE mencapai hasil tertinggi dengan lima fitur saja, sehingga paling efisien di antara ketiga pendekatan.
     \item \textit{Filter} ANOVA dan \textit{embedded} ExtraTree memilih himpunan fitur yang hampir sama, yaitu \texttt{caa}, \texttt{cp}, \texttt{exng}, \texttt{thall}, \texttt{oldpeak}, dan \texttt{thalachh}. Keduanya menilai kemampuan fitur memisahkan kelas, hanya metriknya berbeda.
     \item \textit{Overfitting} terlihat dari jarak akurasi latih dan uji. Pohon penuh mencapai 0,996 pada data latih tetapi hanya 0,770 pada data uji. Pemangkasan kedalaman menjadi 3 menurunkan akurasi latih ke 0,843 dan menaikkan akurasi uji ke 0,787, sehingga jaraknya menyempit dari 0,226 menjadi 0,056.
-    \item Pada dataset Wine Quality, penyeimbangan menaikkan \textit{recall} kelas minoritas 9 sampai 11 poin persen dengan konsekuensi akurasi turun 2 sampai 3,5 poin persen. Pergeseran ini menunjukkan bahwa penyeimbangan memindahkan titik operasi model, bukan menaikkan seluruh metrik sekaligus.
+    \item Pada dataset Wine Quality, penyeimbangan menaikkan \textit{recall} kelas minoritas 9 sampai 11 poin persen tetapi menurunkan akurasi 2 sampai 3,5 poin persen.
 \end{enumerate}
 
 \clearpage
