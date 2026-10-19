@@ -53,6 +53,11 @@ Berdasarkan nilai-nilai tersebut, dapat dihitung metrik evaluasi seperti *Accura
 2. Google Colab / Jupyter Notebook  
 3. Pustaka Python: `pandas`, `numpy`, `scikit-learn`, `imbalanced-learn` (`imblearn`), `matplotlib`, `seaborn`  
 
+**C. Dataset**  
+1. *Stroke Prediction Dataset* (5.110 baris, 12 kolom) untuk percobaan penyeimbangan kelas: https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset  
+2. *Heart Attack Analysis and Prediction Dataset* (303 baris, 14 kolom) untuk percobaan seleksi fitur: https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset  
+3. *Wine Quality (red)* (1.599 baris, 12 kolom) untuk Tugas 2: https://archive.ics.uci.edu/dataset/186/wine+quality  
+
 ---
 
 ### 7.4 LANGKAH PERCOBAAN
@@ -171,6 +176,58 @@ Visualisasi sebaran ruang fitur hasil pembentukan data sintetis ADASYN:
 ![Gambar 7.4.19 Visualisasi scatter](images/gambar-7-4-19-visualisasi-scatter.png)  
 *Gambar 7.4.19 Visualisasi scatter*
 
+#### 10. Memuat Dataset untuk Seleksi Fitur
+Bagian seleksi fitur memakai *Heart Attack Analysis and Prediction Dataset* yang berisi 303 baris dan 14 kolom: 13 fitur prediktor (`age`, `sex`, `cp`, `trtbps`, `chol`, `fbs`, `restecg`, `thalachh`, `exng`, `oldpeak`, `slp`, `caa`, `thall`) dan satu label target `output`. Dataset dibaca langsung dari repositori daring, lalu distribusi labelnya diperiksa.
+
+![Gambar 7.4.20 Pembacaan dataset heart.csv](images/ss-20-baca-heart.png)  
+*Gambar 7.4.20 Pembacaan dataset heart.csv*
+
+Label `output` terbagi menjadi 165 sampel kelas 1 dan 138 sampel kelas 0, sehingga dataset ini masih tergolong cukup seimbang dan cocok dipakai untuk menguji pengaruh seleksi fitur tanpa gangguan penyeimbangan kelas.
+
+#### 11. Filter Method dengan ANOVA
+*Filter method* menilai relevansi fitur dari sifat statistiknya, tanpa melatih model. Uji ANOVA (`f_classif`) menghitung nilai $F$ dan $p$ untuk setiap fitur terhadap label target. Nilai $F$ yang tinggi menandakan rata-rata fitur tersebut berbeda nyata antar-kelas.
+
+![Gambar 7.4.21 Peringkat uji ANOVA](images/ss-21-anova-ranking.png)  
+*Gambar 7.4.21 Peringkat uji ANOVA*
+
+Hasil peringkat menunjukkan lima fitur teratas adalah `exng` ($F = 70{,}9524$), `cp` ($69{,}7723$), `oldpeak` ($68{,}5514$), `thalachh` ($65{,}1201$), dan `caa` ($54{,}5598$). Tiga fitur terbawah yaitu `restecg` ($5{,}7772$), `chol` ($2{,}2030$), dan `fbs` ($0{,}2369$) memiliki $p > 0{,}01$, artinya perbedaan rata-ratanya antar-kelas tidak cukup meyakinkan.
+
+Delapan fitur dengan skor $F$ tertinggi dipilih sebagai subset hasil *filter method*:
+
+![Gambar 7.4.22 Fitur terpilih hasil ANOVA](images/ss-22-fitur-anova.png)  
+*Gambar 7.4.22 Fitur terpilih hasil ANOVA*
+
+#### 12. Wrapper Method dengan RFE
+*Wrapper method* memakai model *machine learning* sebagai penilai. *Recursive Feature Elimination* (RFE) melatih model, membuang fitur dengan bobot terkecil, lalu mengulang proses tersebut sampai jumlah fitur yang tersisa sesuai target. Pada percobaan ini estimator yang dipakai adalah `DecisionTreeClassifier` dengan target lima fitur.
+
+![Gambar 7.4.23 Fitur terpilih hasil RFE](images/ss-23-fitur-rfe.png)  
+*Gambar 7.4.23 Fitur terpilih hasil RFE*
+
+Lima fitur yang bertahan adalah `age`, `cp`, `thalachh`, `caa`, dan `thall`. Susunan ini berbeda dari contoh pada slide perkuliahan (`sex`, `exng`, `slp`, `caa`, `thall`) karena urutan eliminasi bergantung pada pohon yang terbentuk di setiap iterasi. Kedua hasil sama-sama menyisakan lima fitur, hanya pilihan fiturnya bergeser.
+
+#### 13. Embedded Method dengan ExtraTree
+*Embedded method* menjalankan seleksi fitur menyatu dengan proses pelatihan model. `ExtraTreesClassifier` menghitung *feature importance* dari penurunan *impurity* saat pemisahan node, sehingga tidak perlu melatih model berulang kali seperti *wrapper*.
+
+![Gambar 7.4.24 Feature importance ExtraTree](images/ss-24-fitur-extratree.png)  
+*Gambar 7.4.24 Feature importance ExtraTree*
+
+Enam fitur dengan kepentingan tertinggi adalah `caa` ($0{,}1231$), `cp` ($0{,}1191$), `exng` ($0{,}1030$), `thall` ($0{,}0992$), `oldpeak` ($0{,}0923$), dan `thalachh` ($0{,}0837$). Himpunan ini identik dengan hasil ANOVA, hanya urutannya berbeda.
+
+#### 14. Komparasi Metode Seleksi Fitur dan Pemeriksaan Overfitting
+Setiap subset fitur diuji dengan `DecisionTreeClassifier` pada pembagian data yang sama (80:20, `random_state=42`), sehingga perbedaan akurasi hanya berasal dari pilihan fiturnya.
+
+![Gambar 7.4.25 Perbandingan akurasi tiga metode seleksi fitur](images/ss-25-komparasi-seleksi.png)  
+*Gambar 7.4.25 Perbandingan akurasi tiga metode seleksi fitur*
+
+Hasilnya: tanpa seleksi (13 fitur) akurasi uji $0{,}754$; *filter* ANOVA (8 fitur) $0{,}820$; *wrapper* RFE (5 fitur) $0{,}820$; *embedded* ExtraTree (6 fitur) $0{,}770$. Pemangkasan fitur menaikkan akurasi uji sampai 6,6 poin persen, dan RFE mencapai hasil tertinggi dengan jumlah fitur paling sedikit.
+
+Akurasi latih yang menyentuh $1{,}000$ pada tiga skenario pertama menunjukkan pohon menghafal data latih. Perbandingan berikut memeriksa gejalanya secara langsung dan menguji pemangkasan kedalaman sebagai penanganannya:
+
+![Gambar 7.4.26 Perbandingan akurasi latih dan uji sebelum dan sesudah pemangkasan](images/ss-26-overfitting-pangkas.png)  
+*Gambar 7.4.26 Perbandingan akurasi latih dan uji sebelum dan sesudah pemangkasan*
+
+Pohon penuh tumbuh sampai kedalaman 11 dengan 56 daun, menghasilkan akurasi latih $0{,}996$ tetapi akurasi uji hanya $0{,}770$. Setelah kedalaman dibatasi menjadi 3 (8 daun), akurasi latih turun ke $0{,}843$ dan akurasi uji naik ke $0{,}787$. Jarak antara akurasi latih dan uji menyempit dari $0{,}226$ menjadi $0{,}056$, tanda bahwa pohon yang dipangkas lebih mampu menggeneralisasi.
+
 ---
 
 ### 7.5 TUGAS DAN ANALISIS
@@ -184,14 +241,20 @@ Visualisasi sebaran ruang fitur hasil pembentukan data sintetis ADASYN:
    - Gunakan dataset klasifikasi lain yang bersifat *imbalanced*.
    - Kombinasikan teknik SMOTE atau ADASYN dengan algoritma pengklasifikasi (misalnya Decision Tree, Random Forest, atau SVM).
    - Tampilkan tabel performa model (*Accuracy*, *Precision*, *Recall*, *F1-Score*) sebelum dan sesudah penerapan *data balancing* pada data pelatihan (*training set*).
+   - Pilihan dataset yang bisa dipakai antara lain *Wine Quality* (UCI), *Telco Customer Churn*, atau *Pima Indians Diabetes*.
 
 ---
 
 ### 7.6 REFERENSI
+- Breiman, L. (2001). Random forests. *Machine Learning*, 45(1), 5–32.
+- Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). Modeling wine preferences by data mining from physicochemical properties. *Decision Support Systems*, 47(4), 547–553.
 - Guyon, I., & Elisseeff, A. (2003). An introduction to variable and feature selection. *Journal of Machine Learning Research*, 3, 1157–1182.
+- Guyon, I., Weston, J., Barnhill, S., & Vapnik, V. (2002). Gene selection for cancer classification using support vector machines. *Machine Learning*, 46(1), 389–422.
 - Istiana, A., & Mustafiril, M. (2023). Perbandingan Metode Klasifikasi pada Data dengan Imbalance Class dan Missing Value. *JURNAL INFORMATIKA*, 101-108.
 - Kohavi, R., & John, G. H. (1997). Wrappers for feature subset selection. *Artificial Intelligence*, 97(1–2), 273–324.
+- Lemaître, G., Nogueira, F., & Aridas, C. K. (2017). Imbalanced-learn: A Python toolbox to tackle the curse of imbalanced datasets in machine learning. *Journal of Machine Learning Research*, 18(17), 1–5.
 - Normawati, & Prayogi, T. (2021). Implementasi Naïve Bayes Classifier Dan Confusion Matrix Pada Analisis Sentimen Berbasis Teks Pada Twitter. *J-SAKTI (Jurnal Sains Komputer & Informatika)*, 697-711.
+- Pedregosa, F., et al. (2011). Scikit-learn: Machine learning in Python. *Journal of Machine Learning Research*, 12, 2825–2830.
 - Pratama, R., & Kusnawi, K. (2023). Komparasi Algoritma Supervised Learning dan Feature Selection pada Klasifikasi Penyakit Gagal Jantung. *Indonesian Journal of Computer Science*, 3722-3733.
 - Ramadhanti, A. P., Santoso, H. B., & Widiharih, T. (2022). Perbandingan SMOTE dan ADASYN pada Data Imbalance untuk Klasifikasi Rumah Tangga Miskin Kabupaten Temanggung dengan Algoritma K-Nearest Neighbor. *JURNAL GAUSSIAN*, 499-505.
 - Septiana, R., Susanto, A., & Tukiyat. (2021). Analisis Sentimen Vaksinasi Covid-19 Pada Twitter Menggunakan Naive Bayes Classifier Dengan Feature Selection Chi-Squared Statistic Dan Particle Swarm Optimization. *Jurnal Sistem Komputer dan Kecerdasan Buatan*, 49-56.
