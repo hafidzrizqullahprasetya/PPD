@@ -237,13 +237,13 @@ Penanganan ketidakseimbangan kelas bisa ditempuh lewat tiga jalur: memanipulasi 
 \centering
 \caption{Susunan \textit{confusion matrix} untuk klasifikasi biner.}
 \label{tab:confusion}
-\begin{tabular}{lcc}
-\toprule
+\begin{tabular}{|l|c|c|}
+\hline
  & \textbf{Prediksi positif} & \textbf{Prediksi negatif} \\
-\midrule
+\hline
 \textbf{Aktual positif} & \textit{True Positive} (TP) & \textit{False Negative} (FN) \\
 \textbf{Aktual negatif} & \textit{False Positive} (FP) & \textit{True Negative} (TN) \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
@@ -267,14 +267,14 @@ Manfaatnya meliputi pengurangan waktu komputasi, peningkatan akurasi, dan pemaha
 \caption{Perbandingan tiga pendekatan seleksi fitur.}
 \label{tab:metode-fs}
 \small
-\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
-\toprule
+\begin{tabularx}{\linewidth}{|l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X|}
+\hline
 \textbf{Pendekatan} & \textbf{Dasar penilaian} & \textbf{Biaya komputasi} & \textbf{Kekuatan} \\
-\midrule
+\hline
 \textit{Filter} & Statistik fitur terhadap target, tanpa melatih model & Ringan, satu kali hitung & Cepat dan mudah ditafsirkan \\
 \textit{Wrapper} & Performa model pada setiap kombinasi fitur & Berat, model dilatih berulang & Menangkap interaksi antar-fitur \\
 \textit{Embedded} & Seleksi berjalan di dalam proses pelatihan & Sedang & Seimbang antara akurasi dan waktu \\
-\bottomrule
+\hline
 \end{tabularx}
 \end{table}
 
@@ -355,7 +355,7 @@ Sesuai Modul Pertemuan 7 Praktikum Penambangan Data, alat dan bahan yang digunak
 \chapter[\texorpdfstring{\tocboldsection{Hasil dan Pembahasan}}{Hasil dan Pembahasan}]{Hasil dan Pembahasan}
 
 \section{Percobaan Latihan Praktikum}
-Percobaan latihan mengikuti sembilan langkah pada Modul Pertemuan 7, lalu dilanjutkan dengan praktik seleksi fitur dari materi kuliah pertemuan yang sama. Percobaan pertama memakai \textit{Stroke Prediction Dataset} untuk penyeimbangan kelas, sedangkan percobaan seleksi fitur memakai \textit{Heart Attack Analysis and Prediction Dataset}. Seluruh eksperimen dijalankan pada Google Colaboratory dengan Python 3 dan pustaka \texttt{imbalanced-learn} versi 0.14.
+Percobaan latihan mengikuti sembilan langkah pada Modul Pertemuan 7, lalu dilanjutkan dengan praktik seleksi fitur dari materi kuliah pertemuan yang sama. Percobaan pertama memakai \textit{Stroke Prediction Dataset} untuk penyeimbangan kelas, sedangkan percobaan seleksi fitur memakai \textit{Heart Attack Analysis and Prediction Dataset}. Seluruh eksperimen dijalankan pada Jupyter Notebook lokal dengan Python 3 dan pustaka \texttt{imbalanced-learn} versi 0.14.
 
 Notebook yang sama bisa dibuka dan dijalankan ulang secara interaktif melalui Google Colaboratory pada tautan berikut:
 
@@ -372,8 +372,8 @@ Tahap awal menginstal pustaka \texttt{imbalanced-learn} yang menyediakan empat t
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-00-instalasi.png}}
-\caption{Tangkapan layar instalasi pustaka \texttt{imbalanced-learn} pada Google Colab.}
+\includegraphics[width=0.9\textwidth]{images/ss-00-instalasi.png}
+\caption{Tangkapan layar instalasi pustaka \texttt{imbalanced-learn} pada Jupyter Notebook.}
 \label{fig:ss-instalasi}
 \end{figure}
 
@@ -399,8 +399,8 @@ pd.set_option("display.width", 130)
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-01-import-pustaka.png}}
-\caption{Tangkapan layar impor pustaka utama pada Google Colab.}
+\includegraphics[width=0.9\textwidth]{images/ss-01-import-pustaka.png}
+\caption{Tangkapan layar impor pustaka utama pada Jupyter Notebook.}
 \label{fig:ss-import}
 \end{figure}
 
@@ -417,7 +417,7 @@ stroke.head()
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-02-baca-dataset.png}}
+\includegraphics[width=0.9\textwidth]{images/ss-02-baca-dataset.png}
 \caption{Tangkapan layar pembacaan data dan lima baris pertama dataset stroke.}
 \label{fig:ss-baca}
 \end{figure}
@@ -426,7 +426,7 @@ Pemeriksaan struktur data memakai \texttt{stroke.info()} memperlihatkan komposis
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-03-info-dataset.png}}
+\includegraphics[width=0.9\textwidth]{images/ss-03-info-dataset.png}
 \caption{Tangkapan layar struktur tipe data dan jumlah nilai terisi setiap kolom.}
 \label{fig:ss-info}
 \end{figure}
@@ -440,7 +440,7 @@ stroke.isnull().sum()
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.45\textwidth]{images/ss-04-cek-null.png}}
+\includegraphics[width=0.45\textwidth]{images/ss-04-cek-null.png}
 \caption{Tangkapan layar jumlah nilai kosong per kolom sebelum pembersihan.}
 \label{fig:ss-null}
 \end{figure}
@@ -461,7 +461,7 @@ plt.show()
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.85\textwidth]{images/ss-05-distribusi-kelas.png}}
+\includegraphics[width=0.85\textwidth]{images/ss-05-distribusi-kelas.png}
 \caption{Tangkapan layar jumlah, persentase, dan diagram lingkaran distribusi kelas \texttt{stroke}.}
 \label{fig:ss-distribusi}
 \end{figure}
@@ -478,7 +478,7 @@ stroke.isnull().sum()
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.45\textwidth]{images/ss-06-data-cleaning.png}}
+\includegraphics[width=0.45\textwidth]{images/ss-06-data-cleaning.png}
 \caption{Tangkapan layar verifikasi data setelah imputasi. Seluruh kolom terisi penuh.}
 \label{fig:ss-cleaning}
 \end{figure}
@@ -503,7 +503,7 @@ print(pd.Series(y_train).value_counts())
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-07-split-latih-uji.png}}
+\includegraphics[width=0.9\textwidth]{images/ss-07-split-latih-uji.png}
 \caption{Tangkapan layar dimensi set pelatihan, set pengujian, dan distribusi kelas pada set pelatihan.}
 \label{fig:ss-split}
 \end{figure}
@@ -521,7 +521,7 @@ print("Sesudah:", pd.Series(y_under).value_counts().to_dict())
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.7\textwidth]{images/ss-08-undersampling.png}}
+\includegraphics[width=0.7\textwidth]{images/ss-08-undersampling.png}
 \caption{Tangkapan layar distribusi kelas sebelum dan sesudah \textit{Random Under-Sampling}.}
 \label{fig:ss-rus}
 \end{figure}
@@ -530,14 +530,14 @@ Kelas mayoritas turun dari 3.663 menjadi 169 sampel, sehingga set pelatihan hany
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.68\textwidth]{images/ss-09-banding-undersampling.png}}
+\includegraphics[width=0.68\textwidth]{images/ss-09-banding-undersampling.png}
 \caption{Perbandingan jumlah sampel per kelas sebelum dan sesudah \textit{Random Under-Sampling}.}
 \label{fig:ss-banding-rus}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.68\textwidth]{images/ss-10-scatter-undersampling.png}}
+\includegraphics[width=0.68\textwidth]{images/ss-10-scatter-undersampling.png}
 \caption{Sebaran data pada bidang \texttt{avg\_glucose\_level} dan \texttt{bmi} setelah \textit{Random Under-Sampling}. Titik kelas minoritas tidak lagi tenggelam di antara kelas mayoritas.}
 \label{fig:ss-scatter-rus}
 \end{figure}
@@ -554,7 +554,7 @@ print("Sesudah:", pd.Series(y_over).value_counts().to_dict())
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.7\textwidth]{images/ss-11-oversampling.png}}
+\includegraphics[width=0.7\textwidth]{images/ss-11-oversampling.png}
 \caption{Tangkapan layar distribusi kelas sebelum dan sesudah \textit{Random Over-Sampling}.}
 \label{fig:ss-ros}
 \end{figure}
@@ -563,14 +563,14 @@ Kelas minoritas naik dari 169 menjadi 3.663 sampel, sehingga total set pelatihan
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.68\textwidth]{images/ss-12-banding-oversampling.png}}
+\includegraphics[width=0.68\textwidth]{images/ss-12-banding-oversampling.png}
 \caption{Perbandingan jumlah sampel per kelas sebelum dan sesudah \textit{Random Over-Sampling}.}
 \label{fig:ss-banding-ros}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.68\textwidth]{images/ss-13-scatter-oversampling.png}}
+\includegraphics[width=0.68\textwidth]{images/ss-13-scatter-oversampling.png}
 \caption{Sebaran data setelah \textit{Random Over-Sampling}. Titik minoritas menumpuk tepat di posisi aslinya karena hasil duplikasi.}
 \label{fig:ss-scatter-ros}
 \end{figure}
@@ -589,7 +589,7 @@ print("Sesudah:", pd.Series(y_smote).value_counts().to_dict())
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.7\textwidth]{images/ss-14-smote.png}}
+\includegraphics[width=0.7\textwidth]{images/ss-14-smote.png}
 \caption{Tangkapan layar distribusi kelas sebelum dan sesudah SMOTE.}
 \label{fig:ss-smote}
 \end{figure}
@@ -598,14 +598,14 @@ Hasilnya setara dengan \textit{Random Over-Sampling} dari sisi jumlah, yaitu 3.6
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.68\textwidth]{images/ss-15-banding-smote.png}}
+\includegraphics[width=0.68\textwidth]{images/ss-15-banding-smote.png}
 \caption{Perbandingan jumlah sampel per kelas sebelum dan sesudah SMOTE.}
 \label{fig:ss-banding-smote}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.68\textwidth]{images/ss-16-scatter-smote.png}}
+\includegraphics[width=0.68\textwidth]{images/ss-16-scatter-smote.png}
 \caption{Sebaran data setelah SMOTE. Titik minoritas menyebar mengikuti garis penghubung antar-tetangga, tidak menumpuk di satu koordinat.}
 \label{fig:ss-scatter-smote}
 \end{figure}
@@ -624,7 +624,7 @@ print("Sesudah:", pd.Series(y_adasyn).value_counts().to_dict())
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.7\textwidth]{images/ss-17-adasyn.png}}
+\includegraphics[width=0.7\textwidth]{images/ss-17-adasyn.png}
 \caption{Tangkapan layar distribusi kelas sebelum dan sesudah ADASYN.}
 \label{fig:ss-adasyn}
 \end{figure}
@@ -633,14 +633,14 @@ Kelas minoritas berakhir dengan 3.676 sampel, tiga belas lebih banyak dari kelas
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.68\textwidth]{images/ss-18-banding-adasyn.png}}
+\includegraphics[width=0.68\textwidth]{images/ss-18-banding-adasyn.png}
 \caption{Perbandingan jumlah sampel per kelas sebelum dan sesudah ADASYN.}
 \label{fig:ss-banding-adasyn}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.68\textwidth]{images/ss-19-scatter-adasyn.png}}
+\includegraphics[width=0.68\textwidth]{images/ss-19-scatter-adasyn.png}
 \caption{Sebaran data setelah ADASYN. Titik sintetis lebih terkonsentrasi di sekitar batas kedua kelas.}
 \label{fig:ss-scatter-adasyn}
 \end{figure}
@@ -652,16 +652,16 @@ Tabel~\ref{tab:rekap-balancing} merangkum keempat percobaan penyeimbangan pada s
 \caption{Rekapitulasi hasil empat teknik penyeimbangan kelas pada set pelatihan dataset stroke.}
 \label{tab:rekap-balancing}
 \small
-\begin{tabularx}{\linewidth}{@{}lrrrr>{\raggedright\arraybackslash}X@{}}
-\toprule
+\begin{tabularx}{\linewidth}{|lrrrr>{\raggedright\arraybackslash}X|}
+\hline
 \textbf{Teknik} & \textbf{Kelas 0} & \textbf{Kelas 1} & \textbf{Total} & \textbf{Sampel baru} & \textbf{Catatan} \\
-\midrule
+\hline
 Tanpa balancing & 3.663 & 169 & 3.832 & 0 & Data asli \\
 \textit{Under-sampling} & 169 & 169 & 338 & 0 & 3.494 sampel mayoritas dibuang \\
 \textit{Over-sampling} & 3.663 & 3.663 & 7.326 & 3.494 & Duplikasi sampel minoritas \\
 SMOTE & 3.663 & 3.663 & 7.326 & 3.494 & Sampel sintetis di antara tetangga \\
 ADASYN & 3.663 & 3.676 & 7.339 & 3.507 & Sintetis terpusat di batas kelas \\
-\bottomrule
+\hline
 \end{tabularx}
 \end{table}
 
@@ -679,7 +679,7 @@ jantung.head()
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-20-baca-heart.png}}
+\includegraphics[width=0.9\textwidth]{images/ss-20-baca-heart.png}
 \caption{Tangkapan layar pembacaan dataset heart.csv dan lima baris pertamanya.}
 \label{fig:ss-heart}
 \end{figure}
@@ -700,7 +700,7 @@ anova
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.6\textwidth]{images/ss-21-anova-ranking.png}}
+\includegraphics[width=0.6\textwidth]{images/ss-21-anova-ranking.png}
 \caption{Tangkapan layar peringkat fitur menurut skor $F$ hasil uji ANOVA.}
 \label{fig:ss-anova}
 \end{figure}
@@ -712,10 +712,10 @@ Hasil lengkapnya disusun pada Tabel~\ref{tab:anova}.
 \caption{Peringkat fitur dataset heart berdasarkan skor $F$ uji ANOVA.}
 \label{tab:anova}
 \small
-\begin{tabular}{@{}lrr@{\hspace{2.5em}}lrr@{}}
-\toprule
+\begin{tabular}{|l|r|r|l|r|r|}
+\hline
 \textbf{Fitur} & \textbf{$F$} & \textbf{$p$} & \textbf{Fitur} & \textbf{$F$} & \textbf{$p$} \\
-\midrule
+\hline
 \texttt{exng} & 70,9524 & 0,0000 & \texttt{sex} & 25,7922 & 0,0000 \\
 \texttt{cp} & 69,7723 & 0,0000 & \texttt{age} & 16,1167 & 0,0001 \\
 \texttt{oldpeak} & 68,5514 & 0,0000 & \texttt{trtbps} & 6,4582 & 0,0115 \\
@@ -723,7 +723,7 @@ Hasil lengkapnya disusun pada Tabel~\ref{tab:anova}.
 \texttt{caa} & 54,5598 & 0,0000 & \texttt{chol} & 2,2030 & 0,1388 \\
 \texttt{slp} & 40,9021 & 0,0000 & \texttt{fbs} & 0,2369 & 0,6268 \\
 \texttt{thall} & 40,4077 & 0,0000 & & & \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
@@ -736,7 +736,7 @@ print("Fitur terpilih (ANOVA):", fitur_anova)
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.75\textwidth]{images/ss-22-fitur-anova.png}}
+\includegraphics[width=0.75\textwidth]{images/ss-22-fitur-anova.png}
 \caption{Tangkapan layar delapan fitur terpilih hasil uji ANOVA.}
 \label{fig:ss-fitur-anova}
 \end{figure}
@@ -755,7 +755,7 @@ print("Fitur terpilih (RFE):", fitur_rfe)
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.75\textwidth]{images/ss-23-fitur-rfe.png}}
+\includegraphics[width=0.75\textwidth]{images/ss-23-fitur-rfe.png}
 \caption{Tangkapan layar lima fitur terpilih hasil RFE.}
 \label{fig:ss-fitur-rfe}
 \end{figure}
@@ -778,7 +778,7 @@ print("Fitur terpilih (ExtraTree):", fitur_extra)
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.7\textwidth]{images/ss-24-fitur-extratree.png}}
+\includegraphics[width=0.7\textwidth]{images/ss-24-fitur-extratree.png}
 \caption{Tangkapan layar peringkat \textit{feature importance} dan enam fitur terpilih hasil ExtraTree.}
 \label{fig:ss-fitur-extra}
 \end{figure}
@@ -812,7 +812,7 @@ hasil_seleksi
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-25-komparasi-seleksi.png}}
+\includegraphics[width=0.9\textwidth]{images/ss-25-komparasi-seleksi.png}
 \caption{Tangkapan layar tabel perbandingan akurasi empat skenario seleksi fitur.}
 \label{fig:ss-komparasi}
 \end{figure}
@@ -824,15 +824,15 @@ Hasilnya dirangkum pada Tabel~\ref{tab:seleksi}.
 \caption{Perbandingan akurasi \textit{Decision Tree} pada empat skenario seleksi fitur dataset heart.}
 \label{tab:seleksi}
 \small
-\begin{tabularx}{\linewidth}{@{}lrl>{\raggedright\arraybackslash}X@{}}
-\toprule
+\begin{tabularx}{\linewidth}{|lrl>{\raggedright\arraybackslash}X|}
+\hline
 \textbf{Skenario} & \textbf{Jumlah fitur} & \textbf{Akurasi uji} & \textbf{Fitur yang dipakai} \\
-\midrule
+\hline
 Tanpa seleksi & 13 & 0,754 & Seluruh fitur \\
 \textit{Filter} ANOVA & 8 & 0,820 & \texttt{exng}, \texttt{cp}, \texttt{oldpeak}, \texttt{thalachh}, \texttt{caa}, \texttt{slp}, \texttt{thall}, \texttt{sex} \\
 \textit{Wrapper} RFE & 5 & 0,820 & \texttt{age}, \texttt{cp}, \texttt{thalachh}, \texttt{caa}, \texttt{thall} \\
 \textit{Embedded} ExtraTree & 6 & 0,770 & \texttt{caa}, \texttt{cp}, \texttt{exng}, \texttt{thall}, \texttt{oldpeak}, \texttt{thalachh} \\
-\bottomrule
+\hline
 \end{tabularx}
 \end{table}
 
@@ -860,7 +860,7 @@ pd.DataFrame({
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.9\textwidth]{images/ss-26-overfitting-pangkas.png}}
+\includegraphics[width=0.9\textwidth]{images/ss-26-overfitting-pangkas.png}
 \caption{Tangkapan layar perbandingan kedalaman, jumlah daun, dan akurasi pohon penuh dengan pohon yang dipangkas.}
 \label{fig:ss-overfitting}
 \end{figure}
@@ -870,13 +870,14 @@ pd.DataFrame({
 \caption{Pengaruh pemangkasan kedalaman terhadap selisih akurasi latih dan uji.}
 \label{tab:overfitting}
 \small
-\begin{tabular}{@{}lrrrr@{}}
-\toprule
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
 \textbf{Model} & \textbf{Kedalaman} & \textbf{Jumlah daun} & \textbf{Akurasi latih} & \textbf{Akurasi uji} \\
-\midrule
+\hline
 Pohon penuh & 11 & 56 & 0,996 & 0,770 \\
 Pohon dipangkas (\texttt{max\_depth=3}) & 3 & 8 & 0,843 & 0,787 \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
@@ -898,14 +899,14 @@ pd.DataFrame({
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.95\textwidth]{images/ss-27-tugas1-ringkasan-fitur.png}}
+\includegraphics[width=0.95\textwidth]{images/ss-27-tugas1-ringkasan-fitur.png}
 \caption{Tangkapan layar ringkasan tipe data, jumlah nilai unik, nilai kosong, dan contoh nilai setiap kolom.}
 \label{fig:ss-ringkasan-fitur}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.85\textwidth]{images/ss-28-tugas1-statistik.png}}
+\includegraphics[width=0.85\textwidth]{images/ss-28-tugas1-statistik.png}
 \caption{Tangkapan layar statistik deskriptif fitur numerik dataset stroke.}
 \label{fig:ss-statistik}
 \end{figure}
@@ -917,10 +918,10 @@ Penjelasan setiap fitur disusun pada Tabel~\ref{tab:fitur-stroke}.
 \caption{Arti setiap fitur pada \textit{Stroke Prediction Dataset}.}
 \label{tab:fitur-stroke}
 \small
-\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X@{}}
-\toprule
+\begin{tabularx}{\linewidth}{|l>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}X|}
+\hline
 \textbf{Fitur} & \textbf{Tipe} & \textbf{Arti dan rentang nilai} \\
-\midrule
+\hline
 \texttt{id} & Bilangan bulat & Nomor unik pasien, 5.110 nilai berbeda. Tidak dipakai sebagai fitur karena tidak punya makna klinis. \\
 \texttt{gender} & Kategorikal & Jenis kelamin pasien: \textit{Male}, \textit{Female}, \textit{Other}. \\
 \texttt{age} & Pecahan & Usia pasien dalam tahun, rentang 0,08 sampai 82 dengan rata-rata 43,23. \\
@@ -933,7 +934,7 @@ Penjelasan setiap fitur disusun pada Tabel~\ref{tab:fitur-stroke}.
 \texttt{bmi} & Pecahan & Indeks massa tubuh dalam kg/m$^2$, rentang 10,30 sampai 97,60 dengan rata-rata 28,89. Memiliki 201 nilai kosong. \\
 \texttt{smoking\_status} & Kategorikal & Status merokok: \textit{formerly smoked}, \textit{never smoked}, \textit{smokes}, \textit{Unknown}. \\
 \texttt{stroke} & Biner & Label target: 1 pasien mengalami stroke, 0 tidak. Hanya 4,87\% bernilai 1. \\
-\bottomrule
+\hline
 \end{tabularx}
 \end{table}
 
@@ -957,7 +958,7 @@ print("Rasio ketidakseimbangan:", round(1382 / 217, 2), ": 1")
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.85\textwidth]{images/ss-29-tugas2-wine.png}}
+\includegraphics[width=0.85\textwidth]{images/ss-29-tugas2-wine.png}
 \caption{Tangkapan layar dimensi, distribusi kelas, dan rasio ketidakseimbangan dataset Wine Quality.}
 \label{fig:ss-wine}
 \end{figure}
@@ -976,7 +977,7 @@ print("Uji:", pd.Series(y_uji_a).value_counts().to_dict())
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.8\textwidth]{images/ss-30-tugas2-split.png}}
+\includegraphics[width=0.8\textwidth]{images/ss-30-tugas2-split.png}
 \caption{Tangkapan layar distribusi kelas pada set pelatihan dan pengujian setelah stratifikasi.}
 \label{fig:ss-wine-split}
 \end{figure}
@@ -1013,7 +1014,7 @@ tabel_performa
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.95\textwidth]{images/ss-31-tugas2-tabel-performa.png}}
+\includegraphics[width=0.95\textwidth]{images/ss-31-tugas2-tabel-performa.png}
 \caption{Tangkapan layar tabel performa dua pengklasifikasi pada tiga kondisi penyeimbangan.}
 \label{fig:ss-tabel-performa}
 \end{figure}
@@ -1023,24 +1024,24 @@ tabel_performa
 \caption{Performa model sebelum dan sesudah penyeimbangan pada dataset Wine Quality.}
 \label{tab:performa-wine}
 \small
-\begin{tabular}{@{}lrrrr@{}}
-\toprule
+\begin{tabular}{|l|r|r|r|r|}
+\hline
 \textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} \\
-\midrule
+\hline
 Decision Tree tanpa balancing & 0,8950 & 0,6111 & 0,6111 & 0,6111 \\
 Decision Tree + SMOTE & 0,8775 & 0,5352 & 0,7037 & 0,6080 \\
 Decision Tree + ADASYN & 0,8700 & 0,5132 & 0,7222 & 0,6000 \\
-\midrule
+\hline
 Random Forest tanpa balancing & 0,9400 & 0,8947 & 0,6296 & 0,7391 \\
 Random Forest + SMOTE & 0,9025 & 0,6230 & 0,7037 & 0,6609 \\
 Random Forest + ADASYN & 0,9050 & 0,6290 & 0,7222 & 0,6724 \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
 \begin{figure}[H]
 \centering
-\customfbox{\includegraphics[width=0.85\textwidth]{images/ss-32-tugas2-recall.png}}
+\includegraphics[width=0.85\textwidth]{images/ss-32-tugas2-recall.png}
 \caption{Perbandingan \textit{recall} kelas minoritas pada enam konfigurasi model.}
 \label{fig:ss-recall}
 \end{figure}
