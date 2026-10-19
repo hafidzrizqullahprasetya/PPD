@@ -1041,7 +1041,7 @@ Random Forest + ADASYN & 0,9050 & 0,6290 & 0,7222 & 0,6724 \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{images/ss-32-tugas2-recall.png}
+\includegraphics[width=0.75\textwidth]{images/ss-32-tugas2-recall.png}
 \caption{Perbandingan \textit{recall} kelas minoritas pada enam konfigurasi model.}
 \label{fig:ss-recall}
 \end{figure}
@@ -1050,7 +1050,7 @@ Polanya konsisten pada kedua pengklasifikasi. Akurasi turun, \textit{recall} nai
 
 Penurunan akurasi adalah konsekuensi yang diharapkan dari pergeseran titik operasi ini. Model yang lebih jarang melewatkan sampel premium memang harus menerima lebih banyak tebakan salah pada kelas standar, dan itulah harga yang dibayar untuk menaikkan \textit{recall} sekitar 9 sampai 11 poin persen. Pada konteks penyaringan kualitas, melewatkan anggur premium yang sebenarnya laku mahal biasanya lebih merugikan dibanding salah menaikkan satu produk standar ke kategori premium.
 
-Perubahan \textit{precision} menjelaskan mekanismenya. Nilai \textit{precision} turun cukup tajam, dari 0,8947 menjadi 0,6230 pada \textit{Random Forest}. Model jadi lebih agresif menyatakan sebuah sampel premium, sehingga sebagian prediksi positif ternyata keliru. F1-Score sebagai rata-rata harmonik keduanya ikut turun karena penurunan \textit{precision} lebih besar daripada kenaikan \textit{recall}. Penyeimbangan memindahkan titik operasi model ke arah sensitivitas, dan pemilihan teknik tetap harus mempertimbangkan biaya kesalahan di domain yang dihadapi. ADASYN sedikit lebih unggul dibanding SMOTE pada \textit{recall} di kedua model, yaitu 0,7222 berbanding 0,7037. Selisihnya berasal dari cara ADASYN memusatkan sampel sintetis di sekitar batas keputusan, tepat di wilayah yang paling sering salah diklasifikasikan. Namun keunggulan itu diikuti \textit{precision} yang lebih rendah, sehingga F1-Score keduanya hampir setara.
+Perubahan \textit{precision} menjelaskan mekanismenya. Nilai \textit{precision} turun cukup tajam, dari 0,8947 menjadi 0,6230 pada \textit{Random Forest}. Model jadi lebih agresif menyatakan sebuah sampel premium, sehingga sebagian prediksi positif ternyata keliru. F1-Score sebagai rata-rata harmonik keduanya ikut turun karena penurunan \textit{precision} lebih besar daripada kenaikan \textit{recall}. Penyeimbangan memindahkan titik operasi model ke arah sensitivitas, dan pemilihan teknik tetap harus mempertimbangkan biaya kesalahan di domain yang dihadapi. ADASYN sedikit lebih unggul dibanding SMOTE pada \textit{recall} di kedua model, yaitu 0,7222 berbanding 0,7037. Selisihnya berasal dari cara ADASYN memusatkan sampel sintetis di sekitar batas keputusan. Namun keunggulan itu diikuti \textit{precision} yang lebih rendah, sehingga F1-Score keduanya hampir setara.
 
 \clearpage
 
