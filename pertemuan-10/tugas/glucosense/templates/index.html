@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}GlucoSense: form skrining{% endblock %}
+{% block content %}
+<h1>Form skrining gejala</h1>
+<p class="pengantar">Isi usia, jenis kelamin, dan 14 gejala di bawah sesuai kondisi pasien.
+  Semua pertanyaan wajib dijawab.</p>
+
+{% if galat %}
+<div class="galat" role="alert">
+  <strong>{{ galat|length }} isian belum benar.</strong>
+  <ul>
+    {% for pesan in galat.values() %}<li>{{ pesan }}</li>{% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<form method="post" action="{{ url_for('predict') }}" novalidate>
+  <fieldset class="identitas">
+    <legend>Data pasien</legend>
+    <div class="isian">
+      <label for="Age">Usia (tahun)</label>
+      <input id="Age" name="Age" type="number" min="1" max="120" inputmode="numeric"
+             value="{{ isian.get('Age', '') }}" {% if galat.get('Age') %}aria-invalid="true"{% endif %}>
+    </div>
+    <div class="isian">
+      <span class="label" id="label-gender">Jenis kelamin</span>
+      <div class="pilihan" role="radiogroup" aria-labelledby="label-gender">
+        <label><input type="radio" name="Gender" value="Male" {% if isian.get('Gender') == 'Male' %}checked{% endif %}> Laki-laki</label>
+        <label><input type="radio" name="Gender" value="Female" {% if isian.get('Gender') == 'Female' %}checked{% endif %}> Perempuan</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Gejala yang dialami</legend>
+    <ol class="gejala">
+      {% for kolom, label in gejala %}
+      <li {% if galat.get(kolom) %}class="salah"{% endif %}>
+        <span class="tanya" id="q{{ loop.index }}">{{ label }}</span>
+        <div class="pilihan" role="radiogroup" aria-labelledby="q{{ loop.index }}">
+          <label><input type="radio" name="{{ kolom }}" value="Yes" {% if isian.get(kolom) == 'Yes' %}checked{% endif %}> Ya</label>
+          <label><input type="radio" name="{{ kolom }}" value="No" {% if isian.get(kolom) == 'No' %}checked{% endif %}> Tidak</label>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </fieldset>
+
+  <div class="aksi">
+    <button type="submit" class="utama">Prediksi risiko</button>
+    <a class="sekunder" href="{{ url_for('index') }}">Kosongkan form</a>
+  </div>
+</form>
+{% endblock %}

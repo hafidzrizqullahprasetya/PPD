@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}GlucoSense{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="kepala">
+    <a class="merek" href="{{ url_for('index') }}">GlucoSense</a>
+    <span class="keterangan">Skrining dini risiko diabetes dari gejala awal</span>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="kaki">
+    <p>Model: {{ meta.model_name }}, dilatih pada {{ meta.n_train }} data pasien
+      dan diuji pada {{ meta.n_test }} data (akurasi uji {{ '%.1f'|format(meta.test_accuracy * 100) }}%).
+      Dataset: UCI Early Stage Diabetes Risk Prediction.</p>
+    <p>Hasil skrining ini tidak menggantikan pemeriksaan gula darah oleh tenaga kesehatan.</p>
+  </footer>
+</body>
+</html>
