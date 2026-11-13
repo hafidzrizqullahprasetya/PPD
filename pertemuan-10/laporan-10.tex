@@ -132,6 +132,14 @@
     \fancyfoot[C]{\thepage}
     \renewcommand{\headrulewidth}{0pt}
 }
+% Judul bab langsung di batas atas teks: tanpa jarak 50pt bawaan report
+% dan tanpa baris nomor bab yang kosong.
+\makeatletter
+\renewcommand{\@makechapterhead}[1]{%
+  {\parindent\z@ \raggedright \normalfont \Huge\bfseries #1\par\nobreak \vskip 24\p@}}
+\renewcommand{\@makeschapterhead}[1]{%
+  {\parindent\z@ \raggedright \normalfont \Huge\bfseries #1\par\nobreak \vskip 24\p@}}
+\makeatother
 \renewcommand{\contentsname}{Daftar Isi}
 \renewcommand{\bibname}{Daftar Pustaka}
 \renewcommand{\thechapter}{}
