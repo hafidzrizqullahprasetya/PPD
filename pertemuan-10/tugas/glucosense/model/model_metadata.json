@@ -1,0 +1,35 @@
+{
+  "model_name": "SVM (RBF)",
+  "best_params": {
+    "model__estimator__C": 10.0,
+    "model__estimator__gamma": "scale"
+  },
+  "feature_names": [
+    "Age",
+    "Gender",
+    "Polyuria",
+    "Polydipsia",
+    "sudden weight loss",
+    "weakness",
+    "Polyphagia",
+    "Genital thrush",
+    "visual blurring",
+    "Itching",
+    "Irritability",
+    "delayed healing",
+    "partial paresis",
+    "muscle stiffness",
+    "Alopecia",
+    "Obesity"
+  ],
+  "target_classes": {
+    "0": "Negative",
+    "1": "Positive"
+  },
+  "n_train": 175,
+  "n_test": 76,
+  "cv_f1": 0.9673,
+  "test_accuracy": 0.8684,
+  "test_f1": 0.9,
+  "sklearn_version": "1.9.1"
+}

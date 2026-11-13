@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}GlucoSense: hasil prediksi{% endblock %}
+{% block content %}
+{% set positif = hasil.kelas == 1 %}
+{% set persen = hasil.peluang_positif * 100 %}
+<h1>Hasil prediksi</h1>
+
+<section class="hasil {{ 'positif' if positif else 'negatif' }}">
+  <p class="status">{{ 'Berisiko diabetes (Positive)' if positif else 'Risiko rendah (Negative)' }}</p>
+  <p class="angka">Peluang kelas Positive menurut model: <strong>{{ '%.1f'|format(persen) }}%</strong></p>
+  <div class="batang" role="img" aria-label="Peluang positif {{ '%.1f'|format(persen) }} persen">
+    <span style="width: {{ '%.1f'|format(persen) }}%"></span>
+  </div>
+  <p class="saran">
+    {% if positif %}
+    Pola gejala ini mirip dengan pasien positif pada data latih. Sebaiknya lakukan
+    pemeriksaan gula darah di fasilitas kesehatan.
+    {% else %}
+    Pola gejala ini lebih mirip dengan pasien negatif pada data latih. Periksakan
+    diri bila gejala bertambah atau menetap.
+    {% endif %}
+  </p>
+</section>
+
+<section class="ringkasan">
+  <h2>Data yang dikirim</h2>
+  <dl>
+    <dt>Usia</dt><dd>{{ nilai['Age'] }} tahun</dd>
+    <dt>Jenis kelamin</dt><dd>{{ 'Laki-laki' if nilai['Gender'] == 1 else 'Perempuan' }}</dd>
+    <dt>Gejala dialami</dt><dd>{{ dialami|length }} dari {{ jumlah_gejala }}</dd>
+  </dl>
+  {% if dialami %}
+  <ul class="daftar-gejala">
+    {% for label in dialami %}<li>{{ label }}</li>{% endfor %}
+  </ul>
+  {% else %}
+  <p>Tidak ada gejala yang dijawab Ya.</p>
+  {% endif %}
+</section>
+
+<div class="aksi">
+  <a class="utama" href="{{ url_for('index') }}">Skrining pasien lain</a>
+</div>
+{% endblock %}
