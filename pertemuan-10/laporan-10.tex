@@ -330,7 +330,7 @@ Berkas proyek saya unduh dari tautan Google Drive pada modul. Arsipnya berukuran
 	\label{fig:ss-struktur-modul}
 \end{figure}
 
-Folder \texttt{tabular} berisi dataset \texttt{hcvdat0.csv} beserta tiga skrip: satu untuk melatih dan menyimpan model, dua untuk mencoba prediksi. Folder \texttt{tabular\_v2} berisi skrip server \texttt{tabular\_api.py}, folder \texttt{templates} untuk halaman HTML, dan folder \texttt{static} untuk berkas CSS dan JavaScript.
+Seperti terlihat pada Gambar~\ref{fig:ss-struktur-modul}, folder \texttt{tabular} berisi dataset \texttt{hcvdat0.csv} beserta tiga skrip: satu untuk melatih dan menyimpan model, dua untuk mencoba prediksi. Folder \texttt{tabular\_v2} berisi skrip server \texttt{tabular\_api.py}, folder \texttt{templates} untuk halaman HTML, dan folder \texttt{static} untuk berkas CSS dan JavaScript.
 
 Pustaka saya pasang dengan perintah dari modul. Flask belum ada di \textit{virtual environment} saya, sedangkan empat pustaka lain sudah terpasang sejak pertemuan sebelumnya.
 
@@ -340,6 +340,8 @@ Pustaka saya pasang dengan perintah dari modul. Flask belum ada di \textit{virtu
 	\caption{Pemasangan pustaka dan versi yang terpasang.}
 	\label{fig:ss-instal}
 \end{figure}
+
+Perintah \texttt{pip install} selesai tanpa pesan galat, dan \texttt{pip list} pada Gambar~\ref{fig:ss-instal} menunjukkan kelima pustaka sudah terpasang: Flask 3.1.3, joblib 1.6.0, numpy 2.5.3, pandas 3.0.5, dan scikit-learn 1.9.1. Versi ini saya catat karena berpengaruh pada dua galat yang muncul di subbab berikutnya.
 
 \subsection{Pelatihan dan Serialisasi Model}
 Skrip pelatihan pada modul bernama \texttt{ch9\_tabular\_save.py}. Skrip ini membaca dataset, membuang baris yang memiliki nilai kosong, memisahkan fitur dari label \texttt{Category}, mengubah label teks menjadi angka 0 sampai 3, mengodekan kolom \texttt{Sex} dengan \texttt{LabelEncoder}, lalu melatih \texttt{DecisionTreeClassifier} dan menyimpannya dengan \texttt{joblib.dump}.
@@ -388,7 +390,7 @@ Penyebabnya ada di kolom label. Skrip modul ditulis tahun 2020, sedangkan saya m
 	\label{fig:ss-latih-dt}
 \end{figure}
 
-Berkas \texttt{dt\_model.model} berukuran 5.785 \textit{byte}. Dari 615 baris data, 589 baris tersisa setelah baris kosong dibuang. Pohon yang terbentuk memiliki kedalaman 6 dengan 22 daun. Ada dua catatan tentang model ini. Skrip modul melatih pohon pada seluruh data tanpa data uji, jadi tidak ada angka akurasi yang bisa saya laporkan, dan model ini memang hanya dipakai sebagai bahan latihan \textit{deployment}. Selain itu kelasnya sangat timpang: 533 baris berlabel 0 (donor darah), sedangkan hepatitis 20 baris, fibrosis 12 baris, dan sirosis 24 baris.
+Gambar~\ref{fig:ss-latih-dt} menunjukkan skrip mencetak \texttt{Generate Decision Tree Model} tanpa galat, dan berkas \texttt{dt\_model.model} muncul di folder. Berkas itu berukuran 5.785 \textit{byte}. Dari 615 baris data, 589 baris tersisa setelah baris kosong dibuang. Pohon yang terbentuk memiliki kedalaman 6 dengan 22 daun. Ada dua catatan tentang model ini. Skrip modul melatih pohon pada seluruh data tanpa data uji, jadi tidak ada angka akurasi yang bisa saya laporkan, dan model ini memang hanya dipakai sebagai bahan latihan \textit{deployment}. Selain itu kelasnya sangat timpang: 533 baris berlabel 0 (donor darah), sedangkan hepatitis 20 baris, fibrosis 12 baris, dan sirosis 24 baris.
 
 \subsection{Uji Deserialisasi dari Skrip}
 Sebelum masuk ke Flask, saya mencoba memuat kembali model dengan dua skrip prediksi dari modul. Skrip pertama membuat satu baris data baru di dalam kode, skrip kedua membaca empat baris dari \texttt{input\_data.csv}.
@@ -400,7 +402,7 @@ Sebelum masuk ke Flask, saya mencoba memuat kembali model dengan dua skrip predi
 	\label{fig:ss-prediksi-skrip}
 \end{figure}
 
-Skrip prediksi asli juga gagal, kali ini dengan pesan \texttt{Feature names must be in the same order as they were in fit}. Model dilatih dengan urutan kolom \texttt{Sex}, \texttt{Age}, \texttt{ALB}, dan seterusnya, karena skrip pelatihan menaruh kolom \texttt{Sex} paling depan lewat \texttt{pd.concat}. Skrip prediksi menyusun kolom dengan urutan \texttt{Age}, \texttt{Sex}, \texttt{ALB}. Scikit-learn versi sekarang menyimpan nama fitur saat \texttt{fit} dan menolak data dengan urutan berbeda. Menurut saya pemeriksaan ini sangat membantu. Tanpa itu, nilai usia akan terbaca sebagai jenis kelamin dan model tetap mengeluarkan prediksi yang salah tanpa pesan apa pun.
+Bagian atas Gambar~\ref{fig:ss-prediksi-skrip} memperlihatkan bahwa skrip prediksi asli juga gagal, kali ini dengan pesan \texttt{Feature names must be in the same order as they were in fit}. Model dilatih dengan urutan kolom \texttt{Sex}, \texttt{Age}, \texttt{ALB}, dan seterusnya, karena skrip pelatihan menaruh kolom \texttt{Sex} paling depan lewat \texttt{pd.concat}. Skrip prediksi menyusun kolom dengan urutan \texttt{Age}, \texttt{Sex}, \texttt{ALB}. Scikit-learn versi sekarang menyimpan nama fitur saat \texttt{fit} dan menolak data dengan urutan berbeda. Menurut saya pemeriksaan ini sangat membantu. Tanpa itu, nilai usia akan terbaca sebagai jenis kelamin dan model tetap mengeluarkan prediksi yang salah tanpa pesan apa pun.
 
 Perbaikannya saya lakukan di sisi data masukan. Pada skrip pertama urutan kolom saya ubah menjadi \texttt{Sex} dahulu. Pada skrip kedua saya menambahkan \texttt{df\_input = df\_input[loaded\_model.feature\_names\_in\_]} supaya urutan kolom CSV mengikuti urutan yang tersimpan di model. Setelah itu skrip pertama memprediksi \textit{Cirrhosis}, dan empat baris CSV diprediksi \textit{Fibrosis}, \textit{Hepatitis}, \textit{Cirrhosis}, dan \textit{Cirrhosis}. Model yang dimuat dari berkas bekerja tanpa pelatihan ulang, jadi proses serialisasi dan deserialisasi berhasil.
 
@@ -444,7 +446,7 @@ Berkas \texttt{dt\_model.model} kemudian saya salin ke folder \texttt{tabular\_v
 	\label{fig:ss-struktur-flask}
 \end{figure}
 
-Struktur ini mengikuti konvensi Flask. Halaman HTML harus berada di folder \texttt{templates} agar ditemukan oleh \texttt{render\_template}, dan berkas CSS, JavaScript, serta ikon berada di folder \texttt{static} yang otomatis dilayani pada alamat \texttt{/static/}.
+Struktur pada Gambar~\ref{fig:ss-struktur-flask} mengikuti konvensi Flask. Halaman HTML harus berada di folder \texttt{templates} agar ditemukan oleh \texttt{render\_template}, dan berkas CSS, JavaScript, serta ikon berada di folder \texttt{static} yang otomatis dilayani pada alamat \texttt{/static/}.
 
 \subsection{Menjalankan Server dan Pengujian}
 Server saya jalankan dengan \texttt{python tabular\_api.py}, lalu saya buka \texttt{http://127.0.0.1:5000/tabular/} di peramban.
@@ -456,7 +458,7 @@ Server saya jalankan dengan \texttt{python tabular\_api.py}, lalu saya buka \tex
 	\label{fig:ss-form-tabular}
 \end{figure}
 
-Form menampilkan 12 kolom isian dengan nilai bawaan dari \textit{template}. Nilai bawaan itu saya kirim dengan menekan tombol \textit{Submit}.
+Form pada Gambar~\ref{fig:ss-form-tabular} menampilkan 12 kolom isian dengan nilai bawaan dari \textit{template}. Nilai bawaan itu saya kirim dengan menekan tombol \textit{Submit}.
 
 \begin{figure}[H]
 	\centering
@@ -465,7 +467,7 @@ Form menampilkan 12 kolom isian dengan nilai bawaan dari \textit{template}. Nila
 	\label{fig:ss-hasil-tabular}
 \end{figure}
 
-Halaman hasil menampilkan kembali 12 nilai yang dikirim dan prediksi \textit{Cirrhosis} pada baris \textit{Output prediction}. Nilai AST 143 dan GGT 400 pada isian ini memang jauh di atas kebanyakan donor sehat di dataset, jadi prediksi sirosis masuk akal.
+Halaman hasil pada Gambar~\ref{fig:ss-hasil-tabular} menampilkan kembali 12 nilai yang dikirim dan prediksi \textit{Cirrhosis} pada baris \textit{Output prediction}. Nilai AST 143 dan GGT 400 pada isian ini memang jauh di atas kebanyakan donor sehat di dataset, jadi prediksi sirosis masuk akal.
 
 \begin{figure}[H]
 	\centering
@@ -513,7 +515,7 @@ Ada tiga kandidat, yaitu \textit{Logistic Regression}, \textit{Random Forest}, d
 	\label{fig:ss-latih-diabetes}
 \end{figure}
 
-Dari 520 baris, 269 baris ternyata duplikat sehingga tersisa 251 pasien, terdiri atas 173 positif dan 78 negatif. Data latih berisi 175 baris dan data uji 76 baris. Tabel~\ref{tab:komparasi-model} merangkum hasil ketiga kandidat.
+Baris pertama keluaran pada Gambar~\ref{fig:ss-latih-diabetes} menunjukkan bahwa dari 520 baris, 269 baris ternyata duplikat sehingga tersisa 251 pasien, terdiri atas 173 positif dan 78 negatif. Data latih berisi 175 baris dan data uji 76 baris. Tabel~\ref{tab:komparasi-model} merangkum hasil ketiga kandidat.
 
 \begin{table}[H]
 	\centering
@@ -545,7 +547,7 @@ Pada \textit{confusion matrix} SVM, 45 dari 52 pasien positif terdeteksi dan 7 p
 	\label{fig:ss-berkas-model}
 \end{figure}
 
-Pelatihan menghasilkan dua berkas, yaitu model \texttt{glucosense\_model.joblib} sebesar 14 KB dan \texttt{model\_metadata.json}. Saat dimuat kembali dengan \texttt{joblib.load}, objeknya adalah \texttt{Pipeline} berisi \texttt{StandardScaler} dan SVM terkalibrasi. Pada proyek kelompok, \textit{scaler} dan model disimpan sebagai dua berkas terpisah, sehingga aplikasi web harus ingat memanggil keduanya dengan urutan yang benar. Dengan satu \texttt{Pipeline}, aplikasi cukup memanggil \texttt{predict} dan penskalaan ikut berjalan.
+Seperti terlihat pada Gambar~\ref{fig:ss-berkas-model}, pelatihan menghasilkan dua berkas, yaitu model \texttt{glucosense\_model.joblib} sebesar 14 KB dan \texttt{model\_metadata.json}. Saat dimuat kembali dengan \texttt{joblib.load}, objeknya adalah \texttt{Pipeline} berisi \texttt{StandardScaler} dan SVM terkalibrasi. Pada proyek kelompok, \textit{scaler} dan model disimpan sebagai dua berkas terpisah, sehingga aplikasi web harus ingat memanggil keduanya dengan urutan yang benar. Dengan satu \texttt{Pipeline}, aplikasi cukup memanggil \texttt{predict} dan penskalaan ikut berjalan.
 
 Berkas metadata menyimpan nama model, \textit{hyperparameter} terbaik, urutan nama fitur, jumlah data, skor, dan versi scikit-learn. Urutan fitur saya simpan karena pengalaman galat pada percobaan modul, dan versi pustaka saya catat mengikuti saran dokumentasi scikit-learn \cite{sklearn-persistence}.
 
@@ -630,7 +632,7 @@ Log pada Gambar~\ref{fig:ss-log-glucosense} merekam semua pengujian di subbab be
 	\label{fig:ss-form-glucosense}
 \end{figure}
 
-Form menampilkan gejala dalam bahasa Indonesia dengan pilihan Ya dan Tidak, sehingga pengguna tidak perlu tahu bahwa model sebenarnya menerima angka 1 dan 0. Pasien uji pertama saya isi sebagai laki-laki berusia 45 tahun dengan tujuh gejala, termasuk sering buang air kecil, sering haus, dan berat badan turun mendadak.
+Form pada Gambar~\ref{fig:ss-form-glucosense} menampilkan gejala dalam bahasa Indonesia dengan pilihan Ya dan Tidak, sehingga pengguna tidak perlu tahu bahwa model sebenarnya menerima angka 1 dan 0. Pasien uji pertama saya isi sebagai laki-laki berusia 45 tahun dengan tujuh gejala, termasuk sering buang air kecil, sering haus, dan berat badan turun mendadak.
 
 \begin{figure}[H]
 	\centering
@@ -639,7 +641,7 @@ Form menampilkan gejala dalam bahasa Indonesia dengan pilihan Ya dan Tidak, sehi
 	\label{fig:ss-hasil-positif}
 \end{figure}
 
-Model memprediksi pasien ini \textit{Positive} dengan peluang 99,3\%. Halaman hasil juga menampilkan ringkasan data yang dikirim dan daftar gejala yang dijawab Ya, supaya pengguna bisa memeriksa ulang isiannya.
+Hasilnya terlihat pada Gambar~\ref{fig:ss-hasil-positif}: model memprediksi pasien ini \textit{Positive} dengan peluang 99,3\%. Halaman hasil juga menampilkan ringkasan data yang dikirim dan daftar gejala yang dijawab Ya, supaya pengguna bisa memeriksa ulang isiannya.
 
 \begin{figure}[H]
 	\centering
@@ -648,7 +650,7 @@ Model memprediksi pasien ini \textit{Positive} dengan peluang 99,3\%. Halaman ha
 	\label{fig:ss-hasil-negatif}
 \end{figure}
 
-Pasien uji kedua adalah laki-laki berusia 30 tahun yang hanya mengalami gatal-gatal. Model memprediksi \textit{Negative} dengan peluang positif 0,1\%. Kedua hasil ini sejalan dengan temuan kelompok saya bahwa \textit{polyuria} dan \textit{polydipsia} adalah gejala yang paling kuat membedakan kedua kelas. Angka peluang yang sangat dekat dengan 0\% dan 100\% perlu dibaca hati-hati. Model hanya dilatih dengan 175 pasien dari satu rumah sakit, jadi angka itu menggambarkan seberapa mirip isian dengan data latih dan belum tentu mewakili peluang klinis yang sebenarnya.
+Pasien uji kedua adalah laki-laki berusia 30 tahun yang hanya mengalami gatal-gatal. Pada Gambar~\ref{fig:ss-hasil-negatif}, model memprediksi \textit{Negative} dengan peluang positif 0,1\%. Kedua hasil ini sejalan dengan temuan kelompok saya bahwa \textit{polyuria} dan \textit{polydipsia} adalah gejala yang paling kuat membedakan kedua kelas. Angka peluang yang sangat dekat dengan 0\% dan 100\% perlu dibaca hati-hati. Model hanya dilatih dengan 175 pasien dari satu rumah sakit, jadi angka itu menggambarkan seberapa mirip isian dengan data latih dan belum tentu mewakili peluang klinis yang sebenarnya.
 
 \begin{figure}[H]
 	\centering
@@ -657,7 +659,7 @@ Pasien uji kedua adalah laki-laki berusia 30 tahun yang hanya mengalami gatal-ga
 	\label{fig:ss-validasi}
 \end{figure}
 
-Untuk menguji validasi, saya mengisi usia 150 dan hanya menjawab tiga gejala. Server menolak kiriman itu dengan status 400 dan menampilkan 13 pesan galat. Tiga jawaban yang sudah diisi tetap terpilih, sehingga pengguna tidak perlu mengulang dari awal. Tanpa validasi ini, isian kosong akan sampai ke model dan menimbulkan galat 500 atau prediksi yang tidak bermakna.
+Untuk menguji validasi, saya mengisi usia 150 dan hanya menjawab tiga gejala. Gambar~\ref{fig:ss-validasi} menunjukkan server menolak kiriman itu dengan status 400 dan menampilkan 13 pesan galat. Tiga jawaban yang sudah diisi tetap terpilih, sehingga pengguna tidak perlu mengulang dari awal. Tanpa validasi ini, isian kosong akan sampai ke model dan menimbulkan galat 500 atau prediksi yang tidak bermakna.
 
 \subsection{Pengujian Endpoint JSON}
 \begin{figure}[H]
@@ -667,7 +669,7 @@ Untuk menguji validasi, saya mengisi usia 150 dan hanya menjawab tiga gejala. Se
 	\label{fig:ss-api}
 \end{figure}
 
-Data pasien uji pertama saya simpan sebagai \texttt{contoh\_pasien.json} lalu saya kirim dengan cURL. Balasannya berupa JSON berisi masukan yang sudah dikodekan menjadi angka, \texttt{kelas} 1, \texttt{label} \textit{Positive}, dan \texttt{peluang\_positif} 0,993. Angka ini sama dengan yang tampil di halaman web untuk pasien yang sama. Pada percobaan kedua, usia saya ganti menjadi 200. Server membalas dengan status 400 dan pesan bahwa usia harus berupa bilangan bulat 1 sampai 120.
+Data pasien uji pertama saya simpan sebagai \texttt{contoh\_pasien.json} lalu saya kirim dengan cURL. Bagian atas Gambar~\ref{fig:ss-api} memperlihatkan balasannya berupa JSON berisi masukan yang sudah dikodekan menjadi angka, \texttt{kelas} 1, \texttt{label} \textit{Positive}, dan \texttt{peluang\_positif} 0,993. Angka ini sama dengan yang tampil di halaman web untuk pasien yang sama. Pada percobaan kedua, usia saya ganti menjadi 200. Server membalas dengan status 400 dan pesan bahwa usia harus berupa bilangan bulat 1 sampai 120.
 
 \subsection{Analisis}
 Dibanding aplikasi modul, ada empat perbedaan pada GlucoSense. Model dimuat sekali saat server mulai. Penskalaan dan model berada dalam satu berkas. Masukan divalidasi sebelum sampai ke model. Selain halaman HTML, tersedia balasan JSON untuk program lain.
