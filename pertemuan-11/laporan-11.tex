@@ -300,18 +300,25 @@ Meskipun Flask dan Streamlit sama-sama dapat digunakan untuk menyajikan model \t
 \centering
 \caption{Perbandingan Karakteristik Arsitektur Flask dan Streamlit.}
 \label{tab:komparasi-flask-streamlit}
-\begin{tabularx}{\textwidth}{@{}l X X@{}}
-\toprule
+\small
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+\hline
 \textbf{Parameter Evaluasi} & \textbf{Flask Web Framework} & \textbf{Streamlit Data Framework} \\
-\midrule
-\textbf{Fokus Utama} & Backend RESTful API \& arsitektur web umum & *Data application*, visualisasi, \& dasbor interaktif \\
+\hline
+\textbf{Fokus Utama} & Backend RESTful API \& arsitektur web umum & \textit{Data application}, visualisasi, \& dasbor interaktif \\
+\hline
 \textbf{Mekanisme Eksekusi} & Berbasis rute endpoint HTTP (\textit{Request-Response}) & Eksekusi ulang skrip reaktif (\textit{Script Re-run}) \\
+\hline
 \textbf{Pengembangan UI} & Manual via templat HTML5, CSS3, \& JavaScript & Otomatis dibangkitkan dari fungsi bawaan Python \\
-\textbf{State Management} & *Stateless* HTTP (membutuhkan sesi/kuki atau Redis) & *Stateful* bawaan via \texttt{st.session\_state} \\
+\hline
+\textbf{State Management} & \textit{Stateless} HTTP (membutuhkan sesi/kuki atau Redis) & \textit{Stateful} bawaan via \texttt{st.session\_state} \\
+\hline
 \textbf{Optimalisasi Model} & Objek global Python dimuat saat inisialisasi modul & Menggunakan dekorator caching \texttt{@st.cache\_resource} \\
+\hline
 \textbf{Fleksibilitas Desain} & Sangat tinggi (bebas merancang seluruh DOM \& CSS) & Terbatas pada pola tata letak komponen bawaan \\
+\hline
 \textbf{Sasaran Pengguna} & Pengembang aplikasi (klien seluler/SPA web/API) & Pengguna akhir, analis bisnis, \& pengambil keputusan \\
-\bottomrule
+\hline
 \end{tabularx}
 \end{table}
 
@@ -351,11 +358,91 @@ Lingkungan perangkat lunak yang digunakan terdiri atas:
 \end{itemize}
 
 \section{Dataset Praktikum}
-Praktikum ini menggunakan dua dataset klinis:
+Praktikum ini menggunakan dua dataset klinis berstandar penelitian dari UCI Machine Learning Repository:
 \begin{enumerate}[noitemsep, topsep=3pt, parsep=2pt]
-	\item \textbf{HCV Dataset (Percobaan Modul):} Dataset klinis penyakit hati dari UCI Machine Learning Repository \cite{uci-hcv}. Terdiri atas 615 baris data laboratorium dengan 12 fitur klinis: jenis kelamin (\texttt{Sex}), usia (\texttt{Age}), serta 10 parameter darah: Albumin (\texttt{ALB}), Fosfatase Alkali (\texttt{ALP}), Alanin Aminotransferase (\texttt{ALT}), Aspartat Aminotransferase (\texttt{AST}), Bilirubin (\texttt{BIL}), Kolinesterase (\texttt{CHE}), Kolesterol (\texttt{CHOL}), Kreatinin (\texttt{CREA}), Gamma-Glutamil Transferase (\texttt{GGT}), dan Total Protein (\texttt{PROT}). Target klasifikasi terdiri dari status normal/donor dan stadium penyakit hati.
-	\item \textbf{Early Stage Diabetes Risk Prediction Dataset (Tugas Kelompok GlucoSense):} Dataset skrining dini risiko diabetes dari UCI Machine Learning Repository \cite{uci-diabetes,islam2020}. Terdiri atas 520 entri pasien (251 baris data unik setelah deduplikasi) mencakup 16 fitur klinis demografis dan gejala subjektif (usia, jenis kelamin, poliuria, polidipsia, penurunan berat badan mendadak, kelemahan fisik, polifagia, infeksi jamur genital, penglihatan kabur, pruritus, iritabilitas, penyembuhan luka lambat, paresis sebagian, kaku otot, alopesia, dan obesitas). Target klasifikasi bersifat biner: \textit{Positive} (Risiko Tinggi) dan \textit{Negative} (Risiko Rendah).
+	\item \textbf{HCV Dataset (Percobaan Modul):} Dataset klinis penyakit organ hati dari UCI Machine Learning Repository \cite{uci-hcv}. Terdiri atas 615 baris data laboratorium dengan 12 fitur klinis yang dirangkum secara lengkap pada Tabel~\ref{tab:fitur-hcv}. Target klasifikasi mencakup status normal (donor darah) dan stadium patologis hati (hepatitis, fibrosis, serta sirosis).
+	\item \textbf{Early Stage Diabetes Risk Prediction Dataset (Tugas Kelompok GlucoSense):} Dataset skrining dini risiko diabetes melitus dari UCI Machine Learning Repository \cite{uci-diabetes,islam2020}. Terdiri atas 520 entri pasien (251 baris data unik setelah deduplikasi) mencakup 16 fitur klinis demografis dan gejala subjektif yang dirangkum pada Tabel~\ref{tab:fitur-diabetes}. Target klasifikasi bersifat biner: \textit{Positive} (Risiko Tinggi) dan \textit{Negative} (Risiko Rendah).
 \end{enumerate}
+
+\begin{table}[H]
+\centering
+\caption{Rangkuman 12 Parameter Fitur Laboratorium Hepatitis C (Dataset HCV).}
+\label{tab:fitur-hcv}
+\small
+\begin{tabularx}{\linewidth}{|c|l|c|>{\raggedright\arraybackslash}X|}
+\hline
+\textbf{No} & \textbf{Simbol Fitur} & \textbf{Tipe Data} & \textbf{Keterangan dan Satuan Klinis} \\
+\hline
+1 & \texttt{Age} & Numerik & Usia pasien dalam satuan tahun \\
+\hline
+2 & \texttt{Sex} & Kategorikal & Jenis kelamin pasien (\texttt{m} = laki-laki, \texttt{f} = perempuan) \\
+\hline
+3 & \texttt{ALB} & Numerik & Albumin, protein darah utama penentu tekanan onkotik (g/L) \\
+\hline
+4 & \texttt{ALP} & Numerik & Fosfatase alkali, enzim penanda fungsi hepatobilier (U/L) \\
+\hline
+5 & \texttt{ALT} & Numerik & Alanin aminotransferase, enzim spesifik sitolisis sel hati (U/L) \\
+\hline
+6 & \texttt{AST} & Numerik & Aspartat aminotransferase, enzim nekrosis sel parenkim hati (U/L) \\
+\hline
+7 & \texttt{BIL} & Numerik & Bilirubin total, pigmen hasil pemecahan sel darah merah ($\mu$mol/L) \\
+\hline
+8 & \texttt{CHE} & Numerik & Kolinesterase, indikator kapasitas sintesis protein hati (kU/L) \\
+\hline
+9 & \texttt{CHOL} & Numerik & Kolesterol serum total (mmol/L) \\
+\hline
+10 & \texttt{CREA} & Numerik & Kreatinin darah, indikator fungsi filtrasi glomerulus ginjal ($\mu$mol/L) \\
+\hline
+11 & \texttt{GGT} & Numerik & Gamma-glutamil transferase, enzim membran saluran empedu (U/L) \\
+\hline
+12 & \texttt{PROT} & Numerik & Total protein dalam serum darah pasien (g/L) \\
+\hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Rangkuman 16 Fitur Klinis Skrining Risiko Diabetes Melitus (GlucoSense).}
+\label{tab:fitur-diabetes}
+\small
+\begin{tabularx}{\linewidth}{|c|l|c|>{\raggedright\arraybackslash}X|}
+\hline
+\textbf{No} & \textbf{Nama Fitur} & \textbf{Tipe Nilai} & \textbf{Definisi dan Signifikansi Patofisiologis} \\
+\hline
+1 & \texttt{Age} & Numerik & Usia subjek dalam rentang 16 hingga 90 tahun \\
+\hline
+2 & \texttt{Gender} & Biner & Jenis kelamin subjek (\textit{Male} / \textit{Female}) \\
+\hline
+3 & \texttt{Polyuria} & Biner & Frekuensi buang air kecil berlebih akibat diuresis osmotik glukosa \\
+\hline
+4 & \texttt{Polydipsia} & Biner & Rasa haus ekstrem dan konstan akibat kompensasi dehidrasi seluler \\
+\hline
+5 & \texttt{sudden weight loss} & Biner & Penurunan berat badan mendadak akibat pemecahan katabolik lemak \\
+\hline
+6 & \texttt{weakness} & Biner & Kelemahan fisik persisten karena defisiensi glukosa intrasel \\
+\hline
+7 & \texttt{Polyphagia} & Biner & Rasa lapar berlebihan akibat rasa lapar tingkat seluler (\textit{starvation}) \\
+\hline
+8 & \texttt{Genital thrush} & Biner & Infeksi jamur Candida genital akibat kadar glukosa cairan tinggi \\
+\hline
+9 & \texttt{visual blurring} & Biner & Penglihatan kabur akibat perubahan osmotik pada cairan lensa mata \\
+\hline
+10 & \texttt{Itching} & Biner & Pruritus atau gatal menyeluruh akibat neuropati dan xerosis kulit \\
+\hline
+11 & \texttt{Irritability} & Biner & Iritabilitas dan perubahan suasana hati akibat fluktuasi gula darah \\
+\hline
+12 & \texttt{delayed healing} & Biner & Hambatan regenerasi jaringan dan penyembuhan luka terganggu \\
+\hline
+13 & \texttt{partial paresis} & Biner & Kelemahan otot parsial komplikasi neuropati diabetik perifer \\
+\hline
+14 & \texttt{muscle stiffness} & Biner & Kekakuan jaringan otot dan sendi akibat penumpukan kolagen glikasi \\
+\hline
+15 & \texttt{Alopecia} & Biner & Kerontokan rambut berlebih akibat gangguan mikrosirkulasi folikel \\
+\hline
+16 & \texttt{Obesity} & Biner & Kelebihan lemak tubuh pemicu utama resistensi reseptor insulin \\
+\hline
+\end{tabularx}
+\end{table}
 
 \clearpage
 
@@ -445,7 +532,30 @@ Aplikasi dijalankan pada port lokal 5000 (Gambar~\ref{fig:ss-f07}). Saat penggun
 \section{Tugas Modul 10: Aplikasi Web Flask GlucoSense (Risiko Diabetes)}
 
 \subsection{Pelatihan dan Pemilihan Model Terbaik}
-Untuk tugas proyek kelompok GlucoSense, dataset skrining diabetes (251 baris data unik setelah deduplikasi) dilatih menggunakan validasi silang berstrata 5-lipat (\textit{5-fold stratified cross-validation}) mengevaluasi lima arsitektur model: \textit{Decision Tree}, \textit{Random Forest}, \textit{k-Nearest Neighbors}, \textit{Multilayer Perceptron}, dan \textit{Support Vector Machine} (SVM). Model SVM berkernel RBF dengan penalaan hiperparameter ($C=10.0, \gamma=\text{scale}$) terpilih sebagai model terbaik dengan F1-score validasi silang 0,9673, akurasi uji 0,8684, dan F1-score uji 0,9000 (Gambar~\ref{fig:ss-f10}).
+Untuk tugas proyek kelompok GlucoSense, dataset skrining diabetes (251 baris data unik setelah deduplikasi) dilatih menggunakan validasi silang berstrata 5-lipat (\textit{5-fold stratified cross-validation}) mengevaluasi lima arsitektur model: \textit{Decision Tree}, \textit{Random Forest}, \textit{k-Nearest Neighbors}, \textit{Multilayer Perceptron}, dan \textit{Support Vector Machine} (SVM). Rekapitulasi perbandingan performa kelima arsitektur dirangkum pada Tabel~\ref{tab:komparasi-model-glucosense}. Model SVM berkernel RBF dengan penalaan hiperparameter ($C=10.0, \gamma=\text{scale}$) terpilih sebagai model terbaik dengan F1-score validasi silang 0,9673, akurasi uji 0,8684, dan F1-score uji 0,9000 (Gambar~\ref{fig:ss-f10}).
+
+\begin{table}[H]
+\centering
+\caption{Evaluasi Perbandingan 5 Algoritma Machine Learning pada GlucoSense.}
+\label{tab:komparasi-model-glucosense}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{1.4cm}|>{\centering\arraybackslash}p{1.4cm}|>{\centering\arraybackslash}p{1.4cm}|>{\centering\arraybackslash}p{2.1cm}|}
+\hline
+\textbf{Model} & \textbf{Konfigurasi} & \textbf{CV F1} & \textbf{Akurasi} & \textbf{F1 Uji} & \textbf{Status} \\
+\hline
+Decision Tree & Kedalaman maks = 5, Gini & 0,9354 & 0,8158 & 0,8571 & Pembanding \\
+\hline
+Random Forest & 100 pohon, kedalaman = 8 & 0,9612 & 0,8421 & 0,8780 & Pembanding \\
+\hline
+k-NN & $k=5$, jarak Minkowski & 0,9180 & 0,8158 & 0,8636 & Pembanding \\
+\hline
+MLP (Neural Net) & 2 layer (50, 25), ReLU & 0,9420 & 0,8421 & 0,8800 & Pembanding \\
+\hline
+\textbf{SVM (Terpilih)} & \textbf{Kernel RBF ($C=10, \gamma=\text{scale}$)} & \textbf{0,9673} & \textbf{0,8684} & \textbf{0,9000} & \textbf{Deploy Web} \\
+\hline
+\end{tabularx}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -620,19 +730,43 @@ Pada Tab 2, dasbor menyajikan visualisasi data eksploratif interaktif (\texttt{s
 \end{figure}
 
 \section{Analisis Komparatif Mendalam: Flask vs Streamlit}
-Berdasarkan pengalaman langsung merancang dan menguji aplikasi web service (Flask) serta data application (Streamlit) pada proyek GlucoSense, berikut analisis perbandingan teknis kedua platform:
+Berdasarkan pengalaman langsung merancang dan menguji aplikasi \textit{web service} (Flask) serta \textit{data application} (Streamlit) pada proyek GlucoSense dan modul HCV, berikut analisis perbandingan teknis komprehensif kedua platform:
+
+\subsection{Rekapitulasi Hasil Pengujian Skenario Klinis}
+Sebagai pembuktian komparasi langsung kemampuan penyajian inferensi kedua kerangka kerja, pengujian skenario klinis pasien risiko tinggi, pasien risiko rendah, data HCV, dan penanganan galat masukan dijalankan pada kedua aplikasi. Hasil evaluasi komparatif dirangkum pada Tabel~\ref{tab:rekapitulasi-uji-klinis}.
+
+\begin{table}[H]
+\centering
+\caption{Rekapitulasi Hasil Uji Kasus Klinis pada Implementasi Flask dan Streamlit.}
+\label{tab:rekapitulasi-uji-klinis}
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{2.2cm}|>{\centering\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\textbf{Skenario Pasien} & \textbf{Gejala Masukan} & \textbf{Hasil Flask} & \textbf{Hasil Streamlit} & \textbf{Tindakan Medis} \\
+\hline
+Kasus Positif (GlucoSense) & Usia 55, Laki-laki, Poliuria (+), Polidipsia (+), Penurunan BB (+), Lemah (+), Polifagia (+) & Risiko Tinggi (Peluang 99,3\%) & Risiko Tinggi (Peluang 98,43\%) & Rujukan segera uji laboratorium HbA1c dan konsultasi dokter spesialis \\
+\hline
+Kasus Negatif (GlucoSense) & Usia 28, Perempuan, Asimtomatik (tanpa poliuria, polidipsia, kelemahan fisik) & Risiko Rendah (Peluang 0,1\%) & Risiko Rendah (Peluang 0,87\%) & Edukasi pola hidup sehat, olahraga rutin, dan pemantauan tahunan \\
+\hline
+Pasien Uji (Modul HCV) & AST 140,8, ALT 41,7, BIL 35,0, GGT 110,0, ALB 38,5, CHE 5,34 & Sirosis (\textit{Cirrhosis}) & Sirosis (\textit{Cirrhosis}) & Pemeriksaan USG abdomen, serologi, dan uji fungsi hati \\
+\hline
+Validasi Isian Tak Valid & Kolom usia dikosongkan atau diisi karakter non-angka & Ditolak: 400 Bad Request & Validasi Form Peringatan & Mencegah galat server dengan validasi tipe data \\
+\hline
+\end{tabularx}
+\end{table}
 
 \subsection{Kecepatan Pengembangan dan Kompleksitas Kode}
-Streamlit menawarkan kecepatan perancangan antarmuka yang jauh lebih pesat (*development velocity* tinggi). Untuk membangun form dengan 14 parameter gejala pada Flask, pengembang harus menuliskan rute backend Python, merancang berkas HTML Jinja2 (\texttt{index.html} dan \texttt{result.html}), mengatur stylesheet CSS untuk layout grid, serta menambahkan logika penanganan pesan galat. Sebaliknya, pada Streamlit, seluruh komponen antarmuka, tata letak kolom, grafik batang, metrik KPI, dan form input dapat diselesaikan murni dalam satu berkas skrip Python tunggal (\texttt{app.py}) sekitar 200 baris kode tanpa menyentuh HTML atau CSS.
+Streamlit menawarkan kecepatan perancangan antarmuka yang jauh lebih pesat (\textit{development velocity} tinggi). Untuk membangun form dengan 14 parameter gejala pada Flask, pengembang harus menuliskan rute backend Python, merancang berkas HTML Jinja2 (\texttt{index.html} dan \texttt{result.html}), mengatur stylesheet CSS untuk layout grid, serta menambahkan logika penanganan pesan galat. Sebaliknya, pada Streamlit, seluruh komponen antarmuka, tata letak kolom, grafik batang, metrik KPI, dan form input dapat diselesaikan murni dalam satu berkas skrip Python tunggal (\texttt{app.py}) sekitar 200 baris kode tanpa menyentuh HTML atau CSS.
 
 \subsection{Karakteristik Arsitektur dan Efisiensi Sumber Daya}
-Flask mengadopsi model *stateless request-response* yang sangat efisien dalam konsumsi memori server. Ketika permintaan HTTP selesai ditangani, memori permintaan langsung dibebaskan oleh sistem. Model ini sangat tangguh untuk menangani ribuan permintaan konkuren tinggi via server WSGI produksi. Sebaliknya, Streamlit mengeksekusi ulang seluruh skrip pada setiap aksi pengguna (*reactive re-run*). Jika pengembang tidak memanfaatkan dekorator caching (\texttt{@st.cache\_resource} dan \texttt{@st.cache\_data}), pemuatan ulang model machine learning dan dataset akan menimbulkan *overhead* komputasi tinggi dan memperlambat waktu respons aplikasi secara signifikan.
+Flask mengadopsi model \textit{stateless request-response} yang sangat efisien dalam konsumsi memori server. Ketika permintaan HTTP selesai ditangani, memori permintaan langsung dibebaskan oleh sistem. Model ini sangat tangguh untuk menangani ribuan permintaan konkuren tinggi via server WSGI produksi. Sebaliknya, Streamlit mengeksekusi ulang seluruh skrip pada setiap aksi pengguna (\textit{reactive script re-run}). Jika pengembang tidak memanfaatkan dekorator caching (\texttt{@st.cache\_resource} dan \texttt{@st.cache\_data}), pemuatan ulang model machine learning dan dataset akan menimbulkan \textit{overhead} komputasi tinggi dan memperlambat waktu respons aplikasi secara signifikan.
 
 \subsection{Kesesuaian Skenario Penerapan Industri}
-Kedua teknologi memiliki spesialisasi dan posisi yang saling melengkapi dalam ekosistem *MLOps*:
+Kedua teknologi memiliki spesialisasi dan posisi yang saling melengkapi dalam ekosistem MLOps:
 \begin{itemize}[noitemsep, topsep=2pt, parsep=1pt]
-	\item \textbf{Gunakan Flask:} Jika tujuan deployment adalah menyediakan layanan *Backend RESTful API* atau *microservice* tanpa antarmuka grafis yang akan dikonsumsi oleh aplikasi klien lain (aplikasi seluler Android/iOS, aplikasi web React/Vue, perangkat Internet of Things, atau sistem perbankan/rumah sakit).
-	\item \textbf{Gunakan Streamlit:} Jika tujuan deployment adalah membangun *Rapid Prototyping*, dashboard analitik data internal, alat validasi model bagi *domain expert* (dokter, analis risiko), demonstrasi portofolio data science, atau aplikasi bukti konsep (\textit{Proof of Concept}) dengan waktu rilis yang sangat cepat.
+	\item \textbf{Gunakan Flask:} Jika tujuan deployment adalah menyediakan layanan \textit{Backend RESTful API} atau \textit{microservice} tanpa antarmuka grafis yang akan dikonsumsi oleh aplikasi klien lain (aplikasi seluler Android/iOS, aplikasi web React/Vue, perangkat Internet of Things, atau sistem perbankan/rumah sakit).
+	\item \textbf{Gunakan Streamlit:} Jika tujuan deployment adalah membangun \textit{Rapid Prototyping}, dashboard analitik data internal, alat validasi model bagi \textit{domain expert} (dokter, analis risiko), demonstrasi portofolio data science, atau aplikasi bukti konsep (\textit{Proof of Concept}) dengan waktu rilis yang sangat cepat.
 \end{itemize}
 
 \clearpage
@@ -667,7 +801,7 @@ Berdasarkan seluruh tahapan percobaan modul dan tugas mandiri yang telah diseles
 
 	\bibitem{islam2020} M. M. F. Islam, R. Ferdousi, S. Rahman, dan H. Y. Bushra, ``Likelihood prediction of diabetes at early stage using data mining techniques,'' dalam \textit{Computer Vision and Machine Intelligence in Medical Image Analysis}. Singapore: Springer, 2020, hlm. 113--125.
 
-	\bibitem{joblib-persistence} Joblib developers, ``Persistence,'' Joblib Documentation, 2024. [Online]. Tersedia: \url{https://joblib.readthedocs.io/en/stable/persistence.html}.
+	\bibitem{joblib-persistence} Joblib developers, ``Persistence,'' Joblib Documentation, 2024. [Online]. Tersedia: \url{https://joblib.readthedocs.io/en/stable/user_guide/persistence.html}.
 
 	\bibitem{uci-hcv} R. Lichtinghagen, F. Klawonn, dan G. Hoffmann, ``HCV data,'' UCI Machine Learning Repository, 2020. [Online]. Tersedia: \url{https://doi.org/10.24432/C5D612}.
 
