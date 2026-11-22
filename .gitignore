@@ -18,6 +18,7 @@ __pycache__/
 *.snm
 *.vrb
 *.dvi
+laporan-*.pdf
 
 
 # Workspace & IDE

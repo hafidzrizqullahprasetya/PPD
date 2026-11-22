@@ -1,39 +1,32 @@
 # Praktikum Penambangan Data
 
-## Informasi Mata Kuliah
+Kumpulan laporan praktikum mata kuliah Praktikum Penambangan Data (PPD), Sarjana Terapan Teknologi Rekayasa Perangkat Lunak, Universitas Gadjah Mada.
 
-- **Perguruan Tinggi:** Universitas Gadjah Mada
-- **Program Studi:** Sarjana Terapan Teknologi Rekayasa Perangkat Lunak
-- **Semester:** Gasal 2026/2027
-- **Mata Kuliah:** Praktikum Penambangan Data
-- **Kode Mata Kuliah:** -
-- **Bobot:** 2 SKS
+| | |
+|---|---|
+| Kode | SVPL261503 |
+| Bobot | 2 SKS |
+| Semester | Gasal 2026/2027 |
+| Dosen | Dr. Imam Fahrurrozi, S.T., M.Cs. |
+| Mahasiswa | Hafidz Rizqullah Prasetya (PL5A1) |
 
-## Deskripsi
+## Isi
 
-Repositori ini digunakan untuk menyimpan dokumentasi dan hasil praktikum mata kuliah **Praktikum Penambangan Data**.
+| Folder | Topik |
+|---|---|
+| `pertemuan-1` | NumPy dan Pandas |
+| `pertemuan-2` | EDA dan preprocessing data |
+| `pertemuan-3` | Klasifikasi |
+| `pertemuan-4` | Regresi |
+| `pertemuan-5` | Forecasting |
+| `pertemuan-6` | Clustering |
+| `pertemuan-7` | Imbalanced dataset dan seleksi fitur |
+| `pertemuan-8` | Neural network |
+| `pertemuan-9` | Convolutional neural network |
+| `pertemuan-10` | Deployment model dengan Flask |
+| `pertemuan-11` | Deployment model dengan Streamlit |
+| `pertemuan-12` sampai `pertemuan-14` | Belum dimulai |
+| `grup-project` | Proyek kelompok 3: deteksi dini risiko diabetes (GlucoSense) |
+| `template-pertemuan` | Template laporan LaTeX |
 
-Materi praktikum berfokus pada penerapan teknik pengolahan, analisis, dan penambangan data menggunakan perangkat lunak serta pustaka pemrograman yang relevan.
-
-## Tujuan Praktikum
-
-Praktikum ini bertujuan untuk membantu mahasiswa:
-
-- Memahami konsep dasar penambangan data.
-- Mengolah dan menyiapkan data untuk dianalisis.
-- Menerapkan teknik analisis data secara praktis.
-- Menggunakan tools dan library pemrograman untuk menyelesaikan permasalahan berbasis data.
-- Mendokumentasikan proses dan hasil praktikum secara sistematis.
-
-## Identitas Mahasiswa
-
-- **Nama:** Hafidz Rizqullah Prasetya
-- **Kelas:** PL5A1
-
-## Dosen Pengampu
-
-Informasi dosen pengampu akan ditambahkan kemudian.
-
-## Periode Perkuliahan
-
-Semester Gasal Tahun Akademik 2026/2027.
+Setiap folder pertemuan berisi modul, notebook praktikum, sumber laporan (`.tex`), gambar di `images/`, dan PDF akhir. Penamaan PDF mengikuti [ATURAN_NAMA_FILE_LAPORAN.md](ATURAN_NAMA_FILE_LAPORAN.md). Modul lengkap dari dosen ada di `Modul Praktikum Penambangan Data 2025-signed.pdf`.
